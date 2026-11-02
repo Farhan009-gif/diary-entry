@@ -1,1 +1,54 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRvbWFpbgoKaW1wb3J0IGNvbS5mYXJoYW4uZGF5YmxvY2suZGF0YS5EaWFyeUVudHJ5CmltcG9ydCBqYXZhLnRpbWUuTG9jYWxEYXRlCgpkYXRhIGNsYXNzIERpYXJ5U3RhdHMoCiAgICB2YWwgdG90YWxFbnRyaWVzOiBJbnQgPSAwLAogICAgdmFsIGN1cnJlbnRTdHJlYWs6IEludCA9IDAsCiAgICB2YWwgZW50cmllc1RoaXNXZWVrOiBJbnQgPSAwLAogICAgdmFsIHRvdGFsV29yZHM6IEludCA9IDAsCiAgICB2YWwgbW9vZENvdW50czogTWFwPFN0cmluZywgSW50PiA9IGVtcHR5TWFwKCkKKQoKb2JqZWN0IERpYXJ5U3RhdHNDYWxjdWxhdG9yIHsKCiAgICBmdW4gY2FsY3VsYXRlKGVudHJpZXM6IExpc3Q8RGlhcnlFbnRyeT4sIHRvZGF5OiBMb2NhbERhdGUpOiBEaWFyeVN0YXRzIHsKICAgICAgICBpZiAoZW50cmllcy5pc0VtcHR5KCkpIHJldHVybiBEaWFyeVN0YXRzKCkKCiAgICAgICAgdmFsIGRhdGVzOiBTZXQ8TG9jYWxEYXRlPiA9IGVudHJpZXMubWFwTm90TnVsbCB7IGVudHJ5IC0+CiAgICAgICAgICAgIHJ1bkNhdGNoaW5nIHsgTG9jYWxEYXRlLnBhcnNlKGVudHJ5LmRhdGUpIH0uZ2V0T3JOdWxsKCkKICAgICAgICB9LnRvU2V0KCkKCiAgICAgICAgdmFsIHdlZWtTdGFydCA9IHRvZGF5Lm1pbnVzRGF5cyg2KQogICAgICAgIHJldHVybiBEaWFyeVN0YXRzKAogICAgICAgICAgICB0b3RhbEVudHJpZXMgPSBlbnRyaWVzLnNpemUsCiAgICAgICAgICAgIGN1cnJlbnRTdHJlYWsgPSBjdXJyZW50U3RyZWFrKGRhdGVzLCB0b2RheSksCiAgICAgICAgICAgIGVudHJpZXNUaGlzV2VlayA9IGVudHJpZXMuY291bnQgeyBlbnRyeSAtPgogICAgICAgICAgICAgICAgdmFsIHBhcnNlZCA9IHJ1bkNhdGNoaW5nIHsgTG9jYWxEYXRlLnBhcnNlKGVudHJ5LmRhdGUpIH0uZ2V0T3JOdWxsKCkKICAgICAgICAgICAgICAgIHBhcnNlZCAhPSBudWxsICYmICFwYXJzZWQuaXNCZWZvcmUod2Vla1N0YXJ0KSAmJiAhcGFyc2VkLmlzQWZ0ZXIodG9kYXkpCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIHRvdGFsV29yZHMgPSBlbnRyaWVzLnN1bU9mIHsgaXQud29yZENvdW50IH0sCiAgICAgICAgICAgIG1vb2RDb3VudHMgPSBlbnRyaWVzLmdyb3VwaW5nQnkgeyBpdC5tb29kIH0uZWFjaENvdW50KCkKICAgICAgICApCiAgICB9CgogICAgLyoqCiAgICAgKiBDb25zZWN1dGl2ZSB3cml0dGVuIGRheXMgZW5kaW5nIHRvZGF5LiBJZiB0b2RheSBoYXMgbm8gZW50cnkgeWV0IGJ1dAogICAgICogeWVzdGVyZGF5IGRvZXMsIHRoZSBzdHJlYWsgaXMgc3RpbGwgYWxpdmUsIHNvIGl0IGlzIGNvdW50ZWQgZnJvbQogICAgICogeWVzdGVyZGF5IGluc3RlYWQgb2YgcmVwb3J0aW5nIHplcm8gYWxsIGRheS4KICAgICAqLwogICAgZnVuIGN1cnJlbnRTdHJlYWsoZGF0ZXM6IFNldDxMb2NhbERhdGU+LCB0b2RheTogTG9jYWxEYXRlKTogSW50IHsKICAgICAgICB2YXIgY3Vyc29yID0gd2hlbiB7CiAgICAgICAgICAgIGRhdGVzLmNvbnRhaW5zKHRvZGF5KSAtPiB0b2RheQogICAgICAgICAgICBkYXRlcy5jb250YWlucyh0b2RheS5taW51c0RheXMoMSkpIC0+IHRvZGF5Lm1pbnVzRGF5cygxKQogICAgICAgICAgICBlbHNlIC0+IHJldHVybiAwCiAgICAgICAgfQogICAgICAgIHZhciBzdHJlYWsgPSAwCiAgICAgICAgd2hpbGUgKGRhdGVzLmNvbnRhaW5zKGN1cnNvcikpIHsKICAgICAgICAgICAgc3RyZWFrKysKICAgICAgICAgICAgY3Vyc29yID0gY3Vyc29yLm1pbnVzRGF5cygxKQogICAgICAgIH0KICAgICAgICByZXR1cm4gc3RyZWFrCiAgICB9Cn0K
+package com.farhan.dayblock.domain
+
+import com.farhan.dayblock.data.DiaryEntry
+import java.time.LocalDate
+
+data class DiaryStats(
+    val totalEntries: Int = 0,
+    val currentStreak: Int = 0,
+    val entriesThisWeek: Int = 0,
+    val totalWords: Int = 0,
+    val moodCounts: Map<String, Int> = emptyMap()
+)
+
+object DiaryStatsCalculator {
+
+    fun calculate(entries: List<DiaryEntry>, today: LocalDate): DiaryStats {
+        if (entries.isEmpty()) return DiaryStats()
+
+        val dates: Set<LocalDate> = entries.mapNotNull { entry ->
+            runCatching { LocalDate.parse(entry.date) }.getOrNull()
+        }.toSet()
+
+        val weekStart = today.minusDays(6)
+        return DiaryStats(
+            totalEntries = entries.size,
+            currentStreak = currentStreak(dates, today),
+            entriesThisWeek = entries.count { entry ->
+                val parsed = runCatching { LocalDate.parse(entry.date) }.getOrNull()
+                parsed != null && !parsed.isBefore(weekStart) && !parsed.isAfter(today)
+            },
+            totalWords = entries.sumOf { it.wordCount },
+            moodCounts = entries.groupingBy { it.mood }.eachCount()
+        )
+    }
+
+    /**
+     * Consecutive written days ending today. If today has no entry yet but
+     * yesterday does, the streak is still alive, so it is counted from
+     * yesterday instead of reporting zero all day.
+     */
+    fun currentStreak(dates: Set<LocalDate>, today: LocalDate): Int {
+        var cursor = when {
+            dates.contains(today) -> today
+            dates.contains(today.minusDays(1)) -> today.minusDays(1)
+            else -> return 0
+        }
+        var streak = 0
+        while (dates.contains(cursor)) {
+            streak++
+            cursor = cursor.minusDays(1)
+        }
+        return streak
+    }
+}

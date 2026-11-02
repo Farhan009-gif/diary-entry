@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
             // Cream paper colour, so there is no white flash before the page loads.
             setBackgroundColor(0xFFFFF8EC.toInt())
             settings.javaScriptEnabled = true
+            // Lets the page remember the dark/light theme between opens.
+            settings.domStorageEnabled = true
             addJavascriptInterface(DayblockBridge(repository), "DayblockBridge")
             loadUrl("file:///android_asset/dayblock/index.html")
         }

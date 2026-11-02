@@ -1,1 +1,79 @@
-IyBEYXlibG9jayDigJQgYSBwcml2YXRlIGRpYXJ5LCBvbmUgZGF5IGF0IGEgdGltZQoKKipEYXlibG9jayoqIGlzIGFuIG9mZmxpbmUtZmlyc3QgQW5kcm9pZCBkaWFyeSBhcHAgd2l0aCBhIGNsZWFuLCBibG9ja3ksCnBpeGVsLWluc3BpcmVkIGRlc2lnbi4gRXZlcnkgZGF5IHlvdSB3cml0ZSBpcyBhIGJsb2NrIHlvdSBwbGFjZTogd3JpdGUgZGFpbHksCmtlZXAgdGhlIHN0cmVhayBhbGl2ZSwgYW5kIHdhdGNoIHlvdXIgbW9udGggdHVybiBncmVlbi4KCj4gRmlyc3Qgd29ya2luZyB2ZXJzaW9uOiAqKnYwLjEuMCoqCgojIyBGZWF0dXJlcyBpbiB2MC4xLjAKCi0gKipUb2RheSBlZGl0b3IqKiDigJQgb25lIGVudHJ5IHBlciBkYXkgd2l0aCBhIHJvdGF0aW5nIHdyaXRpbmcgcHJvbXB0LCB0aXRsZSwKICBtb29kIHBpY2tlciAoR3JlYXQgLyBHb29kIC8gT2theSAvIExvdyAvIFJvdWdoKSwgdGFncyBhbmQgYSBsaXZlIHdvcmQgY291bnQKLSAqKkVudHJpZXMqKiDigJQgc2VhcmNoIGFjcm9zcyB0aXRsZXMsIHRleHQgYW5kIHRhZ3M7IGZpbHRlciBieSBtb29kIG9yIHN0YXJyZWQ7CiAgc3RhciBmYXZvdXJpdGVzOyBkZWxldGUgd2l0aCBjb25maXJtYXRpb24gZnJvbSB0aGUgZWRpdG9yCi0gKipDYWxlbmRhcioqIOKAlCBtb250aCB2aWV3IHdoZXJlIHdyaXR0ZW4gZGF5cyBzaG93IGFzIGdyZWVuIGJsb2NrczsgdGFwIGFueQogIGRheSB0byBwcmV2aWV3IGl0IGFuZCBqdW1wIGludG8gdGhlIGVkaXRvcjsgbW9vZCBvdmVydmlldyBwZXIgbW9udGgKLSAqKlN0YXRzKiog4oCUIHRvdGFsIGVudHJpZXMgKCJibG9ja3MgcGxhY2VkIiksIGN1cnJlbnQgZGF5IHN0cmVhaywgZW50cmllcwogIHRoaXMgd2VlaywgdG90YWwgd29yZHMsIGFuZCBhIG1vb2QgYnJlYWtkb3duCi0gKipQcml2YXRlIGJ5IGRlc2lnbioqIOKAlCBubyBhY2NvdW50LCBubyBuZXR3b3JrIHBlcm1pc3Npb24sIG5vIGFuYWx5dGljcy4KICBFbnRyaWVzIGFyZSBzdG9yZWQgb25seSBpbiB0aGUgYXBwJ3MgcHJpdmF0ZSBvbi1kZXZpY2UgZGF0YWJhc2UgKFJvb20pCgojIyBUZWNoCgotIEtvdGxpbiArIEpldHBhY2sgQ29tcG9zZSAoTWF0ZXJpYWwgMykKLSBSb29tIGZvciBsb2NhbCBzdG9yYWdlLCBvbmUgZW50cnkgcGVyIGNhbGVuZGFyIGRheQotIE1WVk0gd2l0aCBhIGBTdGF0ZUZsb3dgIG9mIGVudHJpZXMgYW5kIGEgc21hbGwsIHVuaXQtdGVzdGVkIHN0YXRzIGVuZ2luZQogIChzdHJlYWtzLCB3ZWVrbHkgY291bnRzLCB3b3JkIGNvdW50cywgbW9vZCB0b3RhbHMpCi0gQmxvY2t5IHZpc3VhbCBpZGVudGl0eTogc3F1YXJlZCBjb3JuZXJzLCBncmFzcyAvIGRpcnQgLyBzdG9uZSAvIGRpYW1vbmQKICBwYWxldHRlLCBjdXN0b20gcGl4ZWwtc3R5bGUgbGF1bmNoZXIgaWNvbgoKIyMgQnVpbGQKCldpdGggSkRLIDE3IGFuZCBHcmFkbGUgOC4xMC4yKyAob3IgQW5kcm9pZCBTdHVkaW8pOgoKYGBgYmFzaApncmFkbGUgYXNzZW1ibGVEZWJ1ZwpgYGAKClRoZSBkZWJ1ZyBBUEsgaXMgd3JpdHRlbiB0byBgYXBwL2J1aWxkL291dHB1dHMvYXBrL2RlYnVnL2AuCgpFdmVyeSBwdXNoIHRvIGBtYWluYCBhbHNvIGJ1aWxkcyB0aGUgQVBLIGluIEdpdEh1YiBBY3Rpb25zCigqKkJ1aWxkIEFQSyoqIHdvcmtmbG93KSBhbmQgdXBsb2FkcyBpdCBhcyB0aGUgYERheWJsb2NrLWRlYnVnLWFwa2AgYXJ0aWZhY3QuCgojIyBVcGRhdGVzIGFuZCBzaWduaW5nCgpFdmVyeSBidWlsZCBpcyBzaWduZWQgd2l0aCBvbmUgZml4ZWQgZGV2ZWxvcG1lbnQga2V5Cihgc2lnbmluZy9kYXlibG9jay5rZXlzdG9yZWApLCBhbmQgR2l0SHViIEFjdGlvbnMgYnVpbGRzIGdldCBhbgphdXRvbWF0aWNhbGx5IHJpc2luZyB2ZXJzaW9uIGNvZGUgZnJvbSB0aGUgd29ya2Zsb3cgcnVuIG51bWJlci4gVGhhdAptZWFucyBhIG5ldyBBUEsgYWx3YXlzIGluc3RhbGxzICoqb3ZlcioqIHRoZSBpbnN0YWxsZWQgYXBwIGFzIGFuIHVwZGF0ZSDigJQKc2FtZSBzaWduYXR1cmUsIGhpZ2hlciB2ZXJzaW9uIOKAlCB3aXRoIHlvdXIgZW50cmllcyBrZXB0LiBObyBuZWVkIHRvCnVuaW5zdGFsbCBiZXR3ZWVuIHZlcnNpb25zLgoKVGhlIGtleSBpcyBzdG9yZWQgaW4gdGhpcyByZXBvIG9uIHB1cnBvc2UgdG8ga2VlcCBwZXJzb25hbCBidWlsZHMKaGFzc2xlLWZyZWUsIHNvICoqdGhpcyByZXBvc2l0b3J5IG11c3Qgc3RheSBwcml2YXRlKio6IGFueW9uZSB3aXRoIHRoZQprZXkgY291bGQgc2lnbiBhIGZha2UgInVwZGF0ZSIgdGhhdCBBbmRyb2lkIHdvdWxkIGFjY2VwdC4gSWYgRGF5YmxvY2sgaXMKZXZlciBwdWJsaXNoZWQsIGZpcnN0IHN3aXRjaCB0byBhIHByb3BlciByZWxlYXNlIGtleSBrZXB0IG91dHNpZGUgdGhlCnJlcG8gKGZvciBleGFtcGxlIGluIEdpdEh1YiBTZWNyZXRzKTsgdGhhdCBzd2l0Y2ggd291bGQgbmVlZCBvbmUgZmluYWwKdW5pbnN0YWxsIGFuZCByZWluc3RhbGwuCgojIyBSb2FkbWFwCgotIFBJTiBhbmQgYmlvbWV0cmljIGFwcCBsb2NrCi0gRW5jcnlwdGVkIGVudHJpZXMgYW5kIGVuY3J5cHRlZCBiYWNrdXAgLyByZXN0b3JlIChHb29nbGUgVGluaywgQW5kcm9pZCBLZXlzdG9yZSkKLSBEYWlseSByZW1pbmRlciBub3RpZmljYXRpb24KLSBFeHBvcnQgLyBpbXBvcnQgKE1hcmtkb3duIGFuZCBKU09OKQotIFllYXIgcmVjYXA6IHlvdXIgeWVhciBpbiBibG9ja3MKLSBPcHRpb25hbCwgYnJpbmcteW91ci1vd24ta2V5IEFJIHdlZWtseSBzdW1tYXJ5IOKAlCBvZmYgYnkgZGVmYXVsdCwgYWx3YXlzIG9wdC1pbgoKIyMgUHJpdmFjeSBub3RlIGZvciB2MC4xLjAKCkVudHJpZXMgbGl2ZSBpbiBBbmRyb2lkJ3MgYXBwLXByaXZhdGUgc3RvcmFnZSwgd2hpY2ggb3RoZXIgYXBwcyBjYW5ub3QgcmVhZCwKYnV0IHRoZXkgYXJlIG5vdCB5ZXQgZW5jcnlwdGVkIGF0IHJlc3QuIEVuY3J5cHRpb24gaXMgdGhlIGZpcnN0IHJvYWRtYXAgaXRlbTsKdW50aWwgdGhlbiwgdHJlYXQgRGF5YmxvY2sgbGlrZSBhIHBhcGVyIGRpYXJ5IGtlcHQgaW4gYSBsb2NrZWQgZHJhd2VyLCBub3QgYQpiYW5rIHZhdWx0LgoKIyMgTGljZW5zZQoKTUlUIOKAlCBzZWUgW0xJQ0VOU0VdKExJQ0VOU0UpLgo=
+# Dayblock — a private diary, one day at a time
+
+**Dayblock** is an offline-first Android diary app with a clean, blocky,
+pixel-inspired design. Every day you write is a block you place: write daily,
+keep the streak alive, and watch your month turn green.
+
+> First working version: **v0.1.0**
+
+## Features in v0.1.0
+
+- **Today editor** — one entry per day with a rotating writing prompt, title,
+  mood picker (Great / Good / Okay / Low / Rough), tags and a live word count
+- **Entries** — search across titles, text and tags; filter by mood or starred;
+  star favourites; delete with confirmation from the editor
+- **Calendar** — month view where written days show as green blocks; tap any
+  day to preview it and jump into the editor; mood overview per month
+- **Stats** — total entries ("blocks placed"), current day streak, entries
+  this week, total words, and a mood breakdown
+- **Private by design** — no account, no network permission, no analytics.
+  Entries are stored only in the app's private on-device database (Room)
+
+## Tech
+
+- Kotlin + Jetpack Compose (Material 3)
+- Room for local storage, one entry per calendar day
+- MVVM with a `StateFlow` of entries and a small, unit-tested stats engine
+  (streaks, weekly counts, word counts, mood totals)
+- Blocky visual identity: squared corners, grass / dirt / stone / diamond
+  palette, custom pixel-style launcher icon
+
+## Build
+
+With JDK 17 and Gradle 8.10.2+ (or Android Studio):
+
+```bash
+gradle assembleDebug
+```
+
+The debug APK is written to `app/build/outputs/apk/debug/`.
+
+Every push to `main` also builds the APK in GitHub Actions
+(**Build APK** workflow) and uploads it as the `Dayblock-debug-apk` artifact.
+
+## Updates and signing
+
+Every build is signed with one fixed development key
+(kept encoded as `signing/dayblock.keystore.b64` and decoded during the
+build), and GitHub Actions builds get an
+automatically rising version code from the workflow run number. That
+means a new APK always installs **over** the installed app as an update —
+same signature, higher version — with your entries kept. No need to
+uninstall between versions.
+
+The key is stored in this repo on purpose to keep personal builds
+hassle-free, so **this repository must stay private**: anyone with the
+key could sign a fake "update" that Android would accept. If Dayblock is
+ever published, first switch to a proper release key kept outside the
+repo (for example in GitHub Secrets); that switch would need one final
+uninstall and reinstall.
+
+## Roadmap
+
+- PIN and biometric app lock
+- Encrypted entries and encrypted backup / restore (Google Tink, Android Keystore)
+- Daily reminder notification
+- Export / import (Markdown and JSON)
+- Year recap: your year in blocks
+- Optional, bring-your-own-key AI weekly summary — off by default, always opt-in
+
+## Privacy note for v0.1.0
+
+Entries live in Android's app-private storage, which other apps cannot read,
+but they are not yet encrypted at rest. Encryption is the first roadmap item;
+until then, treat Dayblock like a paper diary kept in a locked drawer, not a
+bank vault.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

@@ -1,1 +1,30 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRhdGEKCmltcG9ydCBhbmRyb2lkeC5yb29tLkRhbwppbXBvcnQgYW5kcm9pZHgucm9vbS5EZWxldGUKaW1wb3J0IGFuZHJvaWR4LnJvb20uSW5zZXJ0CmltcG9ydCBhbmRyb2lkeC5yb29tLk9uQ29uZmxpY3RTdHJhdGVneQppbXBvcnQgYW5kcm9pZHgucm9vbS5RdWVyeQppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmZsb3cuRmxvdwoKQERhbwppbnRlcmZhY2UgRGlhcnlEYW8gewoKICAgIEBRdWVyeSgiU0VMRUNUICogRlJPTSBkaWFyeV9lbnRyaWVzIE9SREVSIEJZIGRhdGUgREVTQyIpCiAgICBmdW4gb2JzZXJ2ZUFsbCgpOiBGbG93PExpc3Q8RGlhcnlFbnRyeT4+CgogICAgQFF1ZXJ5KCJTRUxFQ1QgKiBGUk9NIGRpYXJ5X2VudHJpZXMgV0hFUkUgZGF0ZSA9IDpkYXRlIExJTUlUIDEiKQogICAgZnVuIG9ic2VydmVCeURhdGUoZGF0ZTogU3RyaW5nKTogRmxvdzxEaWFyeUVudHJ5Pz4KCiAgICBAUXVlcnkoIlNFTEVDVCAqIEZST00gZGlhcnlfZW50cmllcyBXSEVSRSBkYXRlID0gOmRhdGUgTElNSVQgMSIpCiAgICBzdXNwZW5kIGZ1biBnZXRCeURhdGUoZGF0ZTogU3RyaW5nKTogRGlhcnlFbnRyeT8KCiAgICBASW5zZXJ0KG9uQ29uZmxpY3QgPSBPbkNvbmZsaWN0U3RyYXRlZ3kuUkVQTEFDRSkKICAgIHN1c3BlbmQgZnVuIHVwc2VydChlbnRyeTogRGlhcnlFbnRyeSk6IExvbmcKCiAgICBARGVsZXRlCiAgICBzdXNwZW5kIGZ1biBkZWxldGUoZW50cnk6IERpYXJ5RW50cnkpCgogICAgQFF1ZXJ5KCJVUERBVEUgZGlhcnlfZW50cmllcyBTRVQgc3RhcnJlZCA9IDpzdGFycmVkLCB1cGRhdGVkQXQgPSA6dXBkYXRlZEF0IFdIRVJFIGlkID0gOmlkIikKICAgIHN1c3BlbmQgZnVuIHNldFN0YXJyZWQoaWQ6IExvbmcsIHN0YXJyZWQ6IEJvb2xlYW4sIHVwZGF0ZWRBdDogTG9uZykKfQo=
+package com.farhan.dayblock.data
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface DiaryDao {
+
+    @Query("SELECT * FROM diary_entries ORDER BY date DESC")
+    fun observeAll(): Flow<List<DiaryEntry>>
+
+    @Query("SELECT * FROM diary_entries WHERE date = :date LIMIT 1")
+    fun observeByDate(date: String): Flow<DiaryEntry?>
+
+    @Query("SELECT * FROM diary_entries WHERE date = :date LIMIT 1")
+    suspend fun getByDate(date: String): DiaryEntry?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(entry: DiaryEntry): Long
+
+    @Delete
+    suspend fun delete(entry: DiaryEntry)
+
+    @Query("UPDATE diary_entries SET starred = :starred, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun setStarred(id: Long, starred: Boolean, updatedAt: Long)
+}

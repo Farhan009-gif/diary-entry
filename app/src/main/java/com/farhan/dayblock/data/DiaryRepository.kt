@@ -1,1 +1,25 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRhdGEKCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuZmxvdy5GbG93CgovKiogVGhpbiByZXBvc2l0b3J5IG92ZXIgdGhlIERBTyBzbyB0aGUgVUkgbmV2ZXIgdG91Y2hlcyBSb29tIGRpcmVjdGx5LiAqLwpjbGFzcyBEaWFyeVJlcG9zaXRvcnkocHJpdmF0ZSB2YWwgZGFvOiBEaWFyeURhbykgewoKICAgIHZhbCBlbnRyaWVzOiBGbG93PExpc3Q8RGlhcnlFbnRyeT4+ID0gZGFvLm9ic2VydmVBbGwoKQoKICAgIGZ1biBlbnRyeUZvckRhdGUoZGF0ZTogU3RyaW5nKTogRmxvdzxEaWFyeUVudHJ5Pz4gPSBkYW8ub2JzZXJ2ZUJ5RGF0ZShkYXRlKQoKICAgIHN1c3BlbmQgZnVuIGdldEJ5RGF0ZShkYXRlOiBTdHJpbmcpOiBEaWFyeUVudHJ5PyA9IGRhby5nZXRCeURhdGUoZGF0ZSkKCiAgICBzdXNwZW5kIGZ1biB1cHNlcnQoZW50cnk6IERpYXJ5RW50cnkpIHsKICAgICAgICBkYW8udXBzZXJ0KGVudHJ5KQogICAgfQoKICAgIHN1c3BlbmQgZnVuIGRlbGV0ZShlbnRyeTogRGlhcnlFbnRyeSkgewogICAgICAgIGRhby5kZWxldGUoZW50cnkpCiAgICB9CgogICAgc3VzcGVuZCBmdW4gc2V0U3RhcnJlZChlbnRyeTogRGlhcnlFbnRyeSwgc3RhcnJlZDogQm9vbGVhbikgewogICAgICAgIGRhby5zZXRTdGFycmVkKGVudHJ5LmlkLCBzdGFycmVkLCBTeXN0ZW0uY3VycmVudFRpbWVNaWxsaXMoKSkKICAgIH0KfQo=
+package com.farhan.dayblock.data
+
+import kotlinx.coroutines.flow.Flow
+
+/** Thin repository over the DAO so the UI never touches Room directly. */
+class DiaryRepository(private val dao: DiaryDao) {
+
+    val entries: Flow<List<DiaryEntry>> = dao.observeAll()
+
+    fun entryForDate(date: String): Flow<DiaryEntry?> = dao.observeByDate(date)
+
+    suspend fun getByDate(date: String): DiaryEntry? = dao.getByDate(date)
+
+    suspend fun upsert(entry: DiaryEntry) {
+        dao.upsert(entry)
+    }
+
+    suspend fun delete(entry: DiaryEntry) {
+        dao.delete(entry)
+    }
+
+    suspend fun setStarred(entry: DiaryEntry, starred: Boolean) {
+        dao.setStarred(entry.id, starred, System.currentTimeMillis())
+    }
+}

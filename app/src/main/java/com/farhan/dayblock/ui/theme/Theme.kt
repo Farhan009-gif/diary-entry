@@ -1,1 +1,69 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLnVpLnRoZW1lCgppbXBvcnQgYW5kcm9pZHguY29tcG9zZS5mb3VuZGF0aW9uLmlzU3lzdGVtSW5EYXJrVGhlbWUKaW1wb3J0IGFuZHJvaWR4LmNvbXBvc2UuZm91bmRhdGlvbi5zaGFwZS5Sb3VuZGVkQ29ybmVyU2hhcGUKaW1wb3J0IGFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwzLk1hdGVyaWFsVGhlbWUKaW1wb3J0IGFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwzLlNoYXBlcwppbXBvcnQgYW5kcm9pZHguY29tcG9zZS5tYXRlcmlhbDMuZGFya0NvbG9yU2NoZW1lCmltcG9ydCBhbmRyb2lkeC5jb21wb3NlLm1hdGVyaWFsMy5saWdodENvbG9yU2NoZW1lCmltcG9ydCBhbmRyb2lkeC5jb21wb3NlLnJ1bnRpbWUuQ29tcG9zYWJsZQppbXBvcnQgYW5kcm9pZHguY29tcG9zZS51aS5ncmFwaGljcy5Db2xvcgppbXBvcnQgYW5kcm9pZHguY29tcG9zZS51aS51bml0LmRwCgp2YWwgR3Jhc3NHcmVlbiA9IENvbG9yKDB4RkY0RTlCNDcpCnZhbCBHcmFzc0xpZ2h0ID0gQ29sb3IoMHhGRjdDQjk1QykKdmFsIERpcnRCcm93biA9IENvbG9yKDB4RkY4QTVBMzMpCnZhbCBTdG9uZUdyZXkgPSBDb2xvcigweEZGNkY2RjZGKQp2YWwgQ3JlYW1QYXBlciA9IENvbG9yKDB4RkZGRkY4RUMpCnZhbCBXYXJtSW5rID0gQ29sb3IoMHhGRjJCMjYyMCkKdmFsIERpYW1vbmRCbHVlID0gQ29sb3IoMHhGRjNGQTdDNCkKdmFsIEdvbGRZZWxsb3cgPSBDb2xvcigweEZGRjJCMzNEKQoKcHJpdmF0ZSB2YWwgTGlnaHRDb2xvcnMgPSBsaWdodENvbG9yU2NoZW1lKAogICAgcHJpbWFyeSA9IEdyYXNzR3JlZW4sCiAgICBvblByaW1hcnkgPSBDb2xvci5XaGl0ZSwKICAgIHNlY29uZGFyeSA9IERpcnRCcm93biwKICAgIG9uU2Vjb25kYXJ5ID0gQ29sb3IuV2hpdGUsCiAgICB0ZXJ0aWFyeSA9IERpYW1vbmRCbHVlLAogICAgYmFja2dyb3VuZCA9IENyZWFtUGFwZXIsCiAgICBvbkJhY2tncm91bmQgPSBXYXJtSW5rLAogICAgc3VyZmFjZSA9IENvbG9yKDB4RkZGRkZERjYpLAogICAgb25TdXJmYWNlID0gV2FybUluaywKICAgIHN1cmZhY2VWYXJpYW50ID0gQ29sb3IoMHhGRkYwRTdEMyksCiAgICBvblN1cmZhY2VWYXJpYW50ID0gQ29sb3IoMHhGRjVBNTE0OCkKKQoKcHJpdmF0ZSB2YWwgRGFya0NvbG9ycyA9IGRhcmtDb2xvclNjaGVtZSgKICAgIHByaW1hcnkgPSBHcmFzc0xpZ2h0LAogICAgb25QcmltYXJ5ID0gQ29sb3IoMHhGRjE3MzAwRiksCiAgICBzZWNvbmRhcnkgPSBDb2xvcigweEZGRDJBNjc5KSwKICAgIG9uU2Vjb25kYXJ5ID0gQ29sb3IoMHhGRjNBMjQxMCksCiAgICB0ZXJ0aWFyeSA9IERpYW1vbmRCbHVlLAogICAgYmFja2dyb3VuZCA9IENvbG9yKDB4RkYxOTE3MTMpLAogICAgb25CYWNrZ3JvdW5kID0gQ29sb3IoMHhGRkYzRUNERCksCiAgICBzdXJmYWNlID0gQ29sb3IoMHhGRjIzMjAxOSksCiAgICBvblN1cmZhY2UgPSBDb2xvcigweEZGRjNFQ0REKSwKICAgIHN1cmZhY2VWYXJpYW50ID0gQ29sb3IoMHhGRjM1MzEyNiksCiAgICBvblN1cmZhY2VWYXJpYW50ID0gQ29sb3IoMHhGRkNGQzVBRSkKKQoKLyoqIFNsaWdodGx5IHNxdWFyZWQgY29ybmVycyBldmVyeXdoZXJlOiB0aGUgYmxvY2t5LCBwaXhlbC1idWlsdCBmZWVsLiAqLwpwcml2YXRlIHZhbCBCbG9ja1NoYXBlcyA9IFNoYXBlcygKICAgIGV4dHJhU21hbGwgPSBSb3VuZGVkQ29ybmVyU2hhcGUoMi5kcCksCiAgICBzbWFsbCA9IFJvdW5kZWRDb3JuZXJTaGFwZSg0LmRwKSwKICAgIG1lZGl1bSA9IFJvdW5kZWRDb3JuZXJTaGFwZSg2LmRwKSwKICAgIGxhcmdlID0gUm91bmRlZENvcm5lclNoYXBlKDguZHApLAogICAgZXh0cmFMYXJnZSA9IFJvdW5kZWRDb3JuZXJTaGFwZSgxMC5kcCkKKQoKQENvbXBvc2FibGUKZnVuIERheWJsb2NrVGhlbWUoCiAgICBkYXJrVGhlbWU6IEJvb2xlYW4gPSBpc1N5c3RlbUluRGFya1RoZW1lKCksCiAgICBjb250ZW50OiBAQ29tcG9zYWJsZSAoKSAtPiBVbml0CikgewogICAgTWF0ZXJpYWxUaGVtZSgKICAgICAgICBjb2xvclNjaGVtZSA9IGlmIChkYXJrVGhlbWUpIERhcmtDb2xvcnMgZWxzZSBMaWdodENvbG9ycywKICAgICAgICBzaGFwZXMgPSBCbG9ja1NoYXBlcywKICAgICAgICBjb250ZW50ID0gY29udGVudAogICAgKQp9Cg==
+package com.farhan.dayblock.ui.theme
+
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+
+val GrassGreen = Color(0xFF4E9B47)
+val GrassLight = Color(0xFF7CB95C)
+val DirtBrown = Color(0xFF8A5A33)
+val StoneGrey = Color(0xFF6F6F6F)
+val CreamPaper = Color(0xFFFFF8EC)
+val WarmInk = Color(0xFF2B2620)
+val DiamondBlue = Color(0xFF3FA7C4)
+val GoldYellow = Color(0xFFF2B33D)
+
+private val LightColors = lightColorScheme(
+    primary = GrassGreen,
+    onPrimary = Color.White,
+    secondary = DirtBrown,
+    onSecondary = Color.White,
+    tertiary = DiamondBlue,
+    background = CreamPaper,
+    onBackground = WarmInk,
+    surface = Color(0xFFFFFDF6),
+    onSurface = WarmInk,
+    surfaceVariant = Color(0xFFF0E7D3),
+    onSurfaceVariant = Color(0xFF5A5148)
+)
+
+private val DarkColors = darkColorScheme(
+    primary = GrassLight,
+    onPrimary = Color(0xFF17300F),
+    secondary = Color(0xFFD2A679),
+    onSecondary = Color(0xFF3A2410),
+    tertiary = DiamondBlue,
+    background = Color(0xFF191713),
+    onBackground = Color(0xFFF3ECDD),
+    surface = Color(0xFF232019),
+    onSurface = Color(0xFFF3ECDD),
+    surfaceVariant = Color(0xFF353126),
+    onSurfaceVariant = Color(0xFFCFC5AE)
+)
+
+/** Slightly squared corners everywhere: the blocky, pixel-built feel. */
+private val BlockShapes = Shapes(
+    extraSmall = RoundedCornerShape(2.dp),
+    small = RoundedCornerShape(4.dp),
+    medium = RoundedCornerShape(6.dp),
+    large = RoundedCornerShape(8.dp),
+    extraLarge = RoundedCornerShape(10.dp)
+)
+
+@Composable
+fun DayblockTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colorScheme = if (darkTheme) DarkColors else LightColors,
+        shapes = BlockShapes,
+        content = content
+    )
+}

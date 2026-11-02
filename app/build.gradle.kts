@@ -1,3 +1,5 @@
+import java.util.Base64
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -11,7 +13,7 @@ plugins {
 val dayblockKeystore = File(rootProject.projectDir, "build/dayblock.keystore").apply {
     parentFile.mkdirs()
     writeBytes(
-        java.util.Base64.getDecoder().decode(
+        Base64.getDecoder().decode(
             rootProject.file("signing/dayblock.keystore.b64").readText().trim()
         )
     )

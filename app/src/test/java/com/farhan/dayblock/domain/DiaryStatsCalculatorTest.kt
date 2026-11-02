@@ -1,1 +1,52 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRvbWFpbgoKaW1wb3J0IGNvbS5mYXJoYW4uZGF5YmxvY2suZGF0YS5EaWFyeUVudHJ5CmltcG9ydCBjb20uZmFyaGFuLmRheWJsb2NrLmRhdGEuTW9vZHMKaW1wb3J0IG9yZy5qdW5pdC5Bc3NlcnQuYXNzZXJ0RXF1YWxzCmltcG9ydCBvcmcuanVuaXQuVGVzdAppbXBvcnQgamF2YS50aW1lLkxvY2FsRGF0ZQoKY2xhc3MgRGlhcnlTdGF0c0NhbGN1bGF0b3JUZXN0IHsKCiAgICBwcml2YXRlIGZ1biBlbnRyeShkYXRlOiBMb2NhbERhdGUsIGJvZHk6IFN0cmluZyA9ICJvbmUgdHdvIHRocmVlIiwgbW9vZDogU3RyaW5nID0gTW9vZHMuR09PRCkgPQogICAgICAgIERpYXJ5RW50cnkoZGF0ZSA9IGRhdGUudG9TdHJpbmcoKSwgdGl0bGUgPSAiRGF5IiwgYm9keSA9IGJvZHksIG1vb2QgPSBtb29kKQoKICAgIEBUZXN0CiAgICBmdW4gc3RyZWFrQ291bnRzQ29uc2VjdXRpdmVEYXlzRW5kaW5nVG9kYXkoKSB7CiAgICAgICAgdmFsIHRvZGF5ID0gTG9jYWxEYXRlLm9mKDIwMjYsIDExLCAyKQogICAgICAgIHZhbCBlbnRyaWVzID0gbGlzdE9mKAogICAgICAgICAgICBlbnRyeSh0b2RheSksCiAgICAgICAgICAgIGVudHJ5KHRvZGF5Lm1pbnVzRGF5cygxKSksCiAgICAgICAgICAgIGVudHJ5KHRvZGF5Lm1pbnVzRGF5cygyKSksCiAgICAgICAgICAgIGVudHJ5KHRvZGF5Lm1pbnVzRGF5cyg1KSkKICAgICAgICApCiAgICAgICAgYXNzZXJ0RXF1YWxzKDMsIERpYXJ5U3RhdHNDYWxjdWxhdG9yLmNhbGN1bGF0ZShlbnRyaWVzLCB0b2RheSkuY3VycmVudFN0cmVhaykKICAgIH0KCiAgICBAVGVzdAogICAgZnVuIHN0cmVha1N0YXlzQWxpdmVGcm9tWWVzdGVyZGF5KCkgewogICAgICAgIHZhbCB0b2RheSA9IExvY2FsRGF0ZS5vZigyMDI2LCAxMSwgMikKICAgICAgICB2YWwgZW50cmllcyA9IGxpc3RPZihlbnRyeSh0b2RheS5taW51c0RheXMoMSkpLCBlbnRyeSh0b2RheS5taW51c0RheXMoMikpKQogICAgICAgIGFzc2VydEVxdWFscygyLCBEaWFyeVN0YXRzQ2FsY3VsYXRvci5jYWxjdWxhdGUoZW50cmllcywgdG9kYXkpLmN1cnJlbnRTdHJlYWspCiAgICB9CgogICAgQFRlc3QKICAgIGZ1biB0b3RhbHNBbmRXb3Jkc0FyZUNvdW50ZWQoKSB7CiAgICAgICAgdmFsIHRvZGF5ID0gTG9jYWxEYXRlLm9mKDIwMjYsIDExLCAyKQogICAgICAgIHZhbCBlbnRyaWVzID0gbGlzdE9mKAogICAgICAgICAgICBlbnRyeSh0b2RheSwgYm9keSA9ICJoZWxsbyB3b3JsZCIpLAogICAgICAgICAgICBlbnRyeSh0b2RheS5taW51c0RheXMoMTApLCBib2R5ID0gIm9uZSIpCiAgICAgICAgKQogICAgICAgIHZhbCBzdGF0cyA9IERpYXJ5U3RhdHNDYWxjdWxhdG9yLmNhbGN1bGF0ZShlbnRyaWVzLCB0b2RheSkKICAgICAgICBhc3NlcnRFcXVhbHMoMiwgc3RhdHMudG90YWxFbnRyaWVzKQogICAgICAgIGFzc2VydEVxdWFscygxLCBzdGF0cy5lbnRyaWVzVGhpc1dlZWspCiAgICAgICAgYXNzZXJ0RXF1YWxzKDMsIHN0YXRzLnRvdGFsV29yZHMpCiAgICB9CgogICAgQFRlc3QKICAgIGZ1biBlbXB0eURpYXJ5SGFzWmVyb1N0YXRzKCkgewogICAgICAgIHZhbCBzdGF0cyA9IERpYXJ5U3RhdHNDYWxjdWxhdG9yLmNhbGN1bGF0ZShlbXB0eUxpc3QoKSwgTG9jYWxEYXRlLm9mKDIwMjYsIDExLCAyKSkKICAgICAgICBhc3NlcnRFcXVhbHMoMCwgc3RhdHMudG90YWxFbnRyaWVzKQogICAgICAgIGFzc2VydEVxdWFscygwLCBzdGF0cy5jdXJyZW50U3RyZWFrKQogICAgfQp9Cg==
+package com.farhan.dayblock.domain
+
+import com.farhan.dayblock.data.DiaryEntry
+import com.farhan.dayblock.data.Moods
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import java.time.LocalDate
+
+class DiaryStatsCalculatorTest {
+
+    private fun entry(date: LocalDate, body: String = "one two three", mood: String = Moods.GOOD) =
+        DiaryEntry(date = date.toString(), title = "Day", body = body, mood = mood)
+
+    @Test
+    fun streakCountsConsecutiveDaysEndingToday() {
+        val today = LocalDate.of(2026, 11, 2)
+        val entries = listOf(
+            entry(today),
+            entry(today.minusDays(1)),
+            entry(today.minusDays(2)),
+            entry(today.minusDays(5))
+        )
+        assertEquals(3, DiaryStatsCalculator.calculate(entries, today).currentStreak)
+    }
+
+    @Test
+    fun streakStaysAliveFromYesterday() {
+        val today = LocalDate.of(2026, 11, 2)
+        val entries = listOf(entry(today.minusDays(1)), entry(today.minusDays(2)))
+        assertEquals(2, DiaryStatsCalculator.calculate(entries, today).currentStreak)
+    }
+
+    @Test
+    fun totalsAndWordsAreCounted() {
+        val today = LocalDate.of(2026, 11, 2)
+        val entries = listOf(
+            entry(today, body = "hello world"),
+            entry(today.minusDays(10), body = "one")
+        )
+        val stats = DiaryStatsCalculator.calculate(entries, today)
+        assertEquals(2, stats.totalEntries)
+        assertEquals(1, stats.entriesThisWeek)
+        assertEquals(3, stats.totalWords)
+    }
+
+    @Test
+    fun emptyDiaryHasZeroStats() {
+        val stats = DiaryStatsCalculator.calculate(emptyList(), LocalDate.of(2026, 11, 2))
+        assertEquals(0, stats.totalEntries)
+        assertEquals(0, stats.currentStreak)
+    }
+}

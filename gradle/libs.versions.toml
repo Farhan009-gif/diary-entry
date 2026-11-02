@@ -1,1 +1,42 @@
-W3ZlcnNpb25zXQphZ3AgPSAiOC43LjMiCmtvdGxpbiA9ICIyLjAuMjEiCmtzcCA9ICIyLjAuMjEtMS4wLjI4Igpjb3JlS3R4ID0gIjEuMTUuMCIKbGlmZWN5Y2xlID0gIjIuOC43IgphY3Rpdml0eUNvbXBvc2UgPSAiMS45LjMiCmNvbXBvc2VCb20gPSAiMjAyNC4xMi4wMSIKcm9vbSA9ICIyLjYuMSIKY29yb3V0aW5lcyA9ICIxLjkuMCIKanVuaXQgPSAiNC4xMy4yIgphbmRyb2lkeEp1bml0ID0gIjEuMi4xIgplc3ByZXNzb0NvcmUgPSAiMy42LjEiCgpbbGlicmFyaWVzXQphbmRyb2lkeC1jb3JlLWt0eCA9IHsgZ3JvdXAgPSAiYW5kcm9pZHguY29yZSIsIG5hbWUgPSAiY29yZS1rdHgiLCB2ZXJzaW9uLnJlZiA9ICJjb3JlS3R4IiB9CmFuZHJvaWR4LWxpZmVjeWNsZS1ydW50aW1lLWt0eCA9IHsgZ3JvdXAgPSAiYW5kcm9pZHgubGlmZWN5Y2xlIiwgbmFtZSA9ICJsaWZlY3ljbGUtcnVudGltZS1rdHgiLCB2ZXJzaW9uLnJlZiA9ICJsaWZlY3ljbGUiIH0KYW5kcm9pZHgtbGlmZWN5Y2xlLXZpZXdtb2RlbC1jb21wb3NlID0geyBncm91cCA9ICJhbmRyb2lkeC5saWZlY3ljbGUiLCBuYW1lID0gImxpZmVjeWNsZS12aWV3bW9kZWwtY29tcG9zZSIsIHZlcnNpb24ucmVmID0gImxpZmVjeWNsZSIgfQphbmRyb2lkeC1saWZlY3ljbGUtcnVudGltZS1jb21wb3NlID0geyBncm91cCA9ICJhbmRyb2lkeC5saWZlY3ljbGUiLCBuYW1lID0gImxpZmVjeWNsZS1ydW50aW1lLWNvbXBvc2UiLCB2ZXJzaW9uLnJlZiA9ICJsaWZlY3ljbGUiIH0KYW5kcm9pZHgtYWN0aXZpdHktY29tcG9zZSA9IHsgZ3JvdXAgPSAiYW5kcm9pZHguYWN0aXZpdHkiLCBuYW1lID0gImFjdGl2aXR5LWNvbXBvc2UiLCB2ZXJzaW9uLnJlZiA9ICJhY3Rpdml0eUNvbXBvc2UiIH0KYW5kcm9pZHgtY29tcG9zZS1ib20gPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UiLCBuYW1lID0gImNvbXBvc2UtYm9tIiwgdmVyc2lvbi5yZWYgPSAiY29tcG9zZUJvbSIgfQphbmRyb2lkeC1jb21wb3NlLXVpID0geyBncm91cCA9ICJhbmRyb2lkeC5jb21wb3NlLnVpIiwgbmFtZSA9ICJ1aSIgfQphbmRyb2lkeC1jb21wb3NlLXVpLWdyYXBoaWNzID0geyBncm91cCA9ICJhbmRyb2lkeC5jb21wb3NlLnVpIiwgbmFtZSA9ICJ1aS1ncmFwaGljcyIgfQphbmRyb2lkeC1jb21wb3NlLXVpLXRvb2xpbmcgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRvb2xpbmciIH0KYW5kcm9pZHgtY29tcG9zZS11aS10b29saW5nLXByZXZpZXcgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRvb2xpbmctcHJldmlldyIgfQphbmRyb2lkeC1jb21wb3NlLXVpLXRlc3QtbWFuaWZlc3QgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UudWkiLCBuYW1lID0gInVpLXRlc3QtbWFuaWZlc3QiIH0KYW5kcm9pZHgtY29tcG9zZS11aS10ZXN0LWp1bml0NCA9IHsgZ3JvdXAgPSAiYW5kcm9pZHguY29tcG9zZS51aSIsIG5hbWUgPSAidWktdGVzdC1qdW5pdDQiIH0KYW5kcm9pZHgtY29tcG9zZS1tYXRlcmlhbDMgPSB7IGdyb3VwID0gImFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwzIiwgbmFtZSA9ICJtYXRlcmlhbDMiIH0KYW5kcm9pZHgtY29tcG9zZS1tYXRlcmlhbC1pY29ucy1leHRlbmRlZCA9IHsgZ3JvdXAgPSAiYW5kcm9pZHguY29tcG9zZS5tYXRlcmlhbCIsIG5hbWUgPSAibWF0ZXJpYWwtaWNvbnMtZXh0ZW5kZWQiIH0KYW5kcm9pZHgtcm9vbS1ydW50aW1lID0geyBncm91cCA9ICJhbmRyb2lkeC5yb29tIiwgbmFtZSA9ICJyb29tLXJ1bnRpbWUiLCB2ZXJzaW9uLnJlZiA9ICJyb29tIiB9CmFuZHJvaWR4LXJvb20ta3R4ID0geyBncm91cCA9ICJhbmRyb2lkeC5yb29tIiwgbmFtZSA9ICJyb29tLWt0eCIsIHZlcnNpb24ucmVmID0gInJvb20iIH0KYW5kcm9pZHgtcm9vbS1jb21waWxlciA9IHsgZ3JvdXAgPSAiYW5kcm9pZHgucm9vbSIsIG5hbWUgPSAicm9vbS1jb21waWxlciIsIHZlcnNpb24ucmVmID0gInJvb20iIH0Ka290bGlueC1jb3JvdXRpbmVzLWFuZHJvaWQgPSB7IGdyb3VwID0gIm9yZy5qZXRicmFpbnMua290bGlueCIsIG5hbWUgPSAia290bGlueC1jb3JvdXRpbmVzLWFuZHJvaWQiLCB2ZXJzaW9uLnJlZiA9ICJjb3JvdXRpbmVzIiB9Cmp1bml0ID0geyBncm91cCA9ICJqdW5pdCIsIG5hbWUgPSAianVuaXQiLCB2ZXJzaW9uLnJlZiA9ICJqdW5pdCIgfQphbmRyb2lkeC1qdW5pdCA9IHsgZ3JvdXAgPSAiYW5kcm9pZHgudGVzdC5leHQiLCBuYW1lID0gImp1bml0IiwgdmVyc2lvbi5yZWYgPSAiYW5kcm9pZHhKdW5pdCIgfQphbmRyb2lkeC1lc3ByZXNzby1jb3JlID0geyBncm91cCA9ICJhbmRyb2lkeC50ZXN0LmVzcHJlc3NvIiwgbmFtZSA9ICJlc3ByZXNzby1jb3JlIiwgdmVyc2lvbi5yZWYgPSAiZXNwcmVzc29Db3JlIiB9CgpbcGx1Z2luc10KYW5kcm9pZC1hcHBsaWNhdGlvbiA9IHsgaWQgPSAiY29tLmFuZHJvaWQuYXBwbGljYXRpb24iLCB2ZXJzaW9uLnJlZiA9ICJhZ3AiIH0Ka290bGluLWFuZHJvaWQgPSB7IGlkID0gIm9yZy5qZXRicmFpbnMua290bGluLmFuZHJvaWQiLCB2ZXJzaW9uLnJlZiA9ICJrb3RsaW4iIH0Ka290bGluLWNvbXBvc2UgPSB7IGlkID0gIm9yZy5qZXRicmFpbnMua290bGluLnBsdWdpbi5jb21wb3NlIiwgdmVyc2lvbi5yZWYgPSAia290bGluIiB9Cmdvb2dsZS1kZXZ0b29scy1rc3AgPSB7IGlkID0gImNvbS5nb29nbGUuZGV2dG9vbHMua3NwIiwgdmVyc2lvbi5yZWYgPSAia3NwIiB9Cg==
+[versions]
+agp = "8.7.3"
+kotlin = "2.0.21"
+ksp = "2.0.21-1.0.28"
+coreKtx = "1.15.0"
+lifecycle = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.12.01"
+room = "2.6.1"
+coroutines = "1.9.0"
+junit = "4.13.2"
+androidxJunit = "1.2.1"
+espressoCore = "3.6.1"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

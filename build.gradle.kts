@@ -1,1 +1,7 @@
-Ly8gVG9wLWxldmVsIGJ1aWxkIGZpbGUgZm9yIERheWJsb2NrLgpwbHVnaW5zIHsKICAgIGFsaWFzKGxpYnMucGx1Z2lucy5hbmRyb2lkLmFwcGxpY2F0aW9uKSBhcHBseSBmYWxzZQogICAgYWxpYXMobGlicy5wbHVnaW5zLmtvdGxpbi5hbmRyb2lkKSBhcHBseSBmYWxzZQogICAgYWxpYXMobGlicy5wbHVnaW5zLmtvdGxpbi5jb21wb3NlKSBhcHBseSBmYWxzZQogICAgYWxpYXMobGlicy5wbHVnaW5zLmdvb2dsZS5kZXZ0b29scy5rc3ApIGFwcGx5IGZhbHNlCn0K
+// Top-level build file for Dayblock.
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.google.devtools.ksp) apply false
+}

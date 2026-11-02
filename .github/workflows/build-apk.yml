@@ -4,6 +4,10 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
+# Needed so the last step can publish the APK as a GitHub Release.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,4 +35,18 @@ jobs:
           name: Dayblock-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-          
+
+      # A release gives a direct, one-tap .apk download link on the repo's
+      # Releases page (no zip, no digging through Actions artifacts).
+      - name: Publish APK as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APK="$(ls app/build/outputs/apk/debug/*.apk | head -n 1)"
+          cp "$APK" "Dayblock-build-${{ github.run_number }}.apk"
+          gh release create "build-${{ github.run_number }}" \
+            "Dayblock-build-${{ github.run_number }}.apk" \
+            --target "${{ github.sha }}" \
+            --title "Dayblock build ${{ github.run_number }}" \
+            --notes "Debug APK built from commit ${{ github.sha }}. Download the .apk file below and open it on your phone." \
+            --prerelease

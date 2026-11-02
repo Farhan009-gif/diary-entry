@@ -271,8 +271,19 @@ private fun TodayScreen(
     onSave: (title: String, body: String, mood: String, tags: String) -> Unit,
     onDelete: (DiaryEntry) -> Unit
 ) {
+    // Kept outside key() on purpose: the editor is rebuilt when a brand-new
+    // entry gets its database id, and the "Saved" note must survive that.
+    var justSaved by remember(date) { mutableStateOf(false) }
     key(date.toString(), entry?.id) {
-        EditorContent(entry, date, onNavigateDate, onSave, onDelete)
+        EditorContent(
+            entry = entry,
+            date = date,
+            justSaved = justSaved,
+            onJustSavedChange = { justSaved = it },
+            onNavigateDate = onNavigateDate,
+            onSave = onSave,
+            onDelete = onDelete
+        )
     }
 }
 
@@ -280,6 +291,8 @@ private fun TodayScreen(
 private fun EditorContent(
     entry: DiaryEntry?,
     date: LocalDate,
+    justSaved: Boolean,
+    onJustSavedChange: (Boolean) -> Unit,
     onNavigateDate: (LocalDate) -> Unit,
     onSave: (title: String, body: String, mood: String, tags: String) -> Unit,
     onDelete: (DiaryEntry) -> Unit
@@ -288,13 +301,12 @@ private fun EditorContent(
     var body by remember { mutableStateOf(entry?.body ?: "") }
     var mood by remember { mutableStateOf(entry?.mood ?: Moods.OKAY) }
     var tags by remember { mutableStateOf(entry?.tags ?: "") }
-    var justSaved by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(justSaved) {
         if (justSaved) {
             delay(2_500)
-            justSaved = false
+            onJustSavedChange(false)
         }
     }
 
@@ -426,7 +438,7 @@ private fun EditorContent(
         Button(
             onClick = {
                 onSave(title, body, mood, tags)
-                justSaved = true
+                onJustSavedChange(true)
             },
             enabled = title.isNotBlank() || body.isNotBlank(),
             modifier = Modifier.fillMaxWidth()
@@ -482,6 +494,7 @@ private fun EntriesScreen(
     var query by rememberSaveable { mutableStateOf("") }
     var moodFilter by rememberSaveable { mutableStateOf<String?>(null) }
     var starredOnly by rememberSaveable { mutableStateOf(false) }
+    var pendingDelete by remember { mutableStateOf<DiaryEntry?>(null) }
 
     val filtered = remember(entries, query, moodFilter, starredOnly) {
         entries.filter { entry ->
@@ -560,11 +573,35 @@ private fun EntriesScreen(
                                 .getOrNull()?.let(onOpen)
                         },
                         onToggleStar = { onToggleStar(entry) },
-                        onDelete = { onDelete(entry) }
+                        onDelete = { pendingDelete = entry }
                     )
                 }
             }
         }
+    }
+
+    pendingDelete?.let { target ->
+        AlertDialog(
+            onDismissRequest = { pendingDelete = null },
+            title = { Text("Delete this entry?") },
+            text = {
+                Text(
+                    "The entry for ${formatDate(target.date)} will be removed from " +
+                        "this device. This cannot be undone."
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        pendingDelete = null
+                        onDelete(target)
+                    }
+                ) { Text("Delete") }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingDelete = null }) { Text("Keep it") }
+            }
+        )
     }
 }
 

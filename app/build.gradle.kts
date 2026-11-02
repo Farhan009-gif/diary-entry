@@ -1,1 +1,111 @@
-cGx1Z2lucyB7CiAgICBhbGlhcyhsaWJzLnBsdWdpbnMuYW5kcm9pZC5hcHBsaWNhdGlvbikKICAgIGFsaWFzKGxpYnMucGx1Z2lucy5rb3RsaW4uYW5kcm9pZCkKICAgIGFsaWFzKGxpYnMucGx1Z2lucy5rb3RsaW4uY29tcG9zZSkKICAgIGFsaWFzKGxpYnMucGx1Z2lucy5nb29nbGUuZGV2dG9vbHMua3NwKQp9CgphbmRyb2lkIHsKICAgIG5hbWVzcGFjZSA9ICJjb20uZmFyaGFuLmRheWJsb2NrIgogICAgY29tcGlsZVNkayA9IDM1CgogICAgZGVmYXVsdENvbmZpZyB7CiAgICAgICAgYXBwbGljYXRpb25JZCA9ICJjb20uZmFyaGFuLmRheWJsb2NrIgogICAgICAgIG1pblNkayA9IDI2CiAgICAgICAgdGFyZ2V0U2RrID0gMzUKICAgICAgICAvLyBHaXRIdWIgQWN0aW9ucyBidWlsZHMgZ2V0IGEgZnJlc2gsIGhpZ2hlciB2ZXJzaW9uIGNvZGUgZnJvbSB0aGUKICAgICAgICAvLyB3b3JrZmxvdyBydW4gbnVtYmVyLCBzbyBlYWNoIG5ldyBBUEsgaW5zdGFsbHMgYXMgYW4gdXBkYXRlLgogICAgICAgIC8vIExvY2FsIGJ1aWxkcyBrZWVwIHZlcnNpb24gY29kZSAxLgogICAgICAgIHZlcnNpb25Db2RlID0gKFN5c3RlbS5nZXRlbnYoIkdJVEhVQl9SVU5fTlVNQkVSIik/LnRvSW50T3JOdWxsKCk/LnBsdXMoMTAwMCkpID86IDEKICAgICAgICB2ZXJzaW9uTmFtZSA9ICIwLjEuMCIKCiAgICAgICAgdGVzdEluc3RydW1lbnRhdGlvblJ1bm5lciA9ICJhbmRyb2lkeC50ZXN0LnJ1bm5lci5BbmRyb2lkSlVuaXRSdW5uZXIiCiAgICAgICAgdmVjdG9yRHJhd2FibGVzIHsKICAgICAgICAgICAgdXNlU3VwcG9ydExpYnJhcnkgPSB0cnVlCiAgICAgICAgfQogICAgfQoKICAgIC8vIE9uZSBmaXhlZCBkZXZlbG9wbWVudCBrZXkgZm9yIGV2ZXJ5IGJ1aWxkLCBzbyB0aGUgYXBwIHNpZ25hdHVyZQogICAgLy8gbmV2ZXIgY2hhbmdlcyBhbmQgbmV3IEFQS3MgaW5zdGFsbCBvdmVyIHRoZSBvbGQgYXBwIGFzIHVwZGF0ZXMuCiAgICAvLyBUaGUga2V5IGxpdmVzIGluIHRoaXMgcHJpdmF0ZSByZXBvIChzaWduaW5nL2RheWJsb2NrLmtleXN0b3JlKSBieQogICAgLy8gZGVzaWduOyBpZiBEYXlibG9jayBpcyBldmVyIHB1Ymxpc2hlZCwgc3dpdGNoIHRvIGEgc2VjcmV0IHJlbGVhc2UKICAgIC8vIGtleSBzdG9yZWQgb3V0c2lkZSB0aGUgcmVwbyBmaXJzdC4KICAgIHNpZ25pbmdDb25maWdzIHsKICAgICAgICBjcmVhdGUoImRheWJsb2NrIikgewogICAgICAgICAgICBzdG9yZUZpbGUgPSByb290UHJvamVjdC5maWxlKCJzaWduaW5nL2RheWJsb2NrLmtleXN0b3JlIikKICAgICAgICAgICAgc3RvcmVQYXNzd29yZCA9ICJkYXlibG9jayIKICAgICAgICAgICAga2V5QWxpYXMgPSAiZGF5YmxvY2siCiAgICAgICAgICAgIGtleVBhc3N3b3JkID0gImRheWJsb2NrIgogICAgICAgIH0KICAgIH0KCiAgICBidWlsZFR5cGVzIHsKICAgICAgICBkZWJ1ZyB7CiAgICAgICAgICAgIHNpZ25pbmdDb25maWcgPSBzaWduaW5nQ29uZmlncy5nZXRCeU5hbWUoImRheWJsb2NrIikKICAgICAgICB9CiAgICAgICAgcmVsZWFzZSB7CiAgICAgICAgICAgIHNpZ25pbmdDb25maWcgPSBzaWduaW5nQ29uZmlncy5nZXRCeU5hbWUoImRheWJsb2NrIikKICAgICAgICAgICAgaXNNaW5pZnlFbmFibGVkID0gZmFsc2UKICAgICAgICAgICAgcHJvZ3VhcmRGaWxlcygKICAgICAgICAgICAgICAgIGdldERlZmF1bHRQcm9ndWFyZEZpbGUoInByb2d1YXJkLWFuZHJvaWQtb3B0aW1pemUudHh0IiksCiAgICAgICAgICAgICAgICAicHJvZ3VhcmQtcnVsZXMucHJvIgogICAgICAgICAgICApCiAgICAgICAgfQogICAgfQoKICAgIGNvbXBpbGVPcHRpb25zIHsKICAgICAgICBzb3VyY2VDb21wYXRpYmlsaXR5ID0gSmF2YVZlcnNpb24uVkVSU0lPTl8xNwogICAgICAgIHRhcmdldENvbXBhdGliaWxpdHkgPSBKYXZhVmVyc2lvbi5WRVJTSU9OXzE3CiAgICB9CgogICAgYnVpbGRGZWF0dXJlcyB7CiAgICAgICAgY29tcG9zZSA9IHRydWUKICAgIH0KCiAgICBwYWNrYWdpbmcgewogICAgICAgIHJlc291cmNlcyB7CiAgICAgICAgICAgIGV4Y2x1ZGVzICs9ICIvTUVUQS1JTkYve0FMMi4wLExHUEwyLjF9IgogICAgICAgIH0KICAgIH0KfQoKZGVwZW5kZW5jaWVzIHsKICAgIGltcGxlbWVudGF0aW9uKGxpYnMuYW5kcm9pZHguY29yZS5rdHgpCiAgICBpbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LmxpZmVjeWNsZS5ydW50aW1lLmt0eCkKICAgIGltcGxlbWVudGF0aW9uKGxpYnMuYW5kcm9pZHgubGlmZWN5Y2xlLnZpZXdtb2RlbC5jb21wb3NlKQogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5saWZlY3ljbGUucnVudGltZS5jb21wb3NlKQogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5hY3Rpdml0eS5jb21wb3NlKQoKICAgIGltcGxlbWVudGF0aW9uKHBsYXRmb3JtKGxpYnMuYW5kcm9pZHguY29tcG9zZS5ib20pKQogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5jb21wb3NlLnVpKQogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5jb21wb3NlLnVpLmdyYXBoaWNzKQogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5jb21wb3NlLnVpLnRvb2xpbmcucHJldmlldykKICAgIGltcGxlbWVudGF0aW9uKGxpYnMuYW5kcm9pZHguY29tcG9zZS5tYXRlcmlhbDMpCiAgICBpbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LmNvbXBvc2UubWF0ZXJpYWwuaWNvbnMuZXh0ZW5kZWQpCgogICAgaW1wbGVtZW50YXRpb24obGlicy5hbmRyb2lkeC5yb29tLnJ1bnRpbWUpCiAgICBpbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LnJvb20ua3R4KQogICAga3NwKGxpYnMuYW5kcm9pZHgucm9vbS5jb21waWxlcikKCiAgICBpbXBsZW1lbnRhdGlvbihsaWJzLmtvdGxpbnguY29yb3V0aW5lcy5hbmRyb2lkKQoKICAgIHRlc3RJbXBsZW1lbnRhdGlvbihsaWJzLmp1bml0KQogICAgYW5kcm9pZFRlc3RJbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4Lmp1bml0KQogICAgYW5kcm9pZFRlc3RJbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LmVzcHJlc3NvLmNvcmUpCiAgICBhbmRyb2lkVGVzdEltcGxlbWVudGF0aW9uKHBsYXRmb3JtKGxpYnMuYW5kcm9pZHguY29tcG9zZS5ib20pKQogICAgYW5kcm9pZFRlc3RJbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LmNvbXBvc2UudWkudGVzdC5qdW5pdDQpCiAgICBkZWJ1Z0ltcGxlbWVudGF0aW9uKGxpYnMuYW5kcm9pZHguY29tcG9zZS51aS50b29saW5nKQogICAgZGVidWdJbXBsZW1lbnRhdGlvbihsaWJzLmFuZHJvaWR4LmNvbXBvc2UudWkudGVzdC5tYW5pZmVzdCkKfQo=
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.devtools.ksp)
+}
+
+// The fixed signing key is kept base64-encoded in the repo
+// (signing/dayblock.keystore.b64) and decoded to a real keystore
+// file here, before the signing config below uses it.
+val dayblockKeystore = File(rootProject.projectDir, "build/dayblock.keystore").apply {
+    parentFile.mkdirs()
+    writeBytes(
+        java.util.Base64.getDecoder().decode(
+            rootProject.file("signing/dayblock.keystore.b64").readText().trim()
+        )
+    )
+}
+
+android {
+    namespace = "com.farhan.dayblock"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.farhan.dayblock"
+        minSdk = 26
+        targetSdk = 35
+        // GitHub Actions builds get a fresh, higher version code from the
+        // workflow run number, so each new APK installs as an update.
+        // Local builds keep version code 1.
+        versionCode = (System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull()?.plus(1000)) ?: 1
+        versionName = "0.1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+
+    // One fixed development key for every build, so the app signature
+    // never changes and new APKs install over the old app as updates.
+    // The key lives in this private repo (signing/dayblock.keystore.b64)
+    // by design; if Dayblock is ever published, switch to a secret release
+    // key stored outside the repo first.
+    signingConfigs {
+        create("dayblock") {
+            storeFile = dayblockKeystore
+            storePassword = "dayblock"
+            keyAlias = "dayblock"
+            keyPassword = "dayblock"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("dayblock")
+        }
+        release {
+            signingConfig = signingConfigs.getByName("dayblock")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.activity.compose)
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    implementation(libs.kotlinx.coroutines.android)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+}

@@ -1,1 +1,45 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRhdGEKCmltcG9ydCBhbmRyb2lkeC5yb29tLkVudGl0eQppbXBvcnQgYW5kcm9pZHgucm9vbS5JbmRleAppbXBvcnQgYW5kcm9pZHgucm9vbS5QcmltYXJ5S2V5CgovKiogTW9vZCBjaG9pY2VzIHNob3duIGluIHRoZSBlZGl0b3IgYW5kIHVzZWQgZm9yIGZpbHRlcnMgLyBzdGF0cy4gKi8Kb2JqZWN0IE1vb2RzIHsKICAgIGNvbnN0IHZhbCBHUkVBVCA9ICJHcmVhdCIKICAgIGNvbnN0IHZhbCBHT09EID0gIkdvb2QiCiAgICBjb25zdCB2YWwgT0tBWSA9ICJPa2F5IgogICAgY29uc3QgdmFsIExPVyA9ICJMb3ciCiAgICBjb25zdCB2YWwgUk9VR0ggPSAiUm91Z2giCgogICAgdmFsIGFsbDogTGlzdDxTdHJpbmc+ID0gbGlzdE9mKEdSRUFULCBHT09ELCBPS0FZLCBMT1csIFJPVUdIKQp9CgovKioKICogT25lIGRpYXJ5IGVudHJ5IHBlciBjYWxlbmRhciBkYXkuCiAqCiAqIFtkYXRlXSBpcyBhbiBJU08gbG9jYWwgZGF0ZSBzdHJpbmcgKHl5eXktTU0tZGQpLCB3aGljaCBrZWVwcyBvcmRlcmluZywKICogY2FsZW5kYXIgbG9va3VwcyBhbmQgc3RyZWFrIG1hdGhzIHNpbXBsZSBhbmQgdGltZXpvbmUtc2FmZS4KICovCkBFbnRpdHkoCiAgICB0YWJsZU5hbWUgPSAiZGlhcnlfZW50cmllcyIsCiAgICBpbmRpY2VzID0gW0luZGV4KHZhbHVlID0gWyJkYXRlIl0sIHVuaXF1ZSA9IHRydWUpXQopCmRhdGEgY2xhc3MgRGlhcnlFbnRyeSgKICAgIEBQcmltYXJ5S2V5KGF1dG9HZW5lcmF0ZSA9IHRydWUpIHZhbCBpZDogTG9uZyA9IDAsCiAgICB2YWwgZGF0ZTogU3RyaW5nLAogICAgdmFsIHRpdGxlOiBTdHJpbmcsCiAgICB2YWwgYm9keTogU3RyaW5nLAogICAgdmFsIG1vb2Q6IFN0cmluZyA9IE1vb2RzLk9LQVksCiAgICB2YWwgdGFnczogU3RyaW5nID0gIiIsCiAgICB2YWwgc3RhcnJlZDogQm9vbGVhbiA9IGZhbHNlLAogICAgdmFsIGNyZWF0ZWRBdDogTG9uZyA9IFN5c3RlbS5jdXJyZW50VGltZU1pbGxpcygpLAogICAgdmFsIHVwZGF0ZWRBdDogTG9uZyA9IFN5c3RlbS5jdXJyZW50VGltZU1pbGxpcygpCikgewogICAgLyoqIFRhZ3MgYXMgYSBjbGVhbiBsaXN0LCBwYXJzZWQgZnJvbSB0aGUgY29tbWEtc2VwYXJhdGVkIHN0b3JhZ2UgZm9ybS4gKi8KICAgIHZhbCB0YWdMaXN0OiBMaXN0PFN0cmluZz4KICAgICAgICBnZXQoKSA9IHRhZ3Muc3BsaXQoIiwiKS5tYXAgeyBpdC50cmltKCkgfS5maWx0ZXIgeyBpdC5pc05vdEVtcHR5KCkgfQoKICAgIHZhbCB3b3JkQ291bnQ6IEludAogICAgICAgIGdldCgpID0gYm9keS50cmltKCkuc3BsaXQoUmVnZXgoIlxccysiKSkuY291bnQgeyBpdC5pc05vdEVtcHR5KCkgfQp9Cg==
+package com.farhan.dayblock.data
+
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+
+/** Mood choices shown in the editor and used for filters / stats. */
+object Moods {
+    const val GREAT = "Great"
+    const val GOOD = "Good"
+    const val OKAY = "Okay"
+    const val LOW = "Low"
+    const val ROUGH = "Rough"
+
+    val all: List<String> = listOf(GREAT, GOOD, OKAY, LOW, ROUGH)
+}
+
+/**
+ * One diary entry per calendar day.
+ *
+ * [date] is an ISO local date string (yyyy-MM-dd), which keeps ordering,
+ * calendar lookups and streak maths simple and timezone-safe.
+ */
+@Entity(
+    tableName = "diary_entries",
+    indices = [Index(value = ["date"], unique = true)]
+)
+data class DiaryEntry(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val date: String,
+    val title: String,
+    val body: String,
+    val mood: String = Moods.OKAY,
+    val tags: String = "",
+    val starred: Boolean = false,
+    val createdAt: Long = System.currentTimeMillis(),
+    val updatedAt: Long = System.currentTimeMillis()
+) {
+    /** Tags as a clean list, parsed from the comma-separated storage form. */
+    val tagList: List<String>
+        get() = tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+
+    val wordCount: Int
+        get() = body.trim().split(Regex("\\s+")).count { it.isNotEmpty() }
+}

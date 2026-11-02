@@ -1,1 +1,16 @@
-Ki5pbWwKLmdyYWRsZQovbG9jYWwucHJvcGVydGllcwovLmlkZWEKLkRTX1N0b3JlCi9idWlsZAovYXBwL2J1aWxkCi9jYXB0dXJlcwouZXh0ZXJuYWxOYXRpdmVCdWlsZAouY3h4CiouYXBrCiouYWFiCioua2V5c3RvcmUKIyBFeGNlcHRpb246IERheWJsb2NrJ3MgZml4ZWQgZGV2ZWxvcG1lbnQgc2lnbmluZyBrZXkgaXMgaW50ZW50aW9uYWxseQojIGtlcHQgaW4gdGhpcyAocHJpdmF0ZSkgcmVwbyBzbyBldmVyeSBidWlsZCBoYXMgdGhlIHNhbWUgc2lnbmF0dXJlLgohc2lnbmluZy9kYXlibG9jay5rZXlzdG9yZQo=
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.keystore
+# Exception: Dayblock's fixed development signing key is intentionally
+# kept in this (private) repo so every build has the same signature.
+!signing/dayblock.keystore.b64

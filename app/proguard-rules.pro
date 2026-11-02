@@ -1,1 +1,2 @@
-IyBEYXlibG9jayByZWxlYXNlIGJ1aWxkcyBkbyBub3QgdXNlIG1pbmlmaWNhdGlvbiBpbiB2MC4xLjAuCiMgQWRkIHByb2plY3Qtc3BlY2lmaWMga2VlcCBydWxlcyBoZXJlIHdoZW4gdGhhdCBjaGFuZ2VzLgo=
+# Dayblock release builds do not use minification in v0.1.0.
+# Add project-specific keep rules here when that changes.

@@ -1,5 +1,19 @@
 package com.farhan.dayblock.ui
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -12,6 +26,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -62,6 +77,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -101,6 +117,55 @@ private fun formatDate(date: LocalDate): String = date.format(dateFormatter)
 private fun formatDate(dateString: String): String =
     runCatching { LocalDate.parse(dateString).format(dateFormatter) }
         .getOrElse { dateString }
+
+/** A chunky, block-style mood selector chip whose colours and size animate. */
+@Composable
+private fun MoodBlock(
+    label: String,
+    color: Color,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    val background by animateColorAsState(
+        targetValue = if (selected) color else MaterialTheme.colorScheme.surfaceVariant,
+        animationSpec = tween(200),
+        label = "moodBackground"
+    )
+    val foreground by animateColorAsState(
+        targetValue = if (selected) Color.White else MaterialTheme.colorScheme.onSurface,
+        animationSpec = tween(200),
+        label = "moodForeground"
+    )
+    val scale by animateFloatAsState(
+        targetValue = if (selected) 1.07f else 1f,
+        animationSpec = tween(200),
+        label = "moodScale"
+    )
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .scale(scale)
+            .background(background, MaterialTheme.shapes.small)
+            .clickable { onClick() }
+            .padding(horizontal = 12.dp, vertical = 9.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(10.dp)
+                .background(
+                    if (selected) Color.White else color,
+                    MaterialTheme.shapes.extraSmall
+                )
+        )
+        Spacer(Modifier.width(7.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+            color = foreground
+        )
+    }
+}
 
 fun moodColor(mood: String): Color = when (mood) {
     Moods.GREAT -> GrassGreen
@@ -162,7 +227,11 @@ fun DayblockApp(viewModel: DiaryViewModel) {
                     }
                 },
                 actions = {
-                    if (stats.currentStreak > 0) {
+                    AnimatedVisibility(
+                        visible = stats.currentStreak > 0,
+                        enter = fadeIn(tween(200)),
+                        exit = fadeOut(tween(200))
+                    ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
@@ -209,8 +278,19 @@ fun DayblockApp(viewModel: DiaryViewModel) {
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            when (tab) {
-                Tab.Today -> TodayScreen(
+            AnimatedContent(
+                targetState = tab,
+                transitionSpec = {
+                    val forward = targetState.ordinal > initialState.ordinal
+                    (slideInHorizontally(tween(230)) { width -> if (forward) width / 3 else -width / 3 } +
+                        fadeIn(tween(230))) togetherWith
+                        (slideOutHorizontally(tween(200)) { width -> if (forward) -width / 3 else width / 3 } +
+                            fadeOut(tween(150)))
+                },
+                label = "tabTransition"
+            ) { currentTab ->
+                when (currentTab) {
+                    Tab.Today -> TodayScreen(
                     entry = selectedEntry,
                     date = selectedDate,
                     onNavigateDate = { selectedDateText = it.toString() },
@@ -242,7 +322,8 @@ fun DayblockApp(viewModel: DiaryViewModel) {
                     }
                 )
 
-                Tab.Stats -> StatsScreen(entries = entries)
+                    Tab.Stats -> StatsScreen(entries = entries)
+                }
             }
         }
     }
@@ -374,17 +455,11 @@ private fun EditorContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Moods.all.forEach { option ->
-                FilterChip(
+                MoodBlock(
+                    label = option,
+                    color = moodColor(option),
                     selected = mood == option,
-                    onClick = { mood = option },
-                    label = { Text(option) },
-                    leadingIcon = {
-                        Box(
-                            modifier = Modifier
-                                .size(10.dp)
-                                .background(moodColor(option), MaterialTheme.shapes.extraSmall)
-                        )
-                    }
+                    onClick = { mood = option }
                 )
             }
         }
@@ -425,7 +500,11 @@ private fun EditorContent(
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            if (justSaved) {
+            AnimatedVisibility(
+                visible = justSaved,
+                enter = fadeIn(tween(200)) + expandVertically(tween(200)),
+                exit = fadeOut(tween(200)) + shrinkVertically(tween(200))
+            ) {
                 Text(
                     text = "Saved on this device",
                     style = MaterialTheme.typography.labelLarge,
@@ -564,9 +643,13 @@ private fun EntriesScreen(
                 message = "Try a different search or clear the mood filter."
             )
 
-            else -> LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            else -> LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = PaddingValues(vertical = 4.dp)
+            ) {
                 items(filtered, key = { it.id }) { entry ->
                     EntryCard(
+                        modifier = Modifier.animateItem(),
                         entry = entry,
                         onOpen = {
                             runCatching { LocalDate.parse(entry.date) }
@@ -611,9 +694,11 @@ private fun EntryCard(
     entry: DiaryEntry,
     onOpen: () -> Unit,
     onToggleStar: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
+        modifier = modifier,
         onClick = onOpen,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -702,6 +787,16 @@ private fun EmptyState(title: String, message: String) {
 
 /* --------------------------------- Calendar ------------------------------- */
 
+/** The 7-column day cells for [month]; weeks start on Monday. */
+private fun monthCells(month: YearMonth): List<LocalDate?> {
+    val offset = month.atDay(1).dayOfWeek.value - 1
+    val list = mutableListOf<LocalDate?>()
+    repeat(offset) { list.add(null) }
+    for (day in 1..month.lengthOfMonth()) list.add(month.atDay(day))
+    while (list.size % 7 != 0) list.add(null)
+    return list
+}
+
 @Composable
 private fun CalendarScreen(
     entries: List<DiaryEntry>,
@@ -713,15 +808,8 @@ private fun CalendarScreen(
     val entryByDate = remember(entries) { entries.associateBy { it.date } }
     val selectedEntry = entryByDate[selectedDate.toString()]
 
-    val firstDay = month.atDay(1)
-    val offset = firstDay.dayOfWeek.value - 1 // weeks start on Monday
-    val cells: List<LocalDate?> = remember(month) {
-        val list = mutableListOf<LocalDate?>()
-        repeat(offset) { list.add(null) }
-        for (day in 1..month.lengthOfMonth()) list.add(month.atDay(day))
-        while (list.size % 7 != 0) list.add(null)
-        list
-    }
+    // The day grid itself is built inside the AnimatedContent below,
+    // from whichever month is being shown during the transition.
 
     Column(
         modifier = Modifier
@@ -761,7 +849,20 @@ private fun CalendarScreen(
             }
         }
 
-        cells.chunked(7).forEach { week ->
+        AnimatedContent(
+            targetState = month,
+            transitionSpec = {
+                val forward = targetState > initialState
+                (slideInHorizontally(tween(220)) { width -> if (forward) width / 2 else -width / 2 } +
+                    fadeIn(tween(220))) togetherWith
+                    (slideOutHorizontally(tween(180)) { width -> if (forward) -width / 2 else width / 2 } +
+                        fadeOut(tween(140)))
+            },
+            label = "monthTransition"
+        ) { shownMonth ->
+            val shownCells = remember(shownMonth) { monthCells(shownMonth) }
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                shownCells.chunked(7).forEach { week ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -773,23 +874,34 @@ private fun CalendarScreen(
                         val hasEntry = entryByDate.containsKey(date.toString())
                         val isSelected = date == selectedDate
                         val isToday = date == LocalDate.now()
+                        val cellBackground by animateColorAsState(
+                            targetValue = if (hasEntry) {
+                                GrassGreen
+                            } else {
+                                MaterialTheme.colorScheme.surfaceVariant
+                            },
+                            animationSpec = tween(180),
+                            label = "cellBackground"
+                        )
+                        val cellBorderWidth by animateDpAsState(
+                            targetValue = when {
+                                isSelected -> 2.dp
+                                isToday -> 1.dp
+                                else -> 0.dp
+                            },
+                            animationSpec = tween(180),
+                            label = "cellBorderWidth"
+                        )
                         Box(
                             modifier = Modifier
                                 .weight(1f)
                                 .aspectRatio(1f)
                                 .background(
-                                    when {
-                                        hasEntry -> GrassGreen
-                                        else -> MaterialTheme.colorScheme.surfaceVariant
-                                    },
+                                    cellBackground,
                                     MaterialTheme.shapes.small
                                 )
                                 .border(
-                                    width = when {
-                                        isSelected -> 2.dp
-                                        isToday -> 1.dp
-                                        else -> 0.dp
-                                    },
+                                    width = cellBorderWidth,
                                     color = when {
                                         isSelected -> DirtBrown
                                         isToday -> GrassGreen
@@ -814,7 +926,8 @@ private fun CalendarScreen(
                     }
                 }
             }
-            Spacer(Modifier.height(4.dp))
+                }
+            }
         }
 
         Text(
@@ -960,6 +1073,11 @@ private fun StatsScreen(entries: List<DiaryEntry>) {
                 val count = stats.moodCounts[mood] ?: 0
                 if (count > 0) {
                     val fraction = count.toFloat() / stats.totalEntries.toFloat()
+                    val animatedFraction by animateFloatAsState(
+                        targetValue = fraction,
+                        animationSpec = tween(650),
+                        label = "moodFraction"
+                    )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -975,7 +1093,7 @@ private fun StatsScreen(entries: List<DiaryEntry>) {
                             modifier = Modifier.width(56.dp)
                         )
                         LinearProgressIndicator(
-                            progress = { fraction },
+                            progress = { animatedFraction },
                             modifier = Modifier.weight(1f),
                             color = moodColor(mood)
                         )
@@ -1026,6 +1144,11 @@ private fun StatsScreen(entries: List<DiaryEntry>) {
 
 @Composable
 private fun StatCard(value: String, label: String, modifier: Modifier = Modifier) {
+    val animatedValue by animateIntAsState(
+        targetValue = value.toIntOrNull() ?: 0,
+        animationSpec = tween(650),
+        label = "statValue"
+    )
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
@@ -1038,7 +1161,7 @@ private fun StatCard(value: String, label: String, modifier: Modifier = Modifier
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = value,
+                text = animatedValue.toString(),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = GrassGreen

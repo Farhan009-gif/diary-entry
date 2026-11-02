@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#FFF8EC">
+<title>Dayblock</title>
+<style>
+  :root{
+    --grass:#4E9B47; --grass-light:#7CB95C; --dirt:#8A5A33; --stone:#6F6F6F;
+    --gold:#F2B33D; --diamond:#3FA7C4; --low:#EF8F4C;
+    --paper:#FFF8EC; --surface:#FFFDF6; --variant:#F0E7D3; --ink:#2B2620;
+    --ink-soft:#5A5148; --danger:#B3261E;
+    --ease:cubic-bezier(.22,.8,.28,1);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0;}
+  body{
+    font-family:-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background:var(--paper); color:var(--ink);
+    padding-bottom:86px;
+  }
+  .wrap{max-width:560px; margin:0 auto; padding:0 16px;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:var(--paper);
+    border-bottom:1px solid rgba(90,81,72,.12);
+  }
+  .header-in{
+    max-width:560px; margin:0 auto; padding:12px 16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .blocks{display:flex; gap:3px;}
+  .blocks i{width:12px; height:12px; border-radius:2px; display:block;}
+  .title-block{flex:1; min-width:0;}
+  .app-name{font-size:20px; font-weight:700; line-height:1.15;}
+  .tagline{font-size:12px; color:var(--ink-soft);}
+  .streak{
+    display:none; align-items:center; gap:6px;
+    background:rgba(78,155,71,.15); border-radius:4px;
+    padding:6px 10px; font-size:13px; font-weight:600; white-space:nowrap;
+  }
+  .streak.show{display:flex; animation:fadeIn .25s var(--ease);}
+  .streak i{width:10px; height:10px; border-radius:2px; background:var(--grass); display:block;}
+
+  /* ---------- views / transitions ---------- */
+  .view{display:none;}
+  .view.active{display:block; animation:viewIn .24s var(--ease);}
+  @keyframes viewIn{from{opacity:0; transform:translateX(14px);} to{opacity:1; transform:none;}}
+  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+  @keyframes popIn{from{opacity:0; transform:scale(.96);} to{opacity:1; transform:scale(1);}}
+
+  /* ---------- shared ---------- */
+  .card{
+    background:var(--surface); border-radius:8px;
+    box-shadow:0 1px 3px rgba(43,38,32,.10);
+    padding:14px; margin-top:14px;
+  }
+  .card.flat{background:var(--variant); box-shadow:none;}
+  .section-label{font-size:14px; font-weight:600; margin:20px 0 0;}
+  .muted{color:var(--ink-soft);}
+  .small{font-size:13px;}
+  button{font-family:inherit; cursor:pointer;}
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; border:none; border-radius:6px;
+    background:var(--grass); color:#fff;
+    font-size:15px; font-weight:600; padding:13px 16px; margin-top:14px;
+    transition:transform .12s var(--ease), opacity .15s, background .15s;
+  }
+  .btn:active{transform:scale(.985);}
+  .btn:disabled{opacity:.45;}
+  .btn.ghost{
+    background:transparent; color:var(--ink);
+    border:1.5px solid rgba(90,81,72,.4);
+  }
+  .btn.armed{background:var(--danger); color:#fff; border-color:var(--danger);}
+  input[type=text], textarea{
+    width:100%; border:1.5px solid rgba(90,81,72,.35); border-radius:6px;
+    background:var(--surface); color:var(--ink);
+    font-family:inherit; font-size:15px; padding:12px; margin-top:14px;
+    outline:none; transition:border-color .15s;
+  }
+  input[type=text]:focus, textarea:focus{border-color:var(--grass);}
+  textarea{min-height:220px; resize:vertical; line-height:1.5;}
+  .editor-foot{
+    display:flex; justify-content:space-between; align-items:center; margin-top:10px;
+    font-size:13px; color:var(--ink-soft); min-height:18px;
+  }
+  .saved-note{color:var(--grass); font-weight:600; opacity:0; transition:opacity .25s;}
+  .saved-note.show{opacity:1;}
+
+  /* date card */
+  .date-nav{display:flex; align-items:center;}
+  .date-nav .dlabel{flex:1; text-align:center; font-size:16px; font-weight:600;}
+  .icon-btn{
+    border:none; background:transparent; color:var(--ink);
+    font-size:22px; width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .15s;
+  }
+  .icon-btn:active{background:rgba(90,81,72,.12);}
+  .back-today{
+    display:none; margin:2px auto 0; border:none; background:transparent;
+    color:var(--grass); font-size:14px; font-weight:600; padding:6px 10px;
+  }
+  .back-today.show{display:block;}
+  .prompt{margin-top:8px; font-size:14px; color:var(--ink-soft); line-height:1.45;}
+
+  /* mood blocks */
+  .mood-row{
+    display:flex; gap:8px; overflow-x:auto; padding:12px 2px 4px;
+    scrollbar-width:none;
+  }
+  .mood-row::-webkit-scrollbar{display:none;}
+  .mood{
+    flex:0 0 auto; display:flex; align-items:center; gap:7px;
+    border:none; border-radius:4px; padding:9px 12px;
+    background:var(--variant); color:var(--ink);
+    font-size:14px;
+    transition:transform .18s var(--ease), background .18s, color .18s;
+  }
+  .mood i{width:10px; height:10px; border-radius:2px; display:block; transition:background .18s;}
+  .mood.sel{transform:scale(1.07); color:#fff; font-weight:700;}
+  .mood.sel i{background:#fff !important;}
+
+  /* filter chips */
+  .chip-row{display:flex; gap:8px; overflow-x:auto; padding:12px 2px 2px; scrollbar-width:none;}
+  .chip-row::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto; border:1.5px solid rgba(90,81,72,.35); background:transparent;
+    color:var(--ink); border-radius:999px; padding:7px 13px; font-size:13.5px;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .chip.sel{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  /* entry cards */
+  .entry{
+    background:var(--surface); border-radius:8px;
+    box-shadow:0 1px 3px rgba(43,38,32,.10);
+    padding:14px; margin-top:10px; animation:popIn .22s var(--ease);
+  }
+  .entry-top{display:flex; align-items:center; gap:8px;}
+  .entry-top .dot{width:12px; height:12px; border-radius:2px; flex:0 0 auto;}
+  .entry-date{flex:1; font-size:13px; font-weight:600; color:var(--ink-soft);}
+  .mini-btn{
+    border:none; background:transparent; font-size:17px; padding:6px;
+    color:var(--ink-soft); border-radius:50%; line-height:1;
+  }
+  .mini-btn.starred{color:var(--gold);}
+  .mini-btn.armed{color:#fff; background:var(--danger); border-radius:4px; font-size:12px; font-weight:700;}
+  .entry-title{font-size:16px; font-weight:600; margin-top:2px;}
+  .entry-body{
+    font-size:14.5px; color:var(--ink-soft); margin-top:4px; line-height:1.45;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .entry-tags{margin-top:8px; font-size:12.5px; color:var(--dirt); font-weight:500;}
+
+  .empty{text-align:center; padding:44px 16px;}
+  .empty .blocks{justify-content:center; margin-bottom:12px;}
+  .empty h3{margin:0 0 8px; font-size:16px;}
+  .empty p{margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.45;}
+
+  /* calendar */
+  .cal-head{display:flex; align-items:center; margin-top:6px;}
+  .cal-head .mlabel{flex:1; text-align:center; font-size:19px; font-weight:700;}
+  .dow{display:flex; margin-top:10px;}
+  .dow span{flex:1; text-align:center; font-size:12px; font-weight:600; color:var(--ink-soft); padding:4px 0;}
+  .grid{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-top:4px;}
+  .grid.slide-l{animation:slideL .22s var(--ease);}
+  .grid.slide-r{animation:slideR .22s var(--ease);}
+  @keyframes slideL{from{opacity:0; transform:translateX(26px);} to{opacity:1; transform:none;}}
+  @keyframes slideR{from{opacity:0; transform:translateX(-26px);} to{opacity:1; transform:none;}}
+  .cell{
+    aspect-ratio:1; border:none; border-radius:4px;
+    background:var(--variant); color:var(--ink);
+    font-size:14.5px; display:flex; align-items:center; justify-content:center;
+    transition:background .18s, transform .15s var(--ease), box-shadow .15s;
+    padding:0;
+  }
+  .cell:active{transform:scale(.93);}
+  .cell.empty-cell{background:transparent;}
+  .cell.has{background:var(--grass); color:#fff; font-weight:700;}
+  .cell.today{box-shadow:inset 0 0 0 1.5px var(--grass);}
+  .cell.has.today{box-shadow:inset 0 0 0 1.5px #fff;}
+  .cell.sel{box-shadow:0 0 0 2.5px var(--dirt);}
+  .cell.has.sel{box-shadow:0 0 0 2.5px var(--dirt);}
+  .mood-line{display:flex; align-items:center; gap:8px; font-size:14.5px; padding:5px 0;}
+  .mood-line i{width:12px; height:12px; border-radius:2px; display:block;}
+
+  /* stats */
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
+  .stat{
+    background:var(--surface); border-radius:8px;
+    box-shadow:0 1px 3px rgba(43,38,32,.10); padding:16px;
+  }
+  .stat .num{font-size:27px; font-weight:800; color:var(--grass); line-height:1.1;}
+  .stat .lab{font-size:14px; color:var(--ink-soft); margin-top:2px;}
+  .bar-row{display:flex; align-items:center; gap:10px; padding:6px 0;}
+  .bar-row i{width:12px; height:12px; border-radius:2px; display:block; flex:0 0 auto;}
+  .bar-row .mname{width:52px; font-size:14.5px;}
+  .bar-track{flex:1; height:9px; background:var(--variant); border-radius:99px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:99px; width:0; transition:width .65s var(--ease);}
+  .bar-row .cnt{font-size:13px; font-weight:600; min-width:20px; text-align:right;}
+
+  /* bottom nav */
+  nav{
+    position:fixed; left:0; right:0; bottom:0; z-index:30;
+    background:var(--surface); border-top:1px solid rgba(90,81,72,.15);
+    display:flex; padding:6px 4px calc(8px + env(safe-area-inset-bottom));
+  }
+  nav button{
+    flex:1; border:none; background:transparent; color:var(--ink-soft);
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    font-size:11.5px; font-weight:500; padding:6px 0 2px;
+    transition:color .15s;
+  }
+  nav button .ic{font-size:21px; line-height:1; transition:transform .18s var(--ease);}
+  nav button.sel{color:var(--grass); font-weight:700;}
+  nav button.sel .ic{transform:translateY(-1px) scale(1.12);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-in">
+    <div class="blocks">
+      <i style="background:var(--grass)"></i><i style="background:var(--dirt)"></i>
+      <i style="background:var(--stone)"></i><i style="background:var(--diamond)"></i>
+    </div>
+    <div class="title-block">
+      <div class="app-name">Dayblock</div>
+      <div class="tagline">One day, one block.</div>
+    </div>
+    <div class="streak" id="streakPill"><i></i><span id="streakText"></span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- TODAY -->
+  <section class="view" id="view-today">
+    <div class="card flat">
+      <div class="date-nav">
+        <button class="icon-btn" id="prevDay" aria-label="Previous day">&#8249;</button>
+        <div class="dlabel" id="dateLabel"></div>
+        <button class="icon-btn" id="nextDay" aria-label="Next day">&#8250;</button>
+      </div>
+      <button class="back-today" id="backToday">Back to today</button>
+      <div class="prompt">Prompt: <span id="promptText"></span></div>
+    </div>
+
+    <div class="section-label">How was the day?</div>
+    <div class="mood-row" id="moodRow"></div>
+
+    <input type="text" id="titleInput" placeholder="Title (optional)" autocomplete="off">
+    <textarea id="bodyInput" placeholder="Dear diary..."></textarea>
+    <input type="text" id="tagsInput" placeholder="Tags, separated by commas (school, football, family)" autocomplete="off">
+
+    <div class="editor-foot">
+      <span id="wordCount">0 words</span>
+      <span class="saved-note" id="savedNote">Saved on this device</span>
+    </div>
+
+    <button class="btn" id="saveBtn">&#10003;&nbsp;<span id="saveLabel">Place this day's block</span></button>
+    <button class="btn ghost" id="deleteBtn" style="display:none;">Delete this entry</button>
+  </section>
+
+  <!-- ENTRIES -->
+  <section class="view" id="view-entries">
+    <input type="text" id="searchInput" placeholder="Search your diary" autocomplete="off">
+    <div class="chip-row" id="filterRow"></div>
+    <div id="entryList"></div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="view" id="view-calendar">
+    <div class="cal-head">
+      <button class="icon-btn" id="prevMonth" aria-label="Previous month">&#8249;</button>
+      <div class="mlabel" id="monthLabel"></div>
+      <button class="icon-btn" id="nextMonth" aria-label="Next month">&#8250;</button>
+    </div>
+    <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+    <div class="grid" id="calGrid"></div>
+    <p class="small muted">Green blocks are days you wrote. Tap any day to open it.</p>
+    <div class="card" style="margin-top:6px;">
+      <div id="previewDate" style="font-size:16px; font-weight:600;"></div>
+      <div id="previewBody" style="margin-top:6px;"></div>
+      <button class="btn" id="previewBtn">Write this day</button>
+    </div>
+    <div class="section-label">Mood overview</div>
+    <div id="moodOverview" style="margin-top:8px;"></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="view" id="view-stats">
+    <div class="stat-grid">
+      <div class="stat"><div class="num" data-stat="totalEntries">0</div><div class="lab">blocks placed</div></div>
+      <div class="stat"><div class="num" data-stat="currentStreak">0</div><div class="lab">day streak</div></div>
+      <div class="stat"><div class="num" data-stat="entriesThisWeek">0</div><div class="lab">entries this week</div></div>
+      <div class="stat"><div class="num" data-stat="totalWords">0</div><div class="lab">words written</div></div>
+    </div>
+    <div class="section-label">Mood breakdown</div>
+    <div id="moodBars" style="margin-top:8px;"></div>
+    <div class="card flat">
+      <div style="font-size:14px; font-weight:600;">&#128274;&nbsp; Private by design</div>
+      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
+        Dayblock has no account and no network permission. Your entries live only
+        in this app's private storage on your phone.
+      </p>
+      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
+        Coming next: PIN and biometric lock, encrypted backup, and export.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<nav>
+  <button data-tab="today" class="sel"><span class="ic">&#9998;</span>Today</button>
+  <button data-tab="entries"><span class="ic">&#128214;</span>Entries</button>
+  <button data-tab="calendar"><span class="ic">&#128197;</span>Calendar</button>
+  <button data-tab="stats"><span class="ic">&#128202;</span>Stats</button>
+</nav>
+
+<script>
+"use strict";
+/* ---------------- bridge (with a browser-preview fallback) ---------------- */
+const Bridge = window.DayblockBridge || (function(){
+  let mem = [];
+  return {
+    getStateJson(){
+      const counts = {};
+      let words = 0;
+      mem.forEach(e => { counts[e.mood] = (counts[e.mood]||0)+1; words += wc(e.body); });
+      return JSON.stringify({ entries: mem, stats: {
+        totalEntries: mem.length, currentStreak: 0,
+        entriesThisWeek: mem.length, totalWords: words, moodCounts: counts }});
+    },
+    saveEntry(date, title, body, mood, tags){
+      const ex = mem.find(e => e.date === date);
+      if (ex) Object.assign(ex, {title, body, mood, tags});
+      else mem.unshift({date, title, body, mood, tags, starred:false});
+    },
+    deleteEntry(date){ mem = mem.filter(e => e.date !== date); },
+    toggleStar(date){ const e = mem.find(x => x.date === date); if (e) e.starred = !e.starred; }
+  };
+})();
+
+/* ---------------- constants & helpers ---------------- */
+const MOODS = ["Great","Good","Okay","Low","Rough"];
+const MOOD_COLORS = {Great:"#4E9B47", Good:"#7CB95C", Okay:"#F2B33D", Low:"#EF8F4C", Rough:"#8A5A33"};
+const PROMPTS = [
+  "What was the best small moment of today?",
+  "What did you learn today, in or out of school?",
+  "Describe today in exactly three sentences.",
+  "What is one thing you want tomorrow-you to remember?",
+  "Who made your day better, and how?",
+  "What match, game or play are you still thinking about?",
+  "What challenged you today, and what did you do about it?",
+  "Write about a sound, smell or scene from today.",
+  "What would you do again from today? What would you skip?",
+  "What are you looking forward to this week?"
+];
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MON_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const iso = d => d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+const parseIso = s => { const p = s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); };
+const fmtDate = s => { const d = parseIso(s); return DOW[d.getDay()] + ", " + d.getDate() + " " + MON[d.getMonth()] + " " + d.getFullYear(); };
+const wc = t => (t || "").trim().split(/\s+/).filter(x => x.length).length;
+const shiftDate = (s, days) => { const d = parseIso(s); d.setDate(d.getDate()+days); return iso(d); };
+const dayOfYear = d => Math.floor((d - new Date(d.getFullYear(),0,0)) / 86400000);
+
+/* ---------------- state ---------------- */
+let state = { entries: [], stats: { totalEntries:0, currentStreak:0, entriesThisWeek:0, totalWords:0, moodCounts:{} } };
+let tab = "today";
+let selectedDate = iso(new Date());
+let calCursor = selectedDate.slice(0,7); // yyyy-MM
+let search = "", moodFilter = null, starredOnly = false;
+let editorDirty = false;
+
+function entryOn(dateStr){ return state.entries.find(e => e.date === dateStr) || null; }
+
+function refresh(reloadEditor = true){
+  try { state = JSON.parse(Bridge.getStateJson()); } catch(e) { /* keep old state */ }
+  renderHeader();
+  if (tab === "today") renderToday(reloadEditor);
+  else if (tab === "entries") renderEntries();
+  else if (tab === "calendar") renderCalendar();
+  else if (tab === "stats") renderStats();
+}
+
+function renderHeader(){
+  const s = state.stats.currentStreak;
+  $("streakPill").classList.toggle("show", s > 0);
+  $("streakText").textContent = s + " day streak";
+}
+
+/* ---------------- tabs ---------------- */
+function switchTab(next){
+  tab = next;
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("sel", b.dataset.tab === next));
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  const el = $("view-" + next);
+  void el.offsetWidth; // restart the entrance animation
+  el.classList.add("active");
+  window.scrollTo(0, 0);
+  refresh(next !== "today" ? true : false);
+  if (next === "today") renderToday(true);
+}
+document.querySelectorAll("nav button").forEach(b =>
+  b.addEventListener("click", () => switchTab(b.dataset.tab)));
+
+/* ---------------- today / editor ---------------- */
+function loadEditor(){
+  const e = entryOn(selectedDate);
+  $("titleInput").value = e ? e.title : "";
+  $("bodyInput").value = e ? e.body : "";
+  $("tagsInput").value = e ? e.tags : "";
+  setMood(e ? e.mood : "Okay");
+  editorDirty = false;
+  updateEditorMeta();
+}
+function setMood(m){
+  document.querySelectorAll("#moodRow .mood").forEach(b => {
+    const sel = b.dataset.mood === m;
+    b.classList.toggle("sel", sel);
+    b.style.background = sel ? MOOD_COLORS[m] : "";
+  });
+  $("moodRow").dataset.value = m;
+}
+function renderMoodRow(){
+  $("moodRow").innerHTML = MOODS.map(m =>
+    `<button class="mood" data-mood="${m}"><i style="background:${MOOD_COLORS[m]}"></i>${m}</button>`).join("");
+  document.querySelectorAll("#moodRow .mood").forEach(b =>
+    b.addEventListener("click", () => { setMood(b.dataset.mood); editorDirty = true; }));
+}
+function updateEditorMeta(){
+  $("wordCount").textContent = wc($("bodyInput").value) + " words";
+  const has = ($("titleInput").value.trim() || $("bodyInput").value.trim()).length > 0;
+  $("saveBtn").disabled = !has;
+}
+function renderToday(reloadEditor){
+  $("dateLabel").textContent = fmtDate(selectedDate);
+  $("backToday").classList.toggle("show", selectedDate !== iso(new Date()));
+  $("promptText").textContent = PROMPTS[dayOfYear(parseIso(selectedDate)) % PROMPTS.length];
+  const e = entryOn(selectedDate);
+  $("saveLabel").textContent = e ? "Save changes" : "Place this day's block";
+  const del = $("deleteBtn");
+  del.style.display = e ? "" : "none";
+  del.classList.remove("armed"); del.textContent = "Delete this entry"; del.dataset.armed = "";
+  if (reloadEditor || !editorDirty) loadEditor(); else updateEditorMeta();
+}
+$("prevDay").addEventListener("click", () => { selectedDate = shiftDate(selectedDate, -1); editorDirty = false; renderToday(true); });
+$("nextDay").addEventListener("click", () => { selectedDate = shiftDate(selectedDate, 1); editorDirty = false; renderToday(true); });
+$("backToday").addEventListener("click", () => { selectedDate = iso(new Date()); editorDirty = false; renderToday(true); });
+["titleInput","bodyInput","tagsInput"].forEach(id =>
+  $(id).addEventListener("input", () => { editorDirty = true; updateEditorMeta(); }));
+$("saveBtn").addEventListener("click", () => {
+  Bridge.saveEntry(selectedDate, $("titleInput").value, $("bodyInput").value,
+    $("moodRow").dataset.value || "Okay", $("tagsInput").value);
+  editorDirty = false;
+  const note = $("savedNote");
+  note.classList.add("show");
+  setTimeout(() => note.classList.remove("show"), 2500);
+  refresh(false);
+  renderToday(false);
+});
+$("deleteBtn").addEventListener("click", ev => {
+  const b = ev.currentTarget;
+  if (!b.dataset.armed) {
+    b.dataset.armed = "1"; b.classList.add("armed"); b.textContent = "Tap again to confirm delete";
+    setTimeout(() => { b.dataset.armed = ""; b.classList.remove("armed"); b.textContent = "Delete this entry"; }, 3000);
+    return;
+  }
+  Bridge.deleteEntry(selectedDate);
+  editorDirty = false;
+  refresh(true);
+});
+
+/* ---------------- entries ---------------- */
+function renderFilters(){
+  const chips = [{k:"all", label:"All moods"}]
+    .concat(MOODS.map(m => ({k:m, label:m})))
+    .concat([{k:"star", label:"\u2605 Starred"}]);
+  $("filterRow").innerHTML = chips.map(c => {
+    const sel = (c.k === "all" && moodFilter === null && !starredOnly) ||
+                (c.k === "star" && starredOnly) ||
+                (c.k === moodFilter && c.k !== "all" && c.k !== "star");
+    return `<button class="chip ${sel ? "sel" : ""}" data-k="${c.k}">${c.label}</button>`;
+  }).join("");
+  document.querySelectorAll("#filterRow .chip").forEach(ch =>
+    ch.addEventListener("click", () => {
+      const k = ch.dataset.k;
+      if (k === "all") { moodFilter = null; starredOnly = false; }
+      else if (k === "star") { starredOnly = !starredOnly; }
+      else moodFilter = (moodFilter === k ? null : k);
+      renderEntries();
+    }));
+}
+function renderEntries(){
+  renderFilters();
+  const q = search.trim().toLowerCase();
+  const list = state.entries
+    .slice()
+    .sort((a,b) => a.date < b.date ? 1 : -1)
+    .filter(e => {
+      const mq = !q || e.title.toLowerCase().includes(q) || e.body.toLowerCase().includes(q) || e.tags.toLowerCase().includes(q);
+      const mm = !moodFilter || e.mood === moodFilter;
+      const ms = !starredOnly || e.starred;
+      return mq && mm && ms;
+    });
+  const box = $("entryList");
+  if (!state.entries.length) {
+    box.innerHTML = `<div class="empty"><div class="blocks">
+      <i style="width:12px;height:12px;border-radius:2px;background:var(--grass);display:block"></i>
+      <i style="width:12px;height:12px;border-radius:2px;background:var(--dirt);display:block"></i>
+      <i style="width:12px;height:12px;border-radius:2px;background:var(--stone);display:block"></i>
+      <i style="width:12px;height:12px;border-radius:2px;background:var(--diamond);display:block"></i></div>
+      <h3>No blocks placed yet</h3><p>Write your first entry from the Today tab and it will appear here.</p></div>`;
+    return;
+  }
+  if (!list.length) {
+    box.innerHTML = `<div class="empty"><h3>Nothing matches</h3><p>Try a different search or clear the mood filter.</p></div>`;
+    return;
+  }
+  box.innerHTML = list.map(e => {
+    const tags = e.tags.split(",").map(t => t.trim()).filter(Boolean).map(t => "#" + esc(t)).join("  ");
+    return `<div class="entry" data-date="${e.date}">
+      <div class="entry-top">
+        <span class="dot" style="background:${MOOD_COLORS[e.mood] || "#6F6F6F"}"></span>
+        <span class="entry-date">${fmtDate(e.date)}</span>
+        <button class="mini-btn star ${e.starred ? "starred" : ""}" data-date="${e.date}" aria-label="Star">${e.starred ? "\u2605" : "\u2606"}</button>
+        <button class="mini-btn del" data-date="${e.date}" aria-label="Delete">&#128465;</button>
+      </div>
+      <div class="entry-title">${esc(e.title) || "Untitled entry"}</div>
+      <div class="entry-body">${esc(e.body)}</div>
+      ${tags ? `<div class="entry-tags">${tags}</div>` : ""}
+    </div>`;
+  }).join("");
+  box.querySelectorAll(".entry").forEach(card => {
+    card.addEventListener("click", () => openDate(card.dataset.date));
+  });
+  box.querySelectorAll(".star").forEach(b => b.addEventListener("click", ev => {
+    ev.stopPropagation();
+    Bridge.toggleStar(b.dataset.date);
+    refresh(false);
+  }));
+  box.querySelectorAll(".del").forEach(b => b.addEventListener("click", ev => {
+    ev.stopPropagation();
+    if (!b.dataset.armed) {
+      b.dataset.armed = "1"; b.classList.add("armed"); b.textContent = "Sure?";
+      setTimeout(() => { if (b.isConnected) { b.dataset.armed = ""; b.classList.remove("armed"); b.innerHTML = "&#128465;"; } }, 2600);
+      return;
+    }
+    Bridge.deleteEntry(b.dataset.date);
+    refresh(false);
+  }));
+}
+$("searchInput").addEventListener("input", ev => { search = ev.target.value; renderEntries(); });
+function openDate(d){
+  selectedDate = d;
+  calCursor = d.slice(0,7);
+  editorDirty = false;
+  switchTab("today");
+}
+
+/* ---------------- calendar ---------------- */
+function renderCalendar(dir){
+  const [y, m] = calCursor.split("-").map(Number);
+  $("monthLabel").textContent = MON_LONG[m-1] + " " + y;
+  const first = new Date(y, m-1, 1);
+  const offset = (first.getDay() + 6) % 7; // Monday start
+  const days = new Date(y, m, 0).getDate();
+  let html = "";
+  for (let i = 0; i < offset; i++) html += `<button class="cell empty-cell" disabled></button>`;
+  const todayIso = iso(new Date());
+  for (let d = 1; d <= days; d++) {
+    const ds = y + "-" + pad(m) + "-" + pad(d);
+    const cls = ["cell",
+      entryOn(ds) ? "has" : "",
+      ds === todayIso ? "today" : "",
+      ds === selectedDate ? "sel" : ""].join(" ");
+    html += `<button class="${cls}" data-date="${ds}">${d}</button>`;
+  }
+  const grid = $("calGrid");
+  grid.innerHTML = html;
+  if (dir) {
+    grid.classList.remove("slide-l", "slide-r"); void grid.offsetWidth;
+    grid.classList.add(dir > 0 ? "slide-l" : "slide-r");
+  }
+  grid.querySelectorAll(".cell[data-date]").forEach(c =>
+    c.addEventListener("click", () => { selectedDate = c.dataset.date; renderCalendar(); }));
+  // preview
+  const e = entryOn(selectedDate);
+  $("previewDate").textContent = fmtDate(selectedDate);
+  $("previewBody").innerHTML = e
+    ? `<div style="font-weight:600; font-size:15px;">${esc(e.title) || "Untitled entry"}</div>
+       <div class="small muted" style="margin-top:4px; line-height:1.45;">${esc(e.body.slice(0, 220))}</div>`
+    : `<div class="small muted">No entry for this day yet.</div>`;
+  $("previewBtn").innerHTML = e ? "&#9998;&nbsp;Open in editor" : "Write this day";
+  // mood overview (all entries, like the app)
+  const counts = state.stats.moodCounts || {};
+  const rows = MOODS.filter(mm => counts[mm]).map(mm =>
+    `<div class="mood-line"><i style="background:${MOOD_COLORS[mm]}"></i>${mm} - ${counts[mm]} ${counts[mm] === 1 ? "day" : "days"}</div>`).join("");
+  $("moodOverview").innerHTML = rows ||
+    `<p class="small muted">Your mood pattern will appear here after a few entries.</p>`;
+}
+$("prevMonth").addEventListener("click", () => { calCursor = shiftMonth(calCursor, -1); renderCalendar(-1); });
+$("nextMonth").addEventListener("click", () => { calCursor = shiftMonth(calCursor, 1); renderCalendar(1); });
+function shiftMonth(ym, by){
+  const [y, m] = ym.split("-").map(Number);
+  const d = new Date(y, m - 1 + by, 1);
+  return d.getFullYear() + "-" + pad(d.getMonth() + 1);
+}
+$("previewBtn").addEventListener("click", () => openDate(selectedDate));
+
+/* ---------------- stats ---------------- */
+function countUp(el, target){
+  const from = parseInt(el.textContent.replace(/\D/g, ""), 10) || 0;
+  const start = performance.now(), dur = 550;
+  function tick(t){
+    const p = Math.min(1, (t - start) / dur);
+    el.textContent = Math.round(from + (target - from) * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function renderStats(){
+  const st = state.stats;
+  document.querySelectorAll("[data-stat]").forEach(el => countUp(el, st[el.dataset.stat] || 0));
+  const counts = st.moodCounts || {};
+  const total = Math.max(1, st.totalEntries);
+  $("moodBars").innerHTML = st.totalEntries === 0
+    ? `<p class="small muted">Write a few entries and your mood pattern will show up here.</p>`
+    : MOODS.filter(m => counts[m]).map(m => `
+      <div class="bar-row">
+        <i style="background:${MOOD_COLORS[m]}"></i>
+        <span class="mname">${m}</span>
+        <span class="bar-track"><span class="bar-fill" data-w="${Math.round(counts[m] / total * 100)}" style="background:${MOOD_COLORS[m]}; display:block;"></span></span>
+        <span class="cnt">${counts[m]}</span>
+      </div>`).join("");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll(".bar-fill").forEach(f => f.style.width = f.dataset.w + "%");
+  }));
+}
+
+/* ---------------- boot ---------------- */
+renderMoodRow();
+switchTab("today");
+refresh(true);
+</script>
+</body>
+</html>

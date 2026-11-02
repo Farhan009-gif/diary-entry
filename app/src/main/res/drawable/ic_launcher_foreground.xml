@@ -1,1 +1,35 @@
-PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHZlY3RvciB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICBhbmRyb2lkOndpZHRoPSIxMDhkcCIKICAgIGFuZHJvaWQ6aGVpZ2h0PSIxMDhkcCIKICAgIGFuZHJvaWQ6dmlld3BvcnRXaWR0aD0iMTA4IgogICAgYW5kcm9pZDp2aWV3cG9ydEhlaWdodD0iMTA4Ij4KICAgIDwhLS0gR3Jhc3MgbGF5ZXIgLS0+CiAgICA8cGF0aAogICAgICAgIGFuZHJvaWQ6ZmlsbENvbG9yPSIjNjlBODRGIgogICAgICAgIGFuZHJvaWQ6cGF0aERhdGE9Ik0yNCwyMiBoNjAgdjE2IGgtNjAgeiIgLz4KICAgIDxwYXRoCiAgICAgICAgYW5kcm9pZDpmaWxsQ29sb3I9IiM0RTdEM0EiCiAgICAgICAgYW5kcm9pZDpwYXRoRGF0YT0iTTMwLDI2IGg4IHY4IGgtOCB6IE01MiwyNiBoOCB2OCBoLTggeiBNNjgsMjYgaDggdjggaC04IHoiIC8+CiAgICA8IS0tIERpcnQgLyBib29rIGJvZHkgLS0+CiAgICA8cGF0aAogICAgICAgIGFuZHJvaWQ6ZmlsbENvbG9yPSIjOEE1QTMzIgogICAgICAgIGFuZHJvaWQ6cGF0aERhdGE9Ik0yNCwzOCBoNjAgdjM0IGgtNjAgeiIgLz4KICAgIDxwYXRoCiAgICAgICAgYW5kcm9pZDpmaWxsQ29sb3I9IiM2RTQ1MjUiCiAgICAgICAgYW5kcm9pZDpwYXRoRGF0YT0iTTMwLDU2IGg4IHY4IGgtOCB6IE03MCw0NiBoOCB2OCBoLTggeiIgLz4KICAgIDwhLS0gRGlhcnkgcGFnZSAtLT4KICAgIDxwYXRoCiAgICAgICAgYW5kcm9pZDpmaWxsQ29sb3I9IiNGRkY2REMiCiAgICAgICAgYW5kcm9pZDpwYXRoRGF0YT0iTTQwLDQ0IGgyOCB2MjQgaC0yOCB6IiAvPgogICAgPHBhdGgKICAgICAgICBhbmRyb2lkOmZpbGxDb2xvcj0iIzY5QTg0RiIKICAgICAgICBhbmRyb2lkOnBhdGhEYXRhPSJNNDUsNTAgaDE4IHYzIGgtMTggeiBNNDUsNTcgaDE4IHYzIGgtMTggeiIgLz4KICAgIDwhLS0gU3RvbmUgYmFzZSAtLT4KICAgIDxwYXRoCiAgICAgICAgYW5kcm9pZDpmaWxsQ29sb3I9IiM4RDhEOEQiCiAgICAgICAgYW5kcm9pZDpwYXRoRGF0YT0iTTI0LDcyIGg2MCB2MTQgaC02MCB6IiAvPgogICAgPHBhdGgKICAgICAgICBhbmRyb2lkOmZpbGxDb2xvcj0iIzZGNkY2RiIKICAgICAgICBhbmRyb2lkOnBhdGhEYXRhPSJNMzQsNzYgaDggdjYgaC04IHogTTYyLDc2IGg4IHY2IGgtOCB6IiAvPgo8L3ZlY3Rvcj4K
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Grass layer -->
+    <path
+        android:fillColor="#69A84F"
+        android:pathData="M24,22 h60 v16 h-60 z" />
+    <path
+        android:fillColor="#4E7D3A"
+        android:pathData="M30,26 h8 v8 h-8 z M52,26 h8 v8 h-8 z M68,26 h8 v8 h-8 z" />
+    <!-- Dirt / book body -->
+    <path
+        android:fillColor="#8A5A33"
+        android:pathData="M24,38 h60 v34 h-60 z" />
+    <path
+        android:fillColor="#6E4525"
+        android:pathData="M30,56 h8 v8 h-8 z M70,46 h8 v8 h-8 z" />
+    <!-- Diary page -->
+    <path
+        android:fillColor="#FFF6DC"
+        android:pathData="M40,44 h28 v24 h-28 z" />
+    <path
+        android:fillColor="#69A84F"
+        android:pathData="M45,50 h18 v3 h-18 z M45,57 h18 v3 h-18 z" />
+    <!-- Stone base -->
+    <path
+        android:fillColor="#8D8D8D"
+        android:pathData="M24,72 h60 v14 h-60 z" />
+    <path
+        android:fillColor="#6F6F6F"
+        android:pathData="M34,76 h8 v6 h-8 z M62,76 h8 v6 h-8 z" />
+</vector>

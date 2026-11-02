@@ -1,1 +1,27 @@
-cGFja2FnZSBjb20uZmFyaGFuLmRheWJsb2NrLmRhdGEKCmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuQ29udGV4dAppbXBvcnQgYW5kcm9pZHgucm9vbS5EYXRhYmFzZQppbXBvcnQgYW5kcm9pZHgucm9vbS5Sb29tCmltcG9ydCBhbmRyb2lkeC5yb29tLlJvb21EYXRhYmFzZQoKQERhdGFiYXNlKGVudGl0aWVzID0gW0RpYXJ5RW50cnk6OmNsYXNzXSwgdmVyc2lvbiA9IDEsIGV4cG9ydFNjaGVtYSA9IGZhbHNlKQphYnN0cmFjdCBjbGFzcyBEYXlibG9ja0RhdGFiYXNlIDogUm9vbURhdGFiYXNlKCkgewoKICAgIGFic3RyYWN0IGZ1biBkaWFyeURhbygpOiBEaWFyeURhbwoKICAgIGNvbXBhbmlvbiBvYmplY3QgewogICAgICAgIEBWb2xhdGlsZQogICAgICAgIHByaXZhdGUgdmFyIGluc3RhbmNlOiBEYXlibG9ja0RhdGFiYXNlPyA9IG51bGwKCiAgICAgICAgZnVuIGNyZWF0ZShjb250ZXh0OiBDb250ZXh0KTogRGF5YmxvY2tEYXRhYmFzZSB7CiAgICAgICAgICAgIHJldHVybiBpbnN0YW5jZSA/OiBzeW5jaHJvbml6ZWQodGhpcykgewogICAgICAgICAgICAgICAgaW5zdGFuY2UgPzogUm9vbS5kYXRhYmFzZUJ1aWxkZXIoCiAgICAgICAgICAgICAgICAgICAgY29udGV4dC5hcHBsaWNhdGlvbkNvbnRleHQsCiAgICAgICAgICAgICAgICAgICAgRGF5YmxvY2tEYXRhYmFzZTo6Y2xhc3MuamF2YSwKICAgICAgICAgICAgICAgICAgICAiZGF5YmxvY2suZGIiCiAgICAgICAgICAgICAgICApLmJ1aWxkKCkuYWxzbyB7IGluc3RhbmNlID0gaXQgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9Cg==
+package com.farhan.dayblock.data
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities = [DiaryEntry::class], version = 1, exportSchema = false)
+abstract class DayblockDatabase : RoomDatabase() {
+
+    abstract fun diaryDao(): DiaryDao
+
+    companion object {
+        @Volatile
+        private var instance: DayblockDatabase? = null
+
+        fun create(context: Context): DayblockDatabase {
+            return instance ?: synchronized(this) {
+                instance ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    DayblockDatabase::class.java,
+                    "dayblock.db"
+                ).build().also { instance = it }
+            }
+        }
+    }
+}

@@ -91,14 +91,20 @@
     border:1.5px solid var(--line);
   }
   .btn.armed{background:var(--danger); color:#fff; border-color:var(--danger);}
-  input[type=text], textarea{
+  .btn.small-btn{width:auto; padding:9px 14px; font-size:13.5px; margin-top:0;}
+  input[type=text], input[type=password], textarea{
     width:100%; border:1.5px solid var(--line); border-radius:6px;
     background:var(--surface); color:var(--ink);
     font-family:inherit; font-size:15px; padding:12px; margin-top:14px;
     outline:none; transition:border-color .15s;
   }
-  input[type=text]:focus, textarea:focus{border-color:var(--grass);}
+  input[type=text]:focus, input[type=password]:focus, textarea:focus{border-color:var(--grass);}
   textarea{min-height:220px; resize:vertical; line-height:1.5;}
+  input[type=date], input[type=time]{
+    border:1.5px solid var(--line); border-radius:6px;
+    background:var(--surface); color:var(--ink);
+    font-family:inherit; font-size:14.5px; padding:9px 10px;
+  }
   .editor-foot{
     display:flex; justify-content:space-between; align-items:center; margin-top:10px;
     font-size:13px; color:var(--ink-soft); min-height:18px;
@@ -171,6 +177,7 @@
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
   }
   .entry-tags{margin-top:8px; font-size:12.5px; color:var(--dirt); font-weight:500;}
+  .entry-photo{width:100%; border-radius:6px; margin-top:10px; display:block;}
 
   .empty{text-align:center; padding:44px 16px;}
   .empty .blocks{justify-content:center; margin-bottom:12px;}
@@ -203,21 +210,89 @@
   .cell.has.sel{box-shadow:0 0 0 2.5px var(--dirt);}
   .mood-line{display:flex; align-items:center; gap:8px; font-size:14.5px; padding:5px 0;}
   .mood-line i{width:12px; height:12px; border-radius:2px; display:block;}
+  .cal-legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; font-size:12px; color:var(--ink-soft);}
+  .cal-legend span{display:flex; align-items:center; gap:5px;}
+  .cal-legend i{width:10px; height:10px; border-radius:2px; display:block;}
 
-  /* stats */
-  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
-  .stat{
-    background:var(--surface); border-radius:8px;
-    box-shadow:var(--card-shadow); padding:16px;
-  }
-  .stat .num{font-size:27px; font-weight:800; color:var(--grass); line-height:1.1;}
-  .stat .lab{font-size:14px; color:var(--ink-soft); margin-top:2px;}
+  /* stats (old rows kept for mood bars) */
   .bar-row{display:flex; align-items:center; gap:10px; padding:6px 0;}
   .bar-row i{width:12px; height:12px; border-radius:2px; display:block; flex:0 0 auto;}
   .bar-row .mname{width:52px; font-size:14.5px;}
   .bar-track{flex:1; height:9px; background:var(--variant); border-radius:99px; overflow:hidden;}
   .bar-fill{height:100%; border-radius:99px; width:0; transition:width .65s var(--ease);}
   .bar-row .cnt{font-size:13px; font-weight:600; min-width:20px; text-align:right;}
+
+  /* stats (new design) */
+  .card h2.ctitle{font-size:12.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--ink-soft); margin:0 0 12px;}
+  .hero{display:flex; align-items:center; gap:16px;}
+  .hero-blocks{display:grid; grid-template-columns:repeat(3,15px); gap:3px; flex:0 0 auto;}
+  .hero-blocks i{width:15px; height:15px; border-radius:3px; background:var(--variant); display:block;}
+  .hero-blocks i.on{background:var(--grass);}
+  .hero-blocks i.todayb{background:var(--gold);}
+  .hero-num{font-size:42px; font-weight:800; line-height:1; letter-spacing:-1px;}
+  .hero-label{font-size:14px; color:var(--ink-soft); margin-top:3px;}
+  .hero-sub{font-size:12.5px; color:var(--grass); font-weight:600; margin-top:2px;}
+  .nums{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
+  .num{background:var(--variant); border-radius:8px; padding:12px 8px; text-align:center;}
+  .num b{display:block; font-size:20px; font-weight:800;}
+  .num span{font-size:11.5px; color:var(--ink-soft);}
+  .heat{display:grid; grid-template-rows:repeat(7,1fr); grid-auto-flow:column; gap:3px;}
+  .heat i{width:100%; aspect-ratio:1; border-radius:2.5px; background:var(--variant); display:block;}
+  .heat i.l1{background:#BFE0B4;} .heat i.l2{background:var(--grass-light);}
+  .heat i.l3{background:var(--grass);} .heat i.l4{background:#2F7031;}
+  body.dark .heat i.l1{background:#33512F;} body.dark .heat i.l2{background:#3E7040;}
+  .heat-legend{display:flex; align-items:center; gap:4px; margin-top:10px; font-size:11px; color:var(--ink-soft);}
+  .heat-legend i{width:11px; height:11px; border-radius:2.5px; display:block;}
+  .heat-legend .sp{flex:1;}
+  .mood-stack{display:flex; height:18px; border-radius:5px; overflow:hidden; gap:2px;}
+  .mood-stack div{transition:width .3s var(--ease);}
+  .mood-list{margin-top:10px;}
+  .mood-list .bar-row .pct{font-size:12.5px; color:var(--ink-soft); min-width:36px; text-align:right;}
+  .rec{display:flex; align-items:baseline; gap:10px; padding:9px 0; border-bottom:1px solid var(--line-soft);}
+  .rec:last-child{border-bottom:none; padding-bottom:2px;}
+  .rec .k{font-size:13px; color:var(--ink-soft); flex:1;}
+  .rec .v{font-size:15.5px; font-weight:700;}
+  .rec .d{font-size:12px; color:var(--ink-soft); min-width:64px; text-align:right;}
+  .set-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line-soft);}
+  .set-row:last-child{border-bottom:none;}
+  .set-row .k{flex:1; min-width:0;}
+  .set-row .k .t{font-size:14.5px; font-weight:600;}
+  .set-row .k .s{font-size:12.5px; color:var(--ink-soft); line-height:1.4; margin-top:1px;}
+  .set-row input[type=password]{width:110px; margin-top:0; padding:9px 10px;}
+
+  /* editor extras */
+  .extras-row{display:flex; gap:8px; margin-top:14px;}
+  .mini-action{
+    flex:1; border:1.5px solid var(--line); background:transparent; color:var(--ink);
+    border-radius:6px; padding:11px 6px; font-size:13.5px; font-weight:600; min-height:44px;
+    transition:background .15s, transform .12s var(--ease);
+  }
+  .mini-action:active{transform:scale(.97);}
+  .mini-action.on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .photo-wrap{margin-top:12px;}
+  .photo-wrap img{width:100%; border-radius:6px; display:block;}
+  .thumb-row{display:flex; align-items:center; gap:10px; margin-top:8px;}
+  .seal-wrap{
+    margin-top:12px; background:var(--variant); border-radius:6px; padding:12px;
+    display:none; align-items:center; gap:10px; flex-wrap:wrap; font-size:14px;
+  }
+  .seal-wrap.show{display:flex;}
+  .otd-body{font-size:14.5px; color:var(--ink-soft); line-height:1.45; margin-top:4px;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
+
+  /* lock overlay */
+  #lockOverlay{
+    position:fixed; inset:0; z-index:60; background:var(--paper);
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  #lockOverlay.show{display:flex;}
+  .lock-card{max-width:340px; width:100%; text-align:center;}
+  .lock-card .big{font-size:40px;}
+  .lock-card h3{margin:10px 0 4px; font-size:19px;}
+  .lock-card p{margin:0; color:var(--ink-soft); font-size:14px; line-height:1.45;}
+  .lock-card input{text-align:center; letter-spacing:4px; font-size:19px;}
+  @keyframes shake{0%,100%{transform:none;} 25%{transform:translateX(-7px);} 75%{transform:translateX(7px);}}
+  .shake{animation:shake .25s var(--ease) 2;}
 
   /* bottom nav */
   nav{
@@ -262,7 +337,9 @@
     transition:background .15s, color .15s;
   }
   .range-btn.active{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.15);}
-  .bars-container{display:flex; gap:5px; height:128px; margin-top:12px;}
+  .bars-container{display:flex; gap:5px; height:128px; margin-top:12px; position:relative;}
+  .avg-line{position:absolute; left:0; right:0; border-top:2px dashed var(--gold); opacity:.8; pointer-events:none;}
+  .avg-tag{position:absolute; right:0; font-size:10px; color:var(--ink-soft); background:var(--surface); padding:0 3px; transform:translateY(-100%); pointer-events:none;}
   .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
   .bar-val{font-size:10.5px; font-weight:700; color:var(--ink-soft); height:13px; line-height:13px;}
   .bar-area{flex:1; width:100%; display:flex; align-items:flex-end; justify-content:center;}
@@ -292,6 +369,17 @@
   </div>
 </header>
 
+<div id="lockOverlay">
+  <div class="lock-card" id="lockCard">
+    <div class="big">&#128274;</div>
+    <h3>Dayblock is locked</h3>
+    <p>Enter your PIN to open your diary.</p>
+    <input type="password" id="pinInput" inputmode="numeric" placeholder="PIN" autocomplete="off">
+    <div class="small" id="lockNote" style="color:var(--danger); min-height:18px; margin-top:8px;"></div>
+    <button class="btn" id="unlockBtn">Unlock</button>
+  </div>
+</div>
+
 <div class="wrap">
 
   <!-- TODAY -->
@@ -304,22 +392,56 @@
       </div>
       <button class="back-today" id="backToday">Back to today</button>
       <div class="prompt">Prompt: <span id="promptText"></span></div>
+      <div class="chip-row" id="packRow" style="padding-top:10px;"></div>
     </div>
 
-    <div class="section-label">How was the day?</div>
-    <div class="mood-row" id="moodRow"></div>
+    <div id="onThisDay"></div>
 
-    <input type="text" id="titleInput" placeholder="Title (optional)" autocomplete="off">
-    <textarea id="bodyInput" placeholder="Dear diary..."></textarea>
-    <input type="text" id="tagsInput" placeholder="Tags, separated by commas (school, football, family)" autocomplete="off">
+    <div id="editorFields">
+      <div class="section-label">How was the day?</div>
+      <div class="mood-row" id="moodRow"></div>
 
-    <div class="editor-foot">
-      <span id="wordCount">0 words</span>
-      <span class="saved-note" id="savedNote">Saved on this device</span>
+      <input type="text" id="titleInput" placeholder="Title (optional)" autocomplete="off">
+      <textarea id="bodyInput" placeholder="Dear diary..."></textarea>
+      <input type="text" id="tagsInput" placeholder="Tags, separated by commas (school, football, family)" autocomplete="off">
+
+      <div class="extras-row">
+        <button class="mini-action" id="photoBtn">&#128247;&nbsp;Photo</button>
+        <button class="mini-action" id="voiceBtn">&#127908;&nbsp;Voice</button>
+        <button class="mini-action" id="sealBtn">&#128274;&nbsp;Seal</button>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" style="display:none;">
+      <div class="photo-wrap" id="photoWrap" style="display:none;">
+        <img id="photoImg" alt="Photo of the day">
+        <div class="thumb-row">
+          <span class="small muted" style="flex:1;">Photo of the day, kept on this device.</span>
+          <button class="btn ghost small-btn" id="photoRemove">Remove</button>
+        </div>
+      </div>
+      <div class="small muted" id="voiceNote" style="margin-top:8px; display:none;"></div>
+      <div class="seal-wrap" id="sealWrap">
+        <span>Seal until</span>
+        <input type="date" id="sealDate">
+        <span class="small muted">The entry hides everywhere until this date. For letters to future-you.</span>
+      </div>
+
+      <div class="editor-foot">
+        <span id="wordCount">0 words</span>
+        <span class="saved-note" id="savedNote">Saved on this device</span>
+      </div>
+
+      <button class="btn" id="saveBtn">&#10003;&nbsp;<span id="saveLabel">Place this day's block</span></button>
+      <button class="btn ghost" id="deleteBtn" style="display:none;">Delete this entry</button>
     </div>
 
-    <button class="btn" id="saveBtn">&#10003;&nbsp;<span id="saveLabel">Place this day's block</span></button>
-    <button class="btn ghost" id="deleteBtn" style="display:none;">Delete this entry</button>
+    <div class="card flat" id="sealedCard" style="display:none; text-align:center; padding:26px 16px;">
+      <div style="font-size:34px;">&#128274;</div>
+      <div style="font-size:16px; font-weight:700; margin-top:8px;">This day is sealed</div>
+      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
+        You sealed this entry until <b id="sealedUntil"></b>.<br>It stays hidden until that day arrives.
+      </p>
+      <button class="btn ghost" id="unsealBtn" style="max-width:220px; margin:14px auto 0;">Unseal it now</button>
+    </div>
   </section>
 
   <!-- ENTRIES -->
@@ -338,7 +460,8 @@
     </div>
     <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
     <div class="grid" id="calGrid"></div>
-    <p class="small muted">Green blocks are days you wrote. Tap any day to open it.</p>
+    <div class="cal-legend" id="calLegend"></div>
+    <p class="small muted">A day's block takes the colour of that day's mood. Tap any day to open it.</p>
     <div class="card" style="margin-top:6px;">
       <div id="previewDate" style="font-size:16px; font-weight:600;"></div>
       <div id="previewBody" style="margin-top:6px;"></div>
@@ -350,12 +473,27 @@
 
   <!-- STATS -->
   <section class="view" id="view-stats">
-    <div class="stat-grid">
-      <div class="stat"><div class="num" data-stat="totalEntries">0</div><div class="lab">blocks placed</div></div>
-      <div class="stat"><div class="num" data-stat="currentStreak">0</div><div class="lab">day streak</div></div>
-      <div class="stat"><div class="num" data-stat="entriesThisWeek">0</div><div class="lab">entries this week</div></div>
-      <div class="stat"><div class="num" data-stat="totalWords">0</div><div class="lab">words written</div></div>
+    <div class="card">
+      <div class="hero">
+        <div class="hero-blocks" id="heroBlocks"></div>
+        <div>
+          <div class="hero-num" id="stStreak">0</div>
+          <div class="hero-label">day streak</div>
+          <div class="hero-sub" id="stBest"></div>
+        </div>
+      </div>
     </div>
+
+    <div class="card">
+      <div class="nums">
+        <div class="num"><b id="stEntries">0</b><span>entries</span></div>
+        <div class="num"><b id="stWords">0</b><span>words written</span></div>
+        <div class="num"><b id="stAvg">0</b><span>avg words / entry</span></div>
+      </div>
+    </div>
+
+    <div id="freezeCard"></div>
+
     <div class="glass">
       <div class="chart-header">
         <div>
@@ -369,16 +507,93 @@
       </div>
       <div class="bars-container" id="wordsChart"></div>
     </div>
-    <div class="section-label">Mood breakdown</div>
-    <div id="moodBars" style="margin-top:8px;"></div>
+
+    <div class="card">
+      <h2 class="ctitle">Last 15 weeks</h2>
+      <div class="heat" id="heatGrid"></div>
+      <div class="heat-legend">
+        <span>Less</span>
+        <i style="background:var(--variant)"></i><i style="background:#BFE0B4"></i>
+        <i style="background:var(--grass-light)"></i><i style="background:var(--grass)"></i>
+        <i style="background:#2F7031"></i>
+        <span>More</span>
+        <span class="sp"></span>
+        <span id="heatCaption"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="ctitle">How the days felt</h2>
+      <div class="mood-stack" id="moodStack"></div>
+      <div class="mood-list" id="moodList"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="ctitle">Records</h2>
+      <div id="recordsList"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="ctitle">Lock, backup &amp; more</h2>
+      <div class="set-row">
+        <div class="k">
+          <div class="t">&#128274; App lock (PIN)</div>
+          <div class="s" id="pinState">No PIN set. Dayblock opens for anyone holding the phone.</div>
+        </div>
+        <input type="password" id="pinSet" inputmode="numeric" placeholder="4-6 digits" autocomplete="off">
+        <button class="btn small-btn" id="pinBtn">Set PIN</button>
+      </div>
+      <div class="set-row" id="lockNowRow" style="display:none;">
+        <div class="k">
+          <div class="t">Lock now</div>
+          <div class="s">Ask for the PIN next time Dayblock opens, or right now.</div>
+        </div>
+        <button class="btn ghost small-btn" id="lockNowBtn">Lock</button>
+      </div>
+      <div class="set-row">
+        <div class="k">
+          <div class="t">&#9200; Daily reminder</div>
+          <div class="s">Your writing time is saved here. The reminder itself arrives with the native update.</div>
+        </div>
+        <input type="time" id="reminderTime" value="21:00">
+        <button class="btn small-btn" id="reminderBtn">Save</button>
+      </div>
+      <div class="set-row">
+        <div class="k">
+          <div class="t">&#128228; Export diary</div>
+          <div class="s">Every entry as one readable text file, through the share sheet.</div>
+        </div>
+        <button class="btn small-btn" id="exportBtn">Export</button>
+      </div>
+      <div class="set-row">
+        <div class="k">
+          <div class="t">&#128272; Encrypted backup</div>
+          <div class="s">One file, locked with a passphrase only you know. Keep it on Drive.</div>
+        </div>
+        <input type="password" id="backupPass" placeholder="Passphrase" autocomplete="off" style="width:110px; margin-top:0; padding:9px 10px;">
+        <button class="btn small-btn" id="backupBtn">Back up</button>
+      </div>
+      <div class="set-row">
+        <div class="k">
+          <div class="t">&#128229; Restore backup</div>
+          <div class="s">Paste an encrypted backup and its passphrase. Matching dates are replaced.</div>
+        </div>
+        <button class="btn ghost small-btn" id="restoreToggle">Restore</button>
+      </div>
+      <div id="restoreBox" style="display:none; padding-top:10px;">
+        <textarea id="restoreText" style="min-height:110px; margin-top:0;" placeholder="Paste the backup text here"></textarea>
+        <input type="password" id="restorePass" placeholder="Backup passphrase" autocomplete="off">
+        <button class="btn" id="restoreBtn">Restore entries</button>
+        <div class="small" id="restoreNote" style="margin-top:8px; min-height:16px;"></div>
+      </div>
+    </div>
+
     <div class="card flat">
       <div style="font-size:14px; font-weight:600;">&#128274;&nbsp; Private by design</div>
       <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
         Dayblock has no account and no network permission. Your entries live only
-        in this app's private storage on your phone.
-      </p>
-      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
-        Coming next: PIN and biometric lock, encrypted backup, and export.
+        in this app's private storage on your phone. Photos of the day and sealed
+        letters are kept on this device too.
       </p>
     </div>
   </section>
@@ -412,25 +627,67 @@ const Bridge = window.DayblockBridge || (function(){
       else mem.unshift({date, title, body, mood, tags, starred:false});
     },
     deleteEntry(date){ mem = mem.filter(e => e.date !== date); },
-    toggleStar(date){ const e = mem.find(x => x.date === date); if (e) e.starred = !e.starred; }
+    toggleStar(date){ const e = mem.find(x => x.date === date); if (e) e.starred = !e.starred; },
+    shareText(text, subject){
+      const blob = new Blob([text], {type:"text/plain"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = (subject || "dayblock") + ".txt";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    }
   };
 })();
 
 /* ---------------- constants & helpers ---------------- */
 const MOODS = ["Great","Good","Okay","Low","Rough"];
-const MOOD_COLORS = {Great:"#4E9B47", Good:"#7CB95C", Okay:"#F2B33D", Low:"#EF8F4C", Rough:"#8A5A33"};
-const PROMPTS = [
-  "What was the best small moment of today?",
-  "What did you learn today, in or out of school?",
-  "Describe today in exactly three sentences.",
-  "What is one thing you want tomorrow-you to remember?",
-  "Who made your day better, and how?",
-  "What match, game or play are you still thinking about?",
-  "What challenged you today, and what did you do about it?",
-  "Write about a sound, smell or scene from today.",
-  "What would you do again from today? What would you skip?",
-  "What are you looking forward to this week?"
-];
+const MOOD_COLORS = {Great:"#4E9B47", Good:"#7CB95C", Okay:"#F2B33D", Low:"#EF8F4C", Rough:"#B3261E"};
+const PACKS = {
+  "Classic": [
+    "What was the best small moment of today?",
+    "What did you learn today, in or out of school?",
+    "Describe today in exactly three sentences.",
+    "What is one thing you want tomorrow-you to remember?",
+    "Who made your day better, and how?",
+    "What match, game or play are you still thinking about?",
+    "What challenged you today, and what did you do about it?",
+    "Write about a sound, smell or scene from today.",
+    "What would you do again from today? What would you skip?",
+    "What are you looking forward to this week?"
+  ],
+  "Reflection": [
+    "What did today teach you about yourself?",
+    "When did you feel most like yourself today?",
+    "What took your energy today, and what gave it back?",
+    "If today had a title, what would it be, and why?",
+    "What is one thing you understand now that you did not this morning?",
+    "What are you avoiding thinking about? Write it anyway."
+  ],
+  "Gratitude": [
+    "Name three small good things from today, however tiny.",
+    "Who helped you recently without expecting anything?",
+    "What is something your body did for you today?",
+    "What ordinary thing would you miss if it vanished tomorrow?",
+    "Write a thank-you note you may never send.",
+    "What went right today that could easily have gone wrong?"
+  ],
+  "Match Day": [
+    "Best moment of the match, in your own words. Go.",
+    "Rate the performance: who shone, who hid?",
+    "What would you have changed at half-time?",
+    "Describe the goal (or the chance) like a commentator.",
+    "One player, one sentence: your verdicts.",
+    "How did this match leave you feeling, honestly?"
+  ],
+  "Unsent Letters": [
+    "Write the message you would send if there were no consequences.",
+    "Say the thing you keep rehearsing but never say. Here, it is safe.",
+    "Write to future-you, one year from now. What should he know?",
+    "Write the reply you wish you had received.",
+    "Apologise, confess, or let go - pick one and write it raw.",
+    "Write to the version of you from one year ago."
+  ]
+};
 const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const MON_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -443,6 +700,27 @@ const fmtDate = s => { const d = parseIso(s); return DOW[d.getDay()] + ", " + d.
 const wc = t => (t || "").trim().split(/\s+/).filter(x => x.length).length;
 const shiftDate = (s, days) => { const d = parseIso(s); d.setDate(d.getDate()+days); return iso(d); };
 const dayOfYear = d => Math.floor((d - new Date(d.getFullYear(),0,0)) / 86400000);
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e) { return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { return false; } },
+  del(k){ try { localStorage.removeItem(k); } catch(e) { /* ignore */ } }
+};
+
+/* ------- on-device extras (kept in WebView storage, never leave the phone) ------- */
+let sealedMap = store.get("dayblock-sealed", {});   // date -> unlock date
+let photoMap  = store.get("dayblock-photos", {});   // date -> compressed data URL
+let freezeData = store.get("dayblock-freezes", { used: {}, dates: [] }); // month -> count, frozen dates
+const todayIso = () => iso(new Date());
+const isSealed = d => !!(sealedMap[d] && sealedMap[d] > todayIso());
+function hashPin(pin){
+  let h1 = 5381, h2 = 52711;
+  const s = "dayblock:" + pin;
+  for (let i = 0; i < s.length; i++) {
+    const c = s.charCodeAt(i);
+    h1 = (h1 * 33) ^ c; h2 = (h2 * 31) ^ c;
+  }
+  return (h1 >>> 0).toString(16) + ":" + (h2 >>> 0).toString(16);
+}
 
 /* ---------------- state ---------------- */
 let state = { entries: [], stats: { totalEntries:0, currentStreak:0, entriesThisWeek:0, totalWords:0, moodCounts:{} } };
@@ -451,6 +729,8 @@ let selectedDate = iso(new Date());
 let calCursor = selectedDate.slice(0,7); // yyyy-MM
 let search = "", moodFilter = null, starredOnly = false;
 let editorDirty = false;
+let currentPack = store.get("dayblock-pack", "Classic");
+if (!PACKS[currentPack]) currentPack = "Classic";
 
 function entryOn(dateStr){ return state.entries.find(e => e.date === dateStr) || null; }
 
@@ -492,6 +772,12 @@ function loadEditor(){
   $("tagsInput").value = e ? e.tags : "";
   setMood(e ? e.mood : "Okay");
   editorDirty = false;
+  // seal controls reflect this date
+  const sealed = isSealed(selectedDate);
+  $("sealWrap").classList.toggle("show", !!sealedMap[selectedDate] && !sealed);
+  $("sealBtn").classList.toggle("on", !!sealedMap[selectedDate]);
+  $("sealDate").value = sealedMap[selectedDate] || "";
+  renderPhoto();
   updateEditorMeta();
 }
 function setMood(m){
@@ -513,16 +799,57 @@ function updateEditorMeta(){
   const has = ($("titleInput").value.trim() || $("bodyInput").value.trim()).length > 0;
   $("saveBtn").disabled = !has;
 }
+function renderPackRow(){
+  $("packRow").innerHTML = Object.keys(PACKS).map(p =>
+    `<button class="chip ${p === currentPack ? "sel" : ""}" data-pack="${esc(p)}">${esc(p)}</button>`).join("");
+  document.querySelectorAll("#packRow .chip").forEach(ch =>
+    ch.addEventListener("click", () => {
+      currentPack = ch.dataset.pack;
+      store.set("dayblock-pack", currentPack);
+      renderPackRow();
+      renderPrompt();
+    }));
+}
+function renderPrompt(){
+  const list = PACKS[currentPack] || PACKS["Classic"];
+  $("promptText").textContent = list[dayOfYear(parseIso(selectedDate)) % list.length];
+}
+function renderOnThisDay(){
+  const box = $("onThisDay");
+  const t = parseIso(selectedDate);
+  const candidates = [];
+  const yearAgo = new Date(t.getFullYear() - 1, t.getMonth(), t.getDate());
+  const monthAgo = new Date(t.getFullYear(), t.getMonth() - 1, t.getDate());
+  [[iso(yearAgo), "One year ago today"], [iso(monthAgo), "One month ago today"]].forEach(([ds, label]) => {
+    const e = entryOn(ds);
+    if (e && ds !== selectedDate && !isSealed(ds)) candidates.push({ e, label });
+  });
+  if (!candidates.length) { box.innerHTML = ""; return; }
+  box.innerHTML = candidates.map(({e, label}) => `
+    <div class="card" data-otd="${e.date}" style="cursor:pointer;">
+      <div style="font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--grass);">${label}</div>
+      <div style="font-size:15.5px; font-weight:600; margin-top:5px;">${esc(e.title) || "Untitled entry"}</div>
+      <div class="otd-body">${esc(e.body)}</div>
+      <div class="small muted" style="margin-top:6px;">${fmtDate(e.date)} &middot; tap to open</div>
+    </div>`).join("");
+  box.querySelectorAll("[data-otd]").forEach(c =>
+    c.addEventListener("click", () => openDate(c.dataset.otd)));
+}
 function renderToday(reloadEditor){
   $("dateLabel").textContent = fmtDate(selectedDate);
   $("backToday").classList.toggle("show", selectedDate !== iso(new Date()));
-  $("promptText").textContent = PROMPTS[dayOfYear(parseIso(selectedDate)) % PROMPTS.length];
+  renderPrompt();
+  renderOnThisDay();
+  const sealed = isSealed(selectedDate);
+  $("sealedCard").style.display = sealed ? "" : "none";
+  $("editorFields").style.display = sealed ? "none" : "";
+  if (sealed) $("sealedUntil").textContent = fmtDate(sealedMap[selectedDate]);
   const e = entryOn(selectedDate);
   $("saveLabel").textContent = e ? "Save changes" : "Place this day's block";
   const del = $("deleteBtn");
-  del.style.display = e ? "" : "none";
+  del.style.display = e && !sealed ? "" : "none";
   del.classList.remove("armed"); del.textContent = "Delete this entry"; del.dataset.armed = "";
-  if (reloadEditor || !editorDirty) loadEditor(); else updateEditorMeta();
+  if (!sealed && (reloadEditor || !editorDirty)) loadEditor(); else if (!sealed) updateEditorMeta();
 }
 $("prevDay").addEventListener("click", () => { selectedDate = shiftDate(selectedDate, -1); editorDirty = false; renderToday(true); });
 $("nextDay").addEventListener("click", () => { selectedDate = shiftDate(selectedDate, 1); editorDirty = false; renderToday(true); });
@@ -532,6 +859,14 @@ $("backToday").addEventListener("click", () => { selectedDate = iso(new Date());
 $("saveBtn").addEventListener("click", () => {
   Bridge.saveEntry(selectedDate, $("titleInput").value, $("bodyInput").value,
     $("moodRow").dataset.value || "Okay", $("tagsInput").value);
+  // seal bookkeeping happens on save, so a seal never hides an unsaved entry
+  const until = $("sealDate").value;
+  if ($("sealWrap").classList.contains("show") && until && until > todayIso()) {
+    sealedMap[selectedDate] = until;
+  } else if (sealedMap[selectedDate] && !$("sealWrap").classList.contains("show")) {
+    delete sealedMap[selectedDate];
+  }
+  store.set("dayblock-sealed", sealedMap);
   editorDirty = false;
   const note = $("savedNote");
   note.classList.add("show");
@@ -547,8 +882,94 @@ $("deleteBtn").addEventListener("click", ev => {
     return;
   }
   Bridge.deleteEntry(selectedDate);
+  delete sealedMap[selectedDate]; store.set("dayblock-sealed", sealedMap);
+  delete photoMap[selectedDate]; store.set("dayblock-photos", photoMap);
   editorDirty = false;
   refresh(true);
+});
+$("unsealBtn").addEventListener("click", () => {
+  delete sealedMap[selectedDate];
+  store.set("dayblock-sealed", sealedMap);
+  editorDirty = false;
+  renderToday(true);
+});
+$("sealBtn").addEventListener("click", () => {
+  const w = $("sealWrap");
+  w.classList.toggle("show");
+  $("sealBtn").classList.toggle("on", w.classList.contains("show"));
+  if (w.classList.contains("show") && !$("sealDate").value)
+    $("sealDate").value = shiftDate(todayIso(), 30);
+  editorDirty = true;
+});
+
+/* photo of the day: picked, shrunk on a canvas, kept in on-device storage */
+function renderPhoto(){
+  const url = photoMap[selectedDate];
+  $("photoWrap").style.display = url ? "" : "none";
+  if (url) $("photoImg").src = url;
+  $("photoBtn").classList.toggle("on", !!url);
+}
+$("photoBtn").addEventListener("click", () => $("photoInput").click());
+$("photoInput").addEventListener("change", ev => {
+  const file = ev.target.files && ev.target.files[0];
+  ev.target.value = "";
+  if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    const maxSide = 900;
+    const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+    const cv = document.createElement("canvas");
+    cv.width = Math.round(img.width * scale);
+    cv.height = Math.round(img.height * scale);
+    cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+    URL.revokeObjectURL(img.src);
+    photoMap[selectedDate] = cv.toDataURL("image/jpeg", 0.72);
+    if (store.set("dayblock-photos", photoMap)) renderPhoto();
+    else {
+      delete photoMap[selectedDate];
+      $("voiceNote").style.display = "";
+      $("voiceNote").textContent = "That photo was too large to keep on this device. Try a smaller one.";
+    }
+  };
+  img.src = URL.createObjectURL(file);
+});
+$("photoRemove").addEventListener("click", () => {
+  delete photoMap[selectedDate];
+  store.set("dayblock-photos", photoMap);
+  renderPhoto();
+});
+
+/* voice entry: uses the WebView's speech recognition when it exists */
+$("voiceBtn").addEventListener("click", () => {
+  const note = $("voiceNote");
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    note.style.display = "";
+    note.textContent = "Voice typing is not available inside this WebView. It arrives with the native update - typing still works.";
+    return;
+  }
+  try {
+    const rec = new SR();
+    rec.lang = "en-IN";
+    rec.interimResults = false;
+    note.style.display = "";
+    note.textContent = "Listening... speak now.";
+    rec.onresult = ev => {
+      const text = ev.results[0][0].transcript;
+      const ta = $("bodyInput");
+      ta.value = (ta.value + " " + text).trim();
+      editorDirty = true;
+      updateEditorMeta();
+      note.textContent = "Added what you said to the entry.";
+    };
+    rec.onerror = () => { note.textContent = "Voice typing stopped. You can try again or type instead."; };
+    rec.onend = () => { $("voiceBtn").classList.remove("on"); };
+    $("voiceBtn").classList.add("on");
+    rec.start();
+  } catch(e) {
+    note.style.display = "";
+    note.textContent = "Voice typing could not start on this device.";
+  }
 });
 
 /* ---------------- entries ---------------- */
@@ -598,7 +1019,19 @@ function renderEntries(){
     return;
   }
   box.innerHTML = list.map(e => {
+    if (isSealed(e.date)) {
+      return `<div class="entry" data-date="${e.date}">
+        <div class="entry-top">
+          <span class="dot" style="background:var(--stone)"></span>
+          <span class="entry-date">${fmtDate(e.date)}</span>
+          <span style="font-size:15px;">&#128274;</span>
+        </div>
+        <div class="entry-title">Sealed entry</div>
+        <div class="entry-body">Hidden until ${fmtDate(sealedMap[e.date])}. Some letters are for later.</div>
+      </div>`;
+    }
     const tags = e.tags.split(",").map(t => t.trim()).filter(Boolean).map(t => "#" + esc(t)).join("  ");
+    const photo = photoMap[e.date] ? `<img class="entry-photo" src="${photoMap[e.date]}" alt="Photo of the day">` : "";
     return `<div class="entry" data-date="${e.date}">
       <div class="entry-top">
         <span class="dot" style="background:${MOOD_COLORS[e.mood] || "#6F6F6F"}"></span>
@@ -608,6 +1041,7 @@ function renderEntries(){
       </div>
       <div class="entry-title">${esc(e.title) || "Untitled entry"}</div>
       <div class="entry-body">${esc(e.body)}</div>
+      ${photo}
       ${tags ? `<div class="entry-tags">${tags}</div>` : ""}
     </div>`;
   }).join("");
@@ -627,6 +1061,8 @@ function renderEntries(){
       return;
     }
     Bridge.deleteEntry(b.dataset.date);
+    delete sealedMap[b.dataset.date]; store.set("dayblock-sealed", sealedMap);
+    delete photoMap[b.dataset.date]; store.set("dayblock-photos", photoMap);
     refresh(false);
   }));
 }
@@ -647,14 +1083,16 @@ function renderCalendar(dir){
   const days = new Date(y, m, 0).getDate();
   let html = "";
   for (let i = 0; i < offset; i++) html += `<button class="cell empty-cell" disabled></button>`;
-  const todayIso = iso(new Date());
+  const tIso = iso(new Date());
   for (let d = 1; d <= days; d++) {
     const ds = y + "-" + pad(m) + "-" + pad(d);
+    const e = entryOn(ds);
     const cls = ["cell",
-      entryOn(ds) ? "has" : "",
-      ds === todayIso ? "today" : "",
+      e ? "has" : "",
+      ds === tIso ? "today" : "",
       ds === selectedDate ? "sel" : ""].join(" ");
-    html += `<button class="${cls}" data-date="${ds}">${d}</button>`;
+    const style = e ? ` style="background:${isSealed(ds) ? "#6F6F6F" : (MOOD_COLORS[e.mood] || "#4E9B47")}"` : "";
+    html += `<button class="${cls}" data-date="${ds}"${style}>${d}</button>`;
   }
   const grid = $("calGrid");
   grid.innerHTML = html;
@@ -664,13 +1102,20 @@ function renderCalendar(dir){
   }
   grid.querySelectorAll(".cell[data-date]").forEach(c =>
     c.addEventListener("click", () => { selectedDate = c.dataset.date; renderCalendar(); }));
+  $("calLegend").innerHTML = MOODS.map(mm =>
+    `<span><i style="background:${MOOD_COLORS[mm]}"></i>${mm}</span>`).join("") +
+    `<span><i style="background:#6F6F6F"></i>Sealed</span>`;
   // preview
   const e = entryOn(selectedDate);
   $("previewDate").textContent = fmtDate(selectedDate);
-  $("previewBody").innerHTML = e
-    ? `<div style="font-weight:600; font-size:15px;">${esc(e.title) || "Untitled entry"}</div>
-       <div class="small muted" style="margin-top:4px; line-height:1.45;">${esc(e.body.slice(0, 220))}</div>`
-    : `<div class="small muted">No entry for this day yet.</div>`;
+  if (e && isSealed(selectedDate)) {
+    $("previewBody").innerHTML = `<div class="small muted">&#128274; Sealed until ${fmtDate(sealedMap[selectedDate])}. This one is for later.</div>`;
+  } else {
+    $("previewBody").innerHTML = e
+      ? `<div style="font-weight:600; font-size:15px;">${esc(e.title) || "Untitled entry"}</div>
+         <div class="small muted" style="margin-top:4px; line-height:1.45;">${esc(e.body.slice(0, 220))}</div>`
+      : `<div class="small muted">No entry for this day yet.</div>`;
+  }
   $("previewBtn").innerHTML = e ? "&#9998;&nbsp;Open in editor" : "Write this day";
   // mood overview (all entries, like the app)
   const counts = state.stats.moodCounts || {};
@@ -699,24 +1144,151 @@ function countUp(el, target){
   }
   requestAnimationFrame(tick);
 }
+function computeStats(){
+  const es = state.entries.slice().sort((a,b) => a.date < b.date ? -1 : 1);
+  const written = new Set(es.map(e => e.date));
+  const frozen = new Set(freezeData.dates || []);
+  const active = d => written.has(d) || frozen.has(d);
+  // best streak (written or frozen days count)
+  let best = 0, run = 0;
+  const allDays = new Set([...written, ...frozen]);
+  [...allDays].sort().forEach(ds => {
+    run = (allDays.has(shiftDate(ds, -1))) ? run + 1 : 1;
+    if (run > best) best = run;
+  });
+  // current streak: from today, or yesterday if today is not written yet
+  let cur = 0, cursor = todayIso();
+  if (!active(cursor)) cursor = shiftDate(cursor, -1);
+  while (active(cursor)) { cur++; cursor = shiftDate(cursor, -1); }
+  let longest = null, bestDay = null, totalWords = 0, starred = 0;
+  es.forEach(e => {
+    const w = wc(e.body);
+    totalWords += w;
+    if (e.starred) starred++;
+    if (!longest || w > longest.words) longest = { words: w, date: e.date };
+    if (!bestDay || w > bestDay.words) bestDay = { words: w, date: e.date };
+  });
+  return {
+    totalEntries: es.length,
+    totalWords,
+    avg: es.length ? Math.round(totalWords / es.length) : 0,
+    currentStreak: cur, bestStreak: best,
+    longest, bestDay, starred,
+    firstDate: es.length ? es[0].date : null
+  };
+}
 function renderStats(){
-  const st = state.stats;
-  document.querySelectorAll("[data-stat]").forEach(el => countUp(el, st[el.dataset.stat] || 0));
-  const counts = st.moodCounts || {};
-  const total = Math.max(1, st.totalEntries);
-  $("moodBars").innerHTML = st.totalEntries === 0
-    ? `<p class="small muted">Write a few entries and your mood pattern will show up here.</p>`
-    : MOODS.filter(m => counts[m]).map(m => `
-      <div class="bar-row">
-        <i style="background:${MOOD_COLORS[m]}"></i>
-        <span class="mname">${m}</span>
-        <span class="bar-track"><span class="bar-fill" data-w="${Math.round(counts[m] / total * 100)}" style="background:${MOOD_COLORS[m]}; display:block;"></span></span>
-        <span class="cnt">${counts[m]}</span>
-      </div>`).join("");
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    document.querySelectorAll(".bar-fill").forEach(f => f.style.width = f.dataset.w + "%");
-  }));
+  const cs = computeStats();
+  // hero: last 9 days as blocks (oldest to newest), gold = today
+  const glyph = [];
+  for (let i = 8; i >= 0; i--) {
+    const ds = shiftDate(todayIso(), -i);
+    const has = entryOn(ds) || (freezeData.dates || []).includes(ds);
+    glyph.push(`<i class="${i === 0 && has ? "todayb" : (has ? "on" : "")}"></i>`);
+  }
+  $("heroBlocks").innerHTML = glyph.join("");
+  countUp($("stStreak"), cs.currentStreak);
+  $("stBest").textContent = cs.bestStreak > 0 ? "Best ever: " + cs.bestStreak + (cs.bestStreak === 1 ? " day" : " days") : "Write today to place your first block";
+  countUp($("stEntries"), cs.totalEntries);
+  countUp($("stWords"), cs.totalWords);
+  countUp($("stAvg"), cs.avg);
+  renderFreeze(cs);
   renderChart();
+  renderHeat();
+  renderMoodStats(cs);
+  renderRecords(cs);
+  renderSettings();
+}
+function renderFreeze(cs){
+  const box = $("freezeCard");
+  const monthKey = todayIso().slice(0,7);
+  const usedThisMonth = (freezeData.used && freezeData.used[monthKey]) || 0;
+  const left = Math.max(0, 1 - usedThisMonth);
+  const yest = shiftDate(todayIso(), -1), dayBefore = shiftDate(todayIso(), -2);
+  const canSave = left > 0 && !entryOn(yest) && !(freezeData.dates || []).includes(yest)
+    && (entryOn(dayBefore) || (freezeData.dates || []).includes(dayBefore))
+    && !entryOn(todayIso());
+  if (canSave) {
+    box.innerHTML = `<div class="card" style="border:1.5px solid var(--gold);">
+      <div style="font-size:15px; font-weight:700;">&#129482; Your streak needs a freeze</div>
+      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
+        Yesterday has no block, so the streak is paused. Use this month's freeze to cover yesterday and keep it alive.
+      </p>
+      <button class="btn" id="freezeBtn">Use a streak freeze</button>
+    </div>`;
+    $("freezeBtn").addEventListener("click", () => {
+      freezeData.dates = freezeData.dates || [];
+      freezeData.dates.push(yest);
+      freezeData.used = freezeData.used || {};
+      freezeData.used[monthKey] = usedThisMonth + 1;
+      store.set("dayblock-freezes", freezeData);
+      renderStats();
+    });
+  } else {
+    box.innerHTML = `<div class="card flat">
+      <div style="font-size:14px; font-weight:600;">&#129482;&nbsp; Streak freeze</div>
+      <p class="small muted" style="line-height:1.5; margin:6px 0 0;">
+        ${left > 0
+          ? "One freeze ready this month. If a day gets missed, it can cover for you once, so one bad day never kills a good streak."
+          : "This month's freeze is used. A fresh one arrives on the 1st."}
+      </p>
+    </div>`;
+  }
+}
+function renderHeat(){
+  const byDate = {};
+  let max = 1;
+  state.entries.forEach(e => { byDate[e.date] = wc(e.body); if (byDate[e.date] > max) max = byDate[e.date]; });
+  // 15 weeks ending this week, Monday first, columns are weeks
+  const now = new Date();
+  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
+  let cells = "", writtenCount = 0, total = 0;
+  for (let w = 14; w >= 0; w--) {
+    for (let d = 0; d < 7; d++) {
+      const day = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() - w * 7 + d);
+      const ds = iso(day);
+      total++;
+      const words = byDate[ds] || 0;
+      let lvl = "";
+      if (words > 0) { writtenCount++; const r = words / max; lvl = r > 0.75 ? "l4" : r > 0.5 ? "l3" : r > 0.25 ? "l2" : "l1"; }
+      cells += `<i class="${lvl}"></i>`;
+    }
+  }
+  $("heatGrid").innerHTML = cells;
+  $("heatCaption").textContent = writtenCount + " of " + total + " days written";
+}
+function renderMoodStats(cs){
+  const counts = state.stats.moodCounts || {};
+  const total = Math.max(1, cs.totalEntries);
+  if (!cs.totalEntries) {
+    $("moodStack").innerHTML = "";
+    $("moodList").innerHTML = `<p class="small muted" style="margin-top:8px;">Write a few entries and your mood pattern will show up here.</p>`;
+    return;
+  }
+  $("moodStack").innerHTML = MOODS.filter(m => counts[m]).map(m =>
+    `<div style="width:${counts[m] / total * 100}%; background:${MOOD_COLORS[m]}"></div>`).join("");
+  $("moodList").innerHTML = MOODS.filter(m => counts[m]).map(m => `
+    <div class="bar-row">
+      <i style="background:${MOOD_COLORS[m]}"></i>
+      <span class="mname">${m}</span>
+      <span class="bar-track"><span class="bar-fill" data-w="${Math.round(counts[m] / total * 100)}" style="background:${MOOD_COLORS[m]}; display:block;"></span></span>
+      <span class="cnt">${counts[m]}</span>
+      <span class="pct">${Math.round(counts[m] / total * 100)}%</span>
+    </div>`).join("");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll("#moodList .bar-fill").forEach(f => f.style.width = f.dataset.w + "%");
+  }));
+}
+function renderRecords(cs){
+  const rows = [];
+  if (cs.longest) rows.push(["Longest entry", cs.longest.words + " words", fmtDate(cs.longest.date)]);
+  if (cs.bestDay) rows.push(["Most words in a day", String(cs.bestDay.words), fmtDate(cs.bestDay.date)]);
+  rows.push(["Starred entries", String(cs.starred), "of " + cs.totalEntries]);
+  rows.push(["Entries this week", String(state.stats.entriesThisWeek || 0), "last 7 days"]);
+  if (cs.firstDate) rows.push(["First entry", "Dayblock day 1", fmtDate(cs.firstDate)]);
+  $("recordsList").innerHTML = rows.length
+    ? rows.map(r => `<div class="rec"><span class="k">${r[0]}</span><span class="v">${esc(r[1])}</span><span class="d">${esc(r[2])}</span></div>`).join("")
+    : `<p class="small muted">Records appear once you start writing.</p>`;
 }
 
 /* ---------------- words chart ---------------- */
@@ -736,6 +1308,7 @@ function renderChart(){
   }
   const max = Math.max(1, ...days.map(d => d.words));
   const total = days.reduce((a, d) => a + d.words, 0);
+  const avg = total / days.length;
   const best = days.reduce((a, d) => d.words > a.words ? d : a, days[0]);
   $("chartCaption").textContent = total === 0
     ? "No words in this range yet."
@@ -746,7 +1319,10 @@ function renderChart(){
       <span class="bar-val">${chartRange === 7 && d.words ? d.words : ""}</span>
       <div class="bar-area"><div class="bar ${d.isToday ? "today" : ""}" data-w="${d.words}" data-h="${Math.round(d.words / max * 100)}"></div></div>
       <span class="bar-lab">${d.lab}</span>
-    </div>`).join("");
+    </div>`).join("") + (total > 0
+    ? `<div class="avg-line" style="bottom:${Math.round(19 + (avg / max) * 88)}px"></div>
+       <div class="avg-tag" style="bottom:${Math.round(19 + (avg / max) * 88)}px">avg ${Math.round(avg)}</div>`
+    : "");
   requestAnimationFrame(() => requestAnimationFrame(() => {
     box.querySelectorAll(".bar").forEach(b => {
       const w = parseInt(b.dataset.w, 10) || 0;
@@ -763,6 +1339,134 @@ $("range30").addEventListener("click", () => {
   chartRange = 30;
   $("range30").classList.add("active"); $("range7").classList.remove("active");
   renderChart();
+});
+
+/* ---------------- settings: lock, reminder, export, backup ---------------- */
+function renderSettings(){
+  const hasPin = !!store.get("dayblock-pin", "");
+  $("pinState").textContent = hasPin
+    ? "PIN is on. Dayblock asks for it every time it opens."
+    : "No PIN set. Dayblock opens for anyone holding the phone.";
+  $("pinBtn").textContent = hasPin ? "Change PIN" : "Set PIN";
+  $("lockNowRow").style.display = hasPin ? "" : "none";
+  $("pinSet").value = "";
+  const rem = store.get("dayblock-reminder", null);
+  if (rem && rem.time) $("reminderTime").value = rem.time;
+}
+$("pinBtn").addEventListener("click", () => {
+  const pin = $("pinSet").value.trim();
+  if (!/^\d{4,6}$/.test(pin)) {
+    $("pinState").textContent = "PIN must be 4 to 6 digits. Try again.";
+    return;
+  }
+  store.set("dayblock-pin", hashPin(pin));
+  renderSettings();
+  $("pinState").textContent = "PIN set. Dayblock will ask for it every time it opens.";
+});
+$("lockNowBtn").addEventListener("click", () => showLock());
+$("reminderBtn").addEventListener("click", () => {
+  store.set("dayblock-reminder", { time: $("reminderTime").value || "21:00", on: true });
+  const btn = $("reminderBtn");
+  btn.textContent = "Saved";
+  setTimeout(() => btn.textContent = "Save", 1800);
+});
+function showLock(){
+  $("lockOverlay").classList.add("show");
+  $("pinInput").value = "";
+  $("lockNote").textContent = "";
+  setTimeout(() => $("pinInput").focus(), 80);
+}
+function tryUnlock(){
+  const want = store.get("dayblock-pin", "");
+  if (!want) { $("lockOverlay").classList.remove("show"); return; }
+  if (hashPin($("pinInput").value.trim()) === want) {
+    $("lockOverlay").classList.remove("show");
+  } else {
+    $("lockNote").textContent = "That PIN does not match. Try again.";
+    $("lockCard").classList.remove("shake"); void $("lockCard").offsetWidth;
+    $("lockCard").classList.add("shake");
+  }
+}
+$("unlockBtn").addEventListener("click", tryUnlock);
+$("pinInput").addEventListener("keydown", ev => { if (ev.key === "Enter") tryUnlock(); });
+
+function diaryAsText(){
+  const lines = ["DAYBLOCK - my diary export", "Exported " + fmtDate(todayIso()), ""];
+  state.entries.slice().sort((a,b) => a.date < b.date ? -1 : 1).forEach(e => {
+    if (isSealed(e.date)) {
+      lines.push(fmtDate(e.date) + " - [sealed until " + fmtDate(sealedMap[e.date]) + "]", "");
+      return;
+    }
+    lines.push(fmtDate(e.date) + (e.title ? " - " + e.title : ""), "Mood: " + e.mood + (e.tags ? " · Tags: " + e.tags : ""), "", e.body, "", "---", "");
+  });
+  return lines.join("\n");
+}
+$("exportBtn").addEventListener("click", () => {
+  if (!state.entries.length) return;
+  Bridge.shareText(diaryAsText(), "dayblock-export");
+});
+
+/* encrypted backup: AES-GCM with a passphrase-derived key (WebCrypto).
+   If WebCrypto is missing, fall back to a clearly labelled plain backup. */
+const te = new TextEncoder(), td = new TextDecoder();
+const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function deriveKey(pass, salt){
+  const base = await crypto.subtle.importKey("raw", te.encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: 120000, hash: "SHA-256" },
+    base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+$("backupBtn").addEventListener("click", async () => {
+  const pass = $("backupPass").value;
+  const payload = JSON.stringify({
+    app: "dayblock", v: 2, exported: todayIso(),
+    entries: state.entries, sealed: sealedMap, freezes: freezeData
+  });
+  if (!pass) { alert("Type a passphrase first - the backup is only as strong as it."); return; }
+  if (crypto && crypto.subtle) {
+    try {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await deriveKey(pass, salt);
+      const cipher = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, te.encode(payload));
+      Bridge.shareText(JSON.stringify({ app: "dayblock-backup", v: 2, salt: b64(salt), iv: b64(iv), data: b64(cipher) }), "dayblock-backup");
+      return;
+    } catch(e) { /* fall through to plain */ }
+  }
+  Bridge.shareText(payload, "dayblock-backup-PLAIN-unencrypted");
+});
+$("restoreToggle").addEventListener("click", () => {
+  const box = $("restoreBox");
+  box.style.display = box.style.display === "none" ? "" : "none";
+});
+$("restoreBtn").addEventListener("click", async () => {
+  const note = $("restoreNote");
+  const raw = $("restoreText").value.trim();
+  const pass = $("restorePass").value;
+  if (!raw) { note.textContent = "Paste the backup text first."; return; }
+  let payload = null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed.app === "dayblock-backup") {
+      if (!pass) { note.textContent = "This backup is encrypted - type its passphrase."; return; }
+      const key = await deriveKey(pass, unb64(parsed.salt));
+      const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(parsed.iv) }, key, unb64(parsed.data));
+      payload = JSON.parse(td.decode(plain));
+    } else if (parsed.app === "dayblock") {
+      payload = parsed;
+    }
+  } catch(e) { payload = null; }
+  if (!payload || !Array.isArray(payload.entries)) {
+    note.textContent = "That did not restore. Wrong passphrase, or the pasted text is not a Dayblock backup.";
+    return;
+  }
+  payload.entries.forEach(e => Bridge.saveEntry(e.date, e.title || "", e.body || "", e.mood || "Okay", e.tags || ""));
+  payload.entries.forEach(e => { if (e.starred) Bridge.toggleStar(e.date); });
+  if (payload.sealed) { sealedMap = payload.sealed; store.set("dayblock-sealed", sealedMap); }
+  if (payload.freezes) { freezeData = payload.freezes; store.set("dayblock-freezes", freezeData); }
+  note.textContent = "Restored " + payload.entries.length + " entries. Welcome back.";
+  refresh(true);
 });
 
 /* ---------------- theme ---------------- */
@@ -789,8 +1493,10 @@ $("themeToggle").addEventListener("click", () =>
 /* ---------------- boot ---------------- */
 initTheme();
 renderMoodRow();
+renderPackRow();
 switchTab("today");
 refresh(true);
+if (store.get("dayblock-pin", "")) showLock();
 </script>
 </body>
 </html>

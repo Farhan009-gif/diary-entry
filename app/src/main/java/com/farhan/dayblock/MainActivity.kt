@@ -1,10 +1,17 @@
 package com.farhan.dayblock
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.webkit.JavascriptInterface
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import com.farhan.dayblock.data.DayblockDatabase
 import com.farhan.dayblock.data.DiaryEntry
 import com.farhan.dayblock.data.DiaryRepository
@@ -23,6 +30,21 @@ import org.json.JSONObject
  */
 class MainActivity : ComponentActivity() {
 
+    /** Receives the file the page's <input type="file"> (photo of the day) picks. */
+    private var filePathCallback: ValueCallback<Array<Uri>>? = null
+
+    private val fileChooserLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val uris =
+                if (result.resultCode == Activity.RESULT_OK) {
+                    result.data?.data?.let { arrayOf(it) }
+                } else {
+                    null
+                }
+            filePathCallback?.onReceiveValue(uris)
+            filePathCallback = null
+        }
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +59,24 @@ class MainActivity : ComponentActivity() {
             settings.javaScriptEnabled = true
             // Lets the page remember the dark/light theme between opens.
             settings.domStorageEnabled = true
-            addJavascriptInterface(DayblockBridge(repository), "DayblockBridge")
+            addJavascriptInterface(DayblockBridge(repository, this@MainActivity), "DayblockBridge")
+            webChromeClient = object : WebChromeClient() {
+                override fun onShowFileChooser(
+                    webView: WebView,
+                    filePathCallback: ValueCallback<Array<Uri>>,
+                    fileChooserParams: FileChooserParams
+                ): Boolean {
+                    this@MainActivity.filePathCallback?.onReceiveValue(null)
+                    this@MainActivity.filePathCallback = filePathCallback
+                    return try {
+                        fileChooserLauncher.launch(fileChooserParams.createIntent())
+                        true
+                    } catch (e: Exception) {
+                        this@MainActivity.filePathCallback = null
+                        false
+                    }
+                }
+            }
             loadUrl("file:///android_asset/dayblock/index.html")
         }
         setContentView(webView)
@@ -45,7 +84,10 @@ class MainActivity : ComponentActivity() {
 }
 
 /** The small bridge the HTML page uses to reach the diary database. */
-class DayblockBridge(private val repository: DiaryRepository) {
+class DayblockBridge(
+    private val repository: DiaryRepository,
+    private val context: Context
+) {
 
     /** Whole diary state (entries + stats) as one JSON string. */
     @JavascriptInterface
@@ -115,5 +157,19 @@ class DayblockBridge(private val repository: DiaryRepository) {
                 repository.setStarred(it, !it.starred)
             }
         }
+    }
+
+    /** Sends text (a diary export or an encrypted backup) out through the share sheet. */
+    @JavascriptInterface
+    fun shareText(text: String, subject: String) {
+        val send = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+        }
+        val chooser = Intent.createChooser(send, subject).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(chooser)
     }
 }

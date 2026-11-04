@@ -377,6 +377,7 @@
     <input type="password" id="pinInput" inputmode="numeric" placeholder="PIN" autocomplete="off">
     <div class="small" id="lockNote" style="color:var(--danger); min-height:18px; margin-top:8px;"></div>
     <button class="btn" id="unlockBtn">Unlock</button>
+    <button class="btn ghost" id="fpUnlock" style="display:none;">&#128070;&nbsp;Use fingerprint</button>
   </div>
 </div>
 
@@ -550,13 +551,21 @@
         </div>
         <button class="btn ghost small-btn" id="lockNowBtn">Lock</button>
       </div>
+      <div class="set-row" id="fpRow" style="display:none;">
+        <div class="k">
+          <div class="t">&#128070; Fingerprint unlock</div>
+          <div class="s" id="fpState">Open Dayblock with your fingerprint instead of typing the PIN.</div>
+        </div>
+        <button class="btn small-btn" id="fpToggle">Enable</button>
+      </div>
       <div class="set-row">
         <div class="k">
           <div class="t">&#9200; Daily reminder</div>
-          <div class="s">Your writing time is saved here. The reminder itself arrives with the native update.</div>
+          <div class="s">A gentle nudge every day at this time - and it stays quiet on days you have already written.</div>
         </div>
         <input type="time" id="reminderTime" value="21:00">
         <button class="btn small-btn" id="reminderBtn">Save</button>
+        <button class="btn ghost small-btn" id="reminderOff">Off</button>
       </div>
       <div class="set-row">
         <div class="k">
@@ -939,13 +948,37 @@ $("photoRemove").addEventListener("click", () => {
   renderPhoto();
 });
 
-/* voice entry: uses the WebView's speech recognition when it exists */
+/* voice entry: native speech service first, WebView recognition as fallback.
+   The native side calls window.onDayblockVoice / onDayblockVoiceError back. */
+window.onDayblockVoice = function(text){
+  const note = $("voiceNote");
+  const ta = $("bodyInput");
+  ta.value = (ta.value + " " + text).trim();
+  editorDirty = true;
+  updateEditorMeta();
+  note.style.display = "";
+  note.textContent = "Added what you said to the entry.";
+  $("voiceBtn").classList.remove("on");
+};
+window.onDayblockVoiceError = function(msg){
+  const note = $("voiceNote");
+  note.style.display = "";
+  note.textContent = msg;
+  $("voiceBtn").classList.remove("on");
+};
 $("voiceBtn").addEventListener("click", () => {
   const note = $("voiceNote");
+  if (Bridge.startVoice) {
+    note.style.display = "";
+    note.textContent = "Listening... speak now.";
+    $("voiceBtn").classList.add("on");
+    Bridge.startVoice();
+    return;
+  }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
     note.style.display = "";
-    note.textContent = "Voice typing is not available inside this WebView. It arrives with the native update - typing still works.";
+    note.textContent = "Voice typing is not available on this device. Typing still works.";
     return;
   }
   try {
@@ -1350,6 +1383,14 @@ function renderSettings(){
   $("pinBtn").textContent = hasPin ? "Change PIN" : "Set PIN";
   $("lockNowRow").style.display = hasPin ? "" : "none";
   $("pinSet").value = "";
+  // fingerprint row: only when a PIN exists and the phone has a sensor enrolled
+  const fpAvail = !!(Bridge.fingerprintAvailable && Bridge.fingerprintAvailable());
+  const fpOn = !!store.get("dayblock-fp", false);
+  $("fpRow").style.display = hasPin && fpAvail ? "" : "none";
+  $("fpToggle").textContent = fpOn ? "Disable" : "Enable";
+  $("fpState").textContent = fpOn
+    ? "Fingerprint unlock is on. The PIN still works as a backup."
+    : "Open Dayblock with your fingerprint instead of typing the PIN.";
   const rem = store.get("dayblock-reminder", null);
   if (rem && rem.time) $("reminderTime").value = rem.time;
 }
@@ -1364,16 +1405,48 @@ $("pinBtn").addEventListener("click", () => {
   $("pinState").textContent = "PIN set. Dayblock will ask for it every time it opens.";
 });
 $("lockNowBtn").addEventListener("click", () => showLock());
+$("fpToggle").addEventListener("click", () => {
+  store.set("dayblock-fp", !store.get("dayblock-fp", false));
+  renderSettings();
+});
 $("reminderBtn").addEventListener("click", () => {
-  store.set("dayblock-reminder", { time: $("reminderTime").value || "21:00", on: true });
+  const t = $("reminderTime").value || "21:00";
+  store.set("dayblock-reminder", { time: t, on: true });
+  if (Bridge.setReminder) {
+    const parts = t.split(":").map(Number);
+    Bridge.setReminder(parts[0] || 21, parts[1] || 0);
+  }
   const btn = $("reminderBtn");
   btn.textContent = "Saved";
   setTimeout(() => btn.textContent = "Save", 1800);
+});
+$("reminderOff").addEventListener("click", () => {
+  const rem = store.get("dayblock-reminder", { time: "21:00" });
+  rem.on = false;
+  store.set("dayblock-reminder", rem);
+  if (Bridge.cancelReminder) Bridge.cancelReminder();
+  const btn = $("reminderOff");
+  btn.textContent = "Off now";
+  setTimeout(() => btn.textContent = "Off", 1800);
+});
+function fingerprintReady(){
+  return !!(store.get("dayblock-fp", false) && Bridge.fingerprintAvailable && Bridge.fingerprintAvailable());
+}
+window.onDayblockFingerprint = function(ok){
+  if (ok) {
+    $("lockOverlay").classList.remove("show");
+  } else {
+    $("lockNote").textContent = "Fingerprint did not work. Your PIN still does.";
+  }
+};
+$("fpUnlock").addEventListener("click", () => {
+  if (Bridge.requestFingerprint) Bridge.requestFingerprint();
 });
 function showLock(){
   $("lockOverlay").classList.add("show");
   $("pinInput").value = "";
   $("lockNote").textContent = "";
+  $("fpUnlock").style.display = fingerprintReady() ? "" : "none";
   setTimeout(() => $("pinInput").focus(), 80);
 }
 function tryUnlock(){
@@ -1497,6 +1570,14 @@ renderPackRow();
 switchTab("today");
 refresh(true);
 if (store.get("dayblock-pin", "")) showLock();
+// Re-arm the daily reminder on open (alarms do not survive a phone restart).
+(function(){
+  const rem = store.get("dayblock-reminder", null);
+  if (rem && rem.on && Bridge.setReminder) {
+    const parts = (rem.time || "21:00").split(":").map(Number);
+    Bridge.setReminder(parts[0] || 21, parts[1] || 0);
+  }
+})();
 </script>
 </body>
 </html>

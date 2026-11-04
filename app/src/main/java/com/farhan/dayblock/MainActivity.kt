@@ -87,7 +87,7 @@ class MainActivity : FragmentActivity() {
 
         webView = WebView(this).apply {
             // Cream paper colour, so there is no white flash before the page loads.
-            setBackgroundColor(0xFFFFF8EC.toInt())
+            setBackgroundColor(0xFF0D1119.toInt())
             settings.javaScriptEnabled = true
             // Lets the page remember the dark/light theme between opens.
             settings.domStorageEnabled = true

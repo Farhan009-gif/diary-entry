@@ -3,25 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#FFF8EC">
+<meta name="theme-color" content="#EDF3F8">
 <title>Dayblock</title>
 <style>
   :root{
-    --grass:#4E9B47; --grass-light:#7CB95C; --dirt:#8A5A33; --stone:#6F6F6F;
-    --gold:#F2B33D; --diamond:#3FA7C4; --low:#EF8F4C;
-    --paper:#FFF8EC; --surface:#FFFDF6; --variant:#F0E7D3; --ink:#2B2620;
-    --ink-soft:#5A5148; --danger:#B3261E;
-    --line:rgba(90,81,72,.35); --line-soft:rgba(90,81,72,.14);
-    --glass:rgba(255,248,236,.85); --glass-border:rgba(90,81,72,.14);
-    --card-shadow:0 1px 3px rgba(43,38,32,.10);
+    --grass:#2B7A99; --grass-light:#5FA8C4; --dirt:#2B7A99; --stone:#6F6F6F;
+    --gold:#D9930D; --diamond:#2B7A99; --low:#EF8F4C;
+    --paper:#EDF3F8; --surface:#FFFFFF; --variant:#DCE7F0; --ink:#16222E;
+    --ink-soft:#54687A; --danger:#B3261E;
+    --line:rgba(22,34,46,.3); --line-soft:rgba(22,34,46,.12);
+    --glass:rgba(237,243,248,.88); --glass-border:rgba(22,34,46,.12);
+    --card-shadow:0 2px 10px rgba(22,34,46,.10);
     --ease:cubic-bezier(.22,.8,.28,1);
   }
+  /* Ocean x Midnight ("Deep Night"): ink-dark calm, ocean glass, teal light. */
   body.dark{
-    --paper:#171410; --surface:#221E18; --variant:#2E2820;
-    --ink:#F3EBDA; --ink-soft:#B9AD99; --danger:#E0655C;
-    --line:rgba(243,235,218,.35); --line-soft:rgba(243,235,218,.14);
-    --glass:rgba(23,20,16,.88); --glass-border:rgba(243,235,218,.12);
-    --card-shadow:0 1px 3px rgba(0,0,0,.45);
+    --paper:#0D1119; --surface:#141A26; --variant:#1F2937;
+    --ink:#EEF3F8; --ink-soft:#A7B4C4; --danger:#E0655C;
+    --grass:#3FA7C4; --grass-light:#6EC1DC; --dirt:#D8B083; --diamond:#6EC1DC;
+    --line:rgba(238,243,248,.3); --line-soft:rgba(238,243,248,.13);
+    --glass:rgba(13,17,25,.92); --glass-border:rgba(238,243,248,.12);
+    --card-shadow:0 2px 10px rgba(0,0,0,.5);
   }
   body{transition:background .25s var(--ease), color .25s var(--ease);}
   .card,.stat,.entry,nav{transition:background .25s var(--ease);}
@@ -53,13 +55,66 @@
   .tagline{font-size:12px; color:var(--ink-soft);}
   .streak{
     display:none; align-items:center; gap:6px;
-    background:rgba(78,155,71,.15); border-radius:4px;
+    background:rgba(63,167,196,.18); border-radius:4px;
     padding:6px 10px; font-size:13px; font-weight:600; white-space:nowrap;
   }
   .streak.show{display:flex; animation:fadeIn .25s var(--ease);}
   .streak i{width:10px; height:10px; border-radius:2px; background:var(--grass); display:block;}
 
   /* ---------- views / transitions ---------- */
+  /* Ocean x Midnight redesign layout (matches the approved preview) */
+  .mood-label{
+    font-size:15px; font-weight:700; margin:18px 2px 10px;
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .mood-label span{font-size:12px; color:var(--ink-soft); font-weight:600;}
+  .editor-card{padding:2px 16px 14px;}
+  .editor-card input.field, .editor-card textarea.field{
+    border:none; background:transparent; padding:12px 0 6px;
+  }
+  .editor-card textarea.field{line-height:1.65; padding-top:8px;}
+  .editor-card .photo-wrap{margin-top:10px;}
+  .editor-card .editor-foot{margin-top:6px;}
+  .div{border:none; border-top:1px solid var(--line-soft); margin:6px 0;}
+  .mini-action{
+    background:var(--surface); box-shadow:var(--card-shadow); border-radius:10px;
+    border:none; min-height:54px; flex-direction:column; gap:3px; font-size:12.5px;
+  }
+  .search-pill{
+    display:flex; align-items:center; gap:8px; background:var(--surface);
+    border-radius:999px; padding:3px 14px; box-shadow:var(--card-shadow);
+  }
+  .search-pill input{
+    flex:1; border:none; background:transparent; padding:10px 0;
+    font-size:15px; color:var(--ink); outline:none; font-family:inherit; margin:0;
+  }
+  .entry{position:relative; overflow:hidden; padding-left:20px;}
+  .entry::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:6px;
+    background:var(--spine, var(--variant));
+  }
+  .entry-date{
+    font-size:11px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:3px;
+  }
+  .cal-card .grid7{display:grid; grid-template-columns:repeat(7,1fr); gap:4px;}
+  .cal-card .grid7 .cell{height:auto; aspect-ratio:1; font-size:13px; border-radius:8px;}
+  .cal-card .grid7 .daynum{font-size:13px;}
+  .cal-card .legend{margin-top:12px;}
+  .progress{height:6px; border-radius:3px; background:var(--variant); overflow:hidden; margin-top:10px;}
+  .progress i{display:block; height:100%; background:linear-gradient(90deg, var(--grass), var(--grass-light)); border-radius:3px; width:0%;}
+  .progress-cap{font-size:12px; color:var(--ink-soft); margin-top:6px;}
+  nav{
+    background:var(--glass); backdrop-filter:blur(14px) saturate(1.4);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4);
+    border-top:1px solid var(--glass-border);
+  }
+  nav button{border-radius:999px; padding:7px 0 5px;}
+  nav button.sel{background:rgba(63,167,196,.18); color:var(--grass-light);}
+  body:not(.dark) nav button.sel{background:rgba(43,122,153,.14); color:var(--grass);}
+  .lock-card{background:var(--surface); border-radius:14px; box-shadow:var(--card-shadow); padding:26px 22px; max-width:340px; width:100%;}
+  .prompt{border-left:4px solid var(--grass);}
+
   .view{display:none;}
   .view.active{display:block; animation:viewIn .24s var(--ease);}
   @keyframes viewIn{from{opacity:0; transform:translateX(14px);} to{opacity:1; transform:none;}}
@@ -68,9 +123,9 @@
 
   /* ---------- shared ---------- */
   .card{
-    background:var(--surface); border-radius:8px;
+    background:var(--surface); border-radius:14px;
     box-shadow:var(--card-shadow);
-    padding:14px; margin-top:14px;
+    padding:16px; margin-top:12px;
   }
   .card.flat{background:var(--variant); box-shadow:none;}
   .section-label{font-size:14px; font-weight:600; margin:20px 0 0;}
@@ -158,9 +213,9 @@
 
   /* entry cards */
   .entry{
-    background:var(--surface); border-radius:8px;
+    background:var(--surface); border-radius:14px;
     box-shadow:var(--card-shadow);
-    padding:14px; margin-top:10px; animation:popIn .22s var(--ease);
+    padding:16px; margin-top:10px; animation:popIn .22s var(--ease);
   }
   .entry-top{display:flex; align-items:center; gap:8px;}
   .entry-top .dot{width:12px; height:12px; border-radius:2px; flex:0 0 auto;}
@@ -229,7 +284,7 @@
   .hero-blocks i{width:15px; height:15px; border-radius:3px; background:var(--variant); display:block;}
   .hero-blocks i.on{background:var(--grass);}
   .hero-blocks i.todayb{background:var(--gold);}
-  .hero-num{font-size:42px; font-weight:800; line-height:1; letter-spacing:-1px;}
+  .hero-num{font-size:44px; font-weight:800; line-height:1; letter-spacing:-1px;}
   .hero-label{font-size:14px; color:var(--ink-soft); margin-top:3px;}
   .hero-sub{font-size:12.5px; color:var(--grass); font-weight:600; margin-top:2px;}
   .nums{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
@@ -240,7 +295,7 @@
   .heat i{width:100%; aspect-ratio:1; border-radius:2.5px; background:var(--variant); display:block;}
   .heat i.l1{background:#BFE0B4;} .heat i.l2{background:var(--grass-light);}
   .heat i.l3{background:var(--grass);} .heat i.l4{background:#2F7031;}
-  body.dark .heat i.l1{background:#33512F;} body.dark .heat i.l2{background:#3E7040;}
+  body.dark .heat i.l1{background:#17455F;} body.dark .heat i.l2{background:#1F6E8C;}
   .heat-legend{display:flex; align-items:center; gap:4px; margin-top:10px; font-size:11px; color:var(--ink-soft);}
   .heat-legend i{width:11px; height:11px; border-radius:2.5px; display:block;}
   .heat-legend .sp{flex:1;}
@@ -313,8 +368,8 @@
   /* theme toggle (mode badge + switch, like the template) */
   .theme-btn{
     flex:0 0 auto; display:flex; align-items:center; gap:5px;
-    border:1.5px solid var(--line); background:var(--variant); color:var(--ink);
-    border-radius:4px; padding:7px 9px; font-size:12.5px; font-weight:700;
+    border:1.5px solid var(--line); background:transparent; color:var(--ink);
+    border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; min-height:40px;
     transition:background .2s, transform .12s var(--ease);
   }
   .theme-btn:active{transform:scale(.95);}
@@ -330,13 +385,22 @@
   }
   .chart-header{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
   .chart-title{font-size:15px; font-weight:700;}
-  .range-toggle{display:flex; background:var(--variant); border-radius:6px; padding:3px; gap:3px; flex:0 0 auto;}
+  .range-toggle{display:flex; background:var(--variant); border-radius:999px; padding:3px; gap:3px; flex:0 0 auto;}
   .range-btn{
     border:none; background:transparent; color:var(--ink-soft);
-    font-size:12.5px; font-weight:600; padding:6px 10px; border-radius:4px;
-    transition:background .15s, color .15s;
+    font-size:12.5px; font-weight:600; padding:6px 14px; border-radius:999px; min-height:32px;
+    transition:background .18s var(--ease), color .18s var(--ease);
   }
-  .range-btn.active{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.15);}
+  .range-btn.active{background:var(--surface); color:var(--ink); box-shadow:var(--card-shadow);}
+  /* preview-style chart: one row of bars, labels beneath, average line across */
+  .chart-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;}
+  .chart-head .ctitle{margin:0;}
+  .pbars{display:flex; align-items:flex-end; gap:6px; height:110px; position:relative;}
+  .pbar{flex:1; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg, var(--grass-light), var(--grass)); min-height:4px; height:4px; transition:height .3s var(--ease);}
+  .pbar.zero{background:var(--variant);}
+  .pbar.todayb{background:linear-gradient(180deg, #F7C65C, var(--gold));}
+  .plabels{display:flex; gap:6px; margin-top:6px;}
+  .plabels span{flex:1; text-align:center; font-size:10.5px; color:var(--ink-soft);}
   .bars-container{display:flex; gap:5px; height:128px; margin-top:12px; position:relative;}
   .avg-line{position:absolute; left:0; right:0; border-top:2px dashed var(--gold); opacity:.8; pointer-events:none;}
   .avg-tag{position:absolute; right:0; font-size:10px; color:var(--ink-soft); background:var(--surface); padding:0 3px; transform:translateY(-100%); pointer-events:none;}
@@ -399,12 +463,27 @@
     <div id="onThisDay"></div>
 
     <div id="editorFields">
-      <div class="section-label">How was the day?</div>
+      <div class="mood-label">How was the day? <span>Tap one</span></div>
       <div class="mood-row" id="moodRow"></div>
 
-      <input type="text" id="titleInput" placeholder="Title (optional)" autocomplete="off">
-      <textarea id="bodyInput" placeholder="Dear diary..."></textarea>
-      <input type="text" id="tagsInput" placeholder="Tags, separated by commas (school, football, family)" autocomplete="off">
+      <div class="card editor-card">
+        <input class="field" type="text" id="titleInput" placeholder="Title (optional)" autocomplete="off">
+        <hr class="div">
+        <textarea class="field" id="bodyInput" placeholder="Dear diary..."></textarea>
+        <div class="photo-wrap" id="photoWrap" style="display:none;">
+          <img id="photoImg" alt="Photo of the day">
+          <div class="thumb-row">
+            <span class="small muted" style="flex:1;">Photo of the day, kept on this device.</span>
+            <button class="btn ghost small-btn" id="photoRemove">Remove</button>
+          </div>
+        </div>
+        <hr class="div">
+        <input class="field" type="text" id="tagsInput" placeholder="Tags, separated by commas (school, football, family)" autocomplete="off">
+        <div class="editor-foot">
+          <span id="wordCount">0 words</span>
+          <span class="saved-note" id="savedNote">Saved on this device</span>
+        </div>
+      </div>
 
       <div class="extras-row">
         <button class="mini-action" id="photoBtn">&#128247;&nbsp;Photo</button>
@@ -412,23 +491,11 @@
         <button class="mini-action" id="sealBtn">&#128274;&nbsp;Seal</button>
       </div>
       <input type="file" id="photoInput" accept="image/*" style="display:none;">
-      <div class="photo-wrap" id="photoWrap" style="display:none;">
-        <img id="photoImg" alt="Photo of the day">
-        <div class="thumb-row">
-          <span class="small muted" style="flex:1;">Photo of the day, kept on this device.</span>
-          <button class="btn ghost small-btn" id="photoRemove">Remove</button>
-        </div>
-      </div>
       <div class="small muted" id="voiceNote" style="margin-top:8px; display:none;"></div>
       <div class="seal-wrap" id="sealWrap">
         <span>Seal until</span>
         <input type="date" id="sealDate">
         <span class="small muted">The entry hides everywhere until this date. For letters to future-you.</span>
-      </div>
-
-      <div class="editor-foot">
-        <span id="wordCount">0 words</span>
-        <span class="saved-note" id="savedNote">Saved on this device</span>
       </div>
 
       <button class="btn" id="saveBtn">&#10003;&nbsp;<span id="saveLabel">Place this day's block</span></button>
@@ -447,21 +514,25 @@
 
   <!-- ENTRIES -->
   <section class="view" id="view-entries">
-    <input type="text" id="searchInput" placeholder="Search your diary" autocomplete="off">
+    <div class="search-pill"><span aria-hidden="true">&#128269;</span><input type="text" id="searchInput" placeholder="Search your diary" autocomplete="off"></div>
     <div class="chip-row" id="filterRow"></div>
     <div id="entryList"></div>
   </section>
 
   <!-- CALENDAR -->
   <section class="view" id="view-calendar">
-    <div class="cal-head">
-      <button class="icon-btn" id="prevMonth" aria-label="Previous month">&#8249;</button>
-      <div class="mlabel" id="monthLabel"></div>
-      <button class="icon-btn" id="nextMonth" aria-label="Next month">&#8250;</button>
+    <div class="card cal-card">
+      <div class="cal-head">
+        <button class="icon-btn" id="prevMonth" aria-label="Previous month">&#8249;</button>
+        <div class="mlabel" id="monthLabel"></div>
+        <button class="icon-btn" id="nextMonth" aria-label="Next month">&#8250;</button>
+      </div>
+      <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+      <div class="grid grid7" id="calGrid"></div>
+      <div class="cal-legend legend" id="calLegend"></div>
+      <div class="progress"><i id="calProgress"></i></div>
+      <div class="progress-cap" id="calProgressText"></div>
     </div>
-    <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
-    <div class="grid" id="calGrid"></div>
-    <div class="cal-legend" id="calLegend"></div>
     <p class="small muted">A day's block takes the colour of that day's mood. Tap any day to open it.</p>
     <div class="card" style="margin-top:6px;">
       <div id="previewDate" style="font-size:16px; font-weight:600;"></div>
@@ -495,18 +566,17 @@
 
     <div id="freezeCard"></div>
 
-    <div class="glass">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Words per day</div>
-          <div class="small muted" id="chartCaption" style="margin-top:2px;"></div>
-        </div>
+    <div class="card">
+      <div class="chart-head">
+        <h2 class="ctitle">Words per day</h2>
         <div class="range-toggle">
           <button id="range7" class="range-btn active">7 days</button>
           <button id="range30" class="range-btn">30 days</button>
         </div>
       </div>
-      <div class="bars-container" id="wordsChart"></div>
+      <div class="pbars" id="wordsChart"></div>
+      <div class="plabels" id="chartLabels"></div>
+      <div class="small muted" id="chartCaption" style="margin-top:8px;"></div>
     </div>
 
     <div class="card">
@@ -1053,7 +1123,7 @@ function renderEntries(){
   }
   box.innerHTML = list.map(e => {
     if (isSealed(e.date)) {
-      return `<div class="entry" data-date="${e.date}">
+      return `<div class="entry" data-date="${e.date}" style="--spine:#6F6F6F">
         <div class="entry-top">
           <span class="dot" style="background:var(--stone)"></span>
           <span class="entry-date">${fmtDate(e.date)}</span>
@@ -1065,7 +1135,7 @@ function renderEntries(){
     }
     const tags = e.tags.split(",").map(t => t.trim()).filter(Boolean).map(t => "#" + esc(t)).join("  ");
     const photo = photoMap[e.date] ? `<img class="entry-photo" src="${photoMap[e.date]}" alt="Photo of the day">` : "";
-    return `<div class="entry" data-date="${e.date}">
+    return `<div class="entry" data-date="${e.date}" style="--spine:${MOOD_COLORS[e.mood] || "#6F6F6F"}">
       <div class="entry-top">
         <span class="dot" style="background:${MOOD_COLORS[e.mood] || "#6F6F6F"}"></span>
         <span class="entry-date">${fmtDate(e.date)}</span>
@@ -1138,6 +1208,14 @@ function renderCalendar(dir){
   $("calLegend").innerHTML = MOODS.map(mm =>
     `<span><i style="background:${MOOD_COLORS[mm]}"></i>${mm}</span>`).join("") +
     `<span><i style="background:#6F6F6F"></i>Sealed</span>`;
+  const dimP = days;
+  let writtenP = 0;
+  state.entries.forEach(e => {
+    const dd = new Date(e.date + "T12:00:00");
+    if (dd.getFullYear() === y && dd.getMonth() === m - 1) writtenP++;
+  });
+  $("calProgress").style.width = Math.round(writtenP / dimP * 100) + "%";
+  $("calProgressText").textContent = writtenP + " of " + dimP + " days written this month";
   // preview
   const e = entryOn(selectedDate);
   $("previewDate").textContent = fmtDate(selectedDate);
@@ -1339,7 +1417,7 @@ function renderChart(){
     days.push({ ds, words: byDate[ds] || 0, isToday: i === 0,
       lab: chartRange === 7 ? DOW[d.getDay()] : String(d.getDate()) });
   }
-  const max = Math.max(1, ...days.map(d => d.words));
+  const max = Math.max(1, ...days.map(d => d.words)) * 1.15;
   const total = days.reduce((a, d) => a + d.words, 0);
   const avg = total / days.length;
   const best = days.reduce((a, d) => d.words > a.words ? d : a, days[0]);
@@ -1347,20 +1425,16 @@ function renderChart(){
     ? "No words in this range yet."
     : total + " words in the last " + chartRange + " days" +
       (best.words ? " · best day " + best.words + " words" : "");
-  box.innerHTML = days.map(d => `
-    <div class="bar-col">
-      <span class="bar-val">${chartRange === 7 && d.words ? d.words : ""}</span>
-      <div class="bar-area"><div class="bar ${d.isToday ? "today" : ""}" data-w="${d.words}" data-h="${Math.round(d.words / max * 100)}"></div></div>
-      <span class="bar-lab">${d.lab}</span>
-    </div>`).join("") + (total > 0
-    ? `<div class="avg-line" style="bottom:${Math.round(19 + (avg / max) * 88)}px"></div>
-       <div class="avg-tag" style="bottom:${Math.round(19 + (avg / max) * 88)}px">avg ${Math.round(avg)}</div>`
+  box.innerHTML = days.map(d =>
+    `<div class="pbar ${d.words === 0 ? "zero" : ""} ${d.isToday && chartRange === 7 ? "todayb" : ""}" data-h="${Math.max(d.words / max * 100, 3)}" title="${d.words} words"></div>`
+  ).join("") + (total > 0
+    ? `<div class="avg-line" style="bottom:${(avg / max * 100).toFixed(1)}%"></div>
+       <div class="avg-tag" style="bottom:${(avg / max * 100).toFixed(1)}%">avg ${Math.round(avg)}</div>`
     : "");
+  $("chartLabels").innerHTML = days.map(d =>
+    `<span>${chartRange === 7 ? d.lab : (days.indexOf(d) % 5 === 0 ? d.lab : "")}</span>`).join("");
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    box.querySelectorAll(".bar").forEach(b => {
-      const w = parseInt(b.dataset.w, 10) || 0;
-      b.style.height = (w === 0 ? 0 : Math.max(6, parseInt(b.dataset.h, 10) || 0)) + "%";
-    });
+    box.querySelectorAll(".pbar").forEach(b => { b.style.height = b.dataset.h + "%"; });
   }));
 }
 $("range7").addEventListener("click", () => {
@@ -1548,7 +1622,7 @@ function applyTheme(mode){
   document.body.classList.toggle("dark", dark);
   $("themeToggle").innerHTML = dark ? "&#9728;&nbsp;Light" : "&#9789;&nbsp;Dark";
   document.querySelector('meta[name="theme-color"]')
-    .setAttribute("content", dark ? "#171410" : "#FFF8EC");
+    .setAttribute("content", dark ? "#0D1119" : "#EDF3F8");
   try { localStorage.setItem("dayblock-theme", mode); } catch(e) { /* storage off */ }
 }
 function initTheme(){
